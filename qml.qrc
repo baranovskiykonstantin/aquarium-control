@@ -1,0 +1,24 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>Search.qml</file>
+        <file>Gui.qml</file>
+        <file>Cmd.qml</file>
+        <file>icons/send.png</file>
+        <file>icons/gui.png</file>
+        <file>icons/bt.png</file>
+        <file>icons/date.png</file>
+        <file>icons/display.png</file>
+        <file>icons/light.png</file>
+        <file>icons/temp.png</file>
+        <file>icons/time.png</file>
+        <file>icons/heat.png</file>
+        <file>SetupDate.qml</file>
+        <file>SetupTime.qml</file>
+        <file>SetupHeat.qml</file>
+        <file>SetupLight.qml</file>
+        <file>SetupLightTime.qml</file>
+        <file>translations/lang_ru.qm</file>
+        <file>translations/lang_uk.qm</file>
+    </qresource>
+</RCC>
