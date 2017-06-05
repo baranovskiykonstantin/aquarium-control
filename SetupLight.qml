@@ -186,13 +186,14 @@ Rectangle {
                     wrapMode: Text.Wrap
                 }
 
-                SpinBox {
+                MySpinBox {
                     id: itemBrightnessSpinbox
                     editable: true
                     from: 0
                     to: 100
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
+                    height: itemBrightness.height
                 }
             }
         }
@@ -226,7 +227,7 @@ Rectangle {
         color: "#0096ff"
         anchors.bottom: buttonBox2.top
         width: parent.width
-        height: 48 - 5  * guiScale
+        height: 48 * guiScale - 5
 
         Row {
             anchors.fill: parent

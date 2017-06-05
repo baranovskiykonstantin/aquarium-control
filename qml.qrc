@@ -20,5 +20,6 @@
         <file>SetupLightTime.qml</file>
         <file>translations/lang_ru.qm</file>
         <file>translations/lang_uk.qm</file>
+        <file>MySpinBox.qml</file>
     </qresource>
 </RCC>

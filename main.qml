@@ -182,7 +182,7 @@ Item {
             id: messageBackground
             color: "#f0f0f0"
             width: parent.width * 0.6
-            height: 150// * guiScale
+            height: 150 * guiScale
             anchors.horizontalCenter: parent.horizontalCenter
             anchors.verticalCenter: parent.verticalCenter
 
@@ -209,7 +209,7 @@ Item {
                 anchors.leftMargin: 5
                 anchors.right: parent.right
                 anchors.rightMargin: 5
-                height: 48// * guiScale
+                height: 48 * guiScale
 
                 Text {
                     text: qsTr("OK")

@@ -164,7 +164,7 @@ exit
     <message>
         <location filename="../Gui.qml" line="67"/>
         <source>Display shows the time now.</source>
-        <translation>На дисплеї відображється температура.</translation>
+        <translation>Зараз на дисплеї відображається час.</translation>
     </message>
     <message>
         <location filename="../Gui.qml" line="145"/>

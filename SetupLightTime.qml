@@ -110,13 +110,14 @@ Rectangle {
                     wrapMode: Text.Wrap
                 }
 
-                SpinBox {
+                MySpinBox {
                     id: itemHoursSpinbox
                     editable: true
                     from: 0
                     to: 23
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
+                    height: itemHours.height
                 }
             }
 
@@ -144,13 +145,14 @@ Rectangle {
                     wrapMode: Text.Wrap
                 }
 
-                SpinBox {
+                MySpinBox {
                     id: itemMinutesSpinbox
                     editable: true
                     from: 0
                     to: 59
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
+                    height: itemMinutes.height
                 }
             }
 
@@ -178,13 +180,14 @@ Rectangle {
                     wrapMode: Text.Wrap
                 }
 
-                SpinBox {
+                MySpinBox {
                     id: itemSecondsSpinbox
                     editable: true
                     from: 0
                     to: 59
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
+                    height: itemSeconds.height
                 }
             }
         }

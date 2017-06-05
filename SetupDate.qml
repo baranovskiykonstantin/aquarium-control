@@ -116,13 +116,14 @@ Rectangle {
                     wrapMode: Text.Wrap
                 }
 
-                SpinBox {
+                MySpinBox {
                     id: itemDaySpinbox
                     editable: true
                     from: 1
                     to: 31
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
+                    height: itemDay.height
                 }
             }
 
@@ -150,13 +151,14 @@ Rectangle {
                     wrapMode: Text.Wrap
                 }
 
-                SpinBox {
+                MySpinBox {
                     id: itemMonthSpinbox
                     editable: true
                     from: 1
                     to: 12
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
+                    height: itemMonth.height
                 }
             }
 
@@ -184,13 +186,14 @@ Rectangle {
                     wrapMode: Text.Wrap
                 }
 
-                SpinBox {
+                MySpinBox {
                     id: itemYearSpinbox
                     editable: true
                     from: 0
                     to: 99
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
+                    height: itemYear.height
                 }
             }
 
@@ -218,7 +221,7 @@ Rectangle {
                     wrapMode: Text.Wrap
                 }
 
-                SpinBox {
+                MySpinBox {
                     id: itemDayOfWeekSpinbox
                     editable: false
                     value: 1
@@ -226,6 +229,7 @@ Rectangle {
                     to: 7
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
+                    height: itemDayOfWeek.height
 
                     textFromValue: function (value) {
                         return daysOfWeek[value - 1]

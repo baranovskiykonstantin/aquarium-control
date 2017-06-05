@@ -88,7 +88,7 @@ Rectangle {
                     wrapMode: Text.Wrap
                 }
 
-                SpinBox {
+                MySpinBox {
                     id: itemMinTempSpinbox
                     editable: true
                     value: 0
@@ -96,6 +96,7 @@ Rectangle {
                     to: 99
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
+                    height: itemMinTemp.height
 
                     onValueChanged: {
                         if (value > itemMaxTempSpinbox.value) {
@@ -131,7 +132,7 @@ Rectangle {
                     wrapMode: Text.Wrap
                 }
 
-                SpinBox {
+                MySpinBox {
                     id: itemMaxTempSpinbox
                     editable: true
                     from: 0
@@ -139,6 +140,7 @@ Rectangle {
                     value: 99
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
+                    height: itemMaxTemp.height
 
                     onValueChanged: {
                         if (value < itemMinTempSpinbox.value) {
@@ -180,7 +182,7 @@ Rectangle {
         color: "#0096ff"
         anchors.bottom: buttonBox2.top
         width: parent.width
-        height: 48 - 5  * guiScale
+        height: 48 * guiScale - 5
 
         Row {
             anchors.fill: parent
