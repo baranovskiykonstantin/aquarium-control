@@ -8,8 +8,10 @@ SpinBox {
     font.pointSize: 11
 
     contentItem: TextInput {
+        id: textInput
         z: 2
         text: control.textFromValue(control.value, control.locale)
+        height: control.height
 
         font: control.font
         color: "#1e1e1e"
@@ -21,14 +23,25 @@ SpinBox {
         readOnly: !control.editable
         validator: control.validator
         inputMethodHints: Qt.ImhFormattedNumbersOnly
+
+        TextMetrics {
+            id: textMetrics
+            font: control.font
+        }
+
+        onTextChanged: {
+            textMetrics.text = textInput.text + "W"
+            control.width = textMetrics.width + control.height * 2 * guiScale
+            if (control.width < (control.height * 3 * guiScale))
+                control.width = control.height * 3 * guiScale
+        }
     }
 
     up.indicator: Rectangle {
+        id: upIndicator
         x: control.mirrored ? 0 : parent.width - width
-        height: parent.height
-        width: height
-        implicitWidth: 40
-        implicitHeight: 40
+        height: control.height
+        width: control.height
         color: up.pressed ? "#f0f0f0" : "#e0e0e0"
 
         Text {
@@ -44,11 +57,10 @@ SpinBox {
     }
 
     down.indicator: Rectangle {
+        id: downIndicator
         x: control.mirrored ? parent.width - width : 0
-        height: parent.height
-        width: height
-        implicitWidth: 40
-        implicitHeight: 40
+        height: control.height
+        width: control.height
         color: down.pressed ? "#f0f0f0" : "#e0e0e0"
 
         Text {
@@ -61,9 +73,5 @@ SpinBox {
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
         }
-    }
-
-    background: Rectangle {
-        implicitWidth: 180 * guiScale
     }
 }

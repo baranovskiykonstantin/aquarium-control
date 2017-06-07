@@ -227,7 +227,7 @@ Rectangle {
         color: "#0096ff"
         anchors.bottom: buttonBox2.top
         width: parent.width
-        height: 48 * guiScale - 5
+        height: 48 * guiScale
 
         Row {
             anchors.fill: parent
