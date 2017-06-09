@@ -179,7 +179,12 @@ Item {
         }
 
         Rectangle {
-            id: messageBackground
+            color: "#80000000"
+            anchors.fill: parent
+        }
+
+        Rectangle {
+            id: message
             color: "#f0f0f0"
             width: parent.width * 0.6
             height: 150 * guiScale

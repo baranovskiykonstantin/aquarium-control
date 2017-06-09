@@ -21,7 +21,7 @@ Rectangle {
         id: bluetoothImage
         focus: true
         source: "icons/bt.png"
-        width: 64 * guiScale
+        width: 48 * guiScale
         height: width
         anchors.top: parent.top
         anchors.topMargin: 10

@@ -30,10 +30,11 @@ SpinBox {
         }
 
         onTextChanged: {
+            // To calculate correct text width needs to add an wide character (W).
             textMetrics.text = textInput.text + "W"
-            control.width = textMetrics.width + control.height * 2 * guiScale
-            if (control.width < (control.height * 3 * guiScale))
-                control.width = control.height * 3 * guiScale
+            control.width = textMetrics.width + control.height * 2
+            if (control.width < (control.height * 3))
+                control.width = control.height * 3
         }
     }
 
