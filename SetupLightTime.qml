@@ -112,7 +112,6 @@ Rectangle {
 
                 MySpinBox {
                     id: itemHoursSpinbox
-                    editable: true
                     from: 0
                     to: 23
                     anchors.right: parent.right
@@ -147,7 +146,6 @@ Rectangle {
 
                 MySpinBox {
                     id: itemMinutesSpinbox
-                    editable: true
                     from: 0
                     to: 59
                     anchors.right: parent.right
@@ -182,7 +180,6 @@ Rectangle {
 
                 MySpinBox {
                     id: itemSecondsSpinbox
-                    editable: true
                     from: 0
                     to: 59
                     anchors.right: parent.right

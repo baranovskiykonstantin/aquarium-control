@@ -188,7 +188,6 @@ Rectangle {
 
                 MySpinBox {
                     id: itemBrightnessSpinbox
-                    editable: true
                     from: 0
                     to: 100
                     anchors.right: parent.right

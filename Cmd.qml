@@ -72,7 +72,7 @@ Rectangle {
                            "light off\n" +
                            "light auto\n" +
                            "\n" +
-                           "\tSetup light.\n" +
+                           "\tLight setup.\n" +
                            "\n" +
                            "\tH1:M1:S1 - time of turn on light (00:00:00-23:59:59)\n" +
                            "\tH2:M2:S2 - time of turn off light (00:00:00-23:59:59)\n" +
@@ -82,7 +82,7 @@ Rectangle {
                            "display time\n" +
                            "display temp\n" +
                            "\n" +
-                           "\tSetup display.\n" +
+                           "\tDisplay setup.\n" +
                            "\n" +
                            "\n" +
                            "help\n" +

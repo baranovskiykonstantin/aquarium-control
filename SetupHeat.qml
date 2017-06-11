@@ -90,7 +90,6 @@ Rectangle {
 
                 MySpinBox {
                     id: itemMinTempSpinbox
-                    editable: true
                     value: 0
                     from: 0
                     to: 99
@@ -134,7 +133,6 @@ Rectangle {
 
                 MySpinBox {
                     id: itemMaxTempSpinbox
-                    editable: true
                     from: 0
                     to: 99
                     value: 99

@@ -118,7 +118,6 @@ Rectangle {
 
                 MySpinBox {
                     id: itemDaySpinbox
-                    editable: true
                     from: 1
                     to: 31
                     anchors.right: parent.right
@@ -153,7 +152,6 @@ Rectangle {
 
                 MySpinBox {
                     id: itemMonthSpinbox
-                    editable: true
                     from: 1
                     to: 12
                     anchors.right: parent.right
@@ -188,7 +186,6 @@ Rectangle {
 
                 MySpinBox {
                     id: itemYearSpinbox
-                    editable: true
                     from: 0
                     to: 99
                     anchors.right: parent.right
@@ -223,7 +220,6 @@ Rectangle {
 
                 MySpinBox {
                     id: itemDayOfWeekSpinbox
-                    editable: false
                     value: 1
                     from: 1
                     to: 7

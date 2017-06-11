@@ -4,7 +4,6 @@
 <context>
     <name>Cmd</name>
     <message>
-        <location filename="../Cmd.qml" line="24"/>
         <source>
 Available commands:
 
@@ -66,6 +65,151 @@ display time
 display temp
 
 	Setup display.
+
+
+help
+
+	Print this help message.
+
+
+exit
+
+	Exit application.</source>
+        <translation type="vanished">
+Доступны следующие команды:
+
+status
+
+	Получить информацию о текущем состоянии аквариума.
+
+
+date DD.MM.YY W
+
+	Установить дату.
+
+	DD - число (01-31)
+	MM - месяц (01-12)
+	YY - год (00-99)
+	W  - день недели (1 - понедельник .. 7 - воскресенье)
+
+
+time HH:MM:SS
+time +CC
+time -CC
+time HH:MM:SS +CC
+time HH:MM:SS -CC
+
+	Установить время и/или коррекцию времени.
+
+	HH - часов (00-23)
+	MM - минут (00-59)
+	SS - секунд (00-59)
+	CC - коррекция времени в секундах (00-59)
+
+
+heat LL-HH
+heat on
+heat off
+heat auto
+
+	Настройка нагревателя.
+
+	LL - минимальная температура (00-99)
+	HH - максимальная температура (00-99)
+
+
+light H1:M1:S1-H2:M2:S2
+light level XXX
+light H1:M1:S1-H2:M2:S2 XXX
+light on
+light off
+light auto
+
+	Настройка освещения.
+
+	H1:M1:S1 - время включения света (00:00:00-23:59:59)
+	H2:M2:S2 - время выключения света (00:00:00-23:59:59)
+	XXX      - уровень яркости (000-100)
+
+
+display time
+display temp
+
+	Настройка дисплея.
+
+
+help
+
+	Вывести это сообщение помощи.
+
+
+exit
+
+	Выйти из приложения.</translation>
+    </message>
+    <message>
+        <location filename="../Cmd.qml" line="24"/>
+        <source>
+Available commands:
+
+status
+
+	Get information about current state of aquarium.
+
+
+date DD.MM.YY W
+
+	Set date.
+
+	DD - day of month (01-31)
+	MM - month (01-12)
+	YY - year (00-99)
+	W  - day of week (1 - monday .. 7 - sunday)
+
+
+time HH:MM:SS
+time +CC
+time -CC
+time HH:MM:SS +CC
+time HH:MM:SS -CC
+
+	Set time and/or time correction.
+
+	HH - hours (00-23)
+	MM - minutes (00-59)
+	SS - seconds (00-59)
+	CC - time correction in seconds (00-59)
+
+
+heat LL-HH
+heat on
+heat off
+heat auto
+
+	Heater setup.
+
+	LL - minimal temperature (00-99)
+	HH - maximal temperature (00-99)
+
+
+light H1:M1:S1-H2:M2:S2
+light level XXX
+light H1:M1:S1-H2:M2:S2 XXX
+light on
+light off
+light auto
+
+	Light setup.
+
+	H1:M1:S1 - time of turn on light (00:00:00-23:59:59)
+	H2:M2:S2 - time of turn off light (00:00:00-23:59:59)
+	XXX      - brightness level (000-100)
+
+
+display time
+display temp
+
+	Display setup.
 
 
 help
@@ -660,7 +804,7 @@ Connecting to aquarium...</source>
         <translation>Во время передачи комманды случилась ошибка!</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="215"/>
+        <location filename="../main.qml" line="220"/>
         <source>OK</source>
         <translation>ОК</translation>
     </message>
