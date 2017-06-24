@@ -47,7 +47,8 @@ Item {
         }
 
         onErrorChanged: {
-            if (error != BluetoothDiscoveryModel.NoError && !btModel.running) {
+            if (error != BluetoothDiscoveryModel.NoError && btModel.running) {
+                btModel.running = false
                 searchBox.animationRunning = false
                 searchBox.appendText(qsTr("\n\nDiscovery failed.\nPlease ensure Bluetooth is available."))
             }
