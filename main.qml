@@ -42,7 +42,9 @@ Item {
         onRunningChanged : {
             if (!btModel.running && mainItem.state == "search" && !serviceFound) {
                 searchBox.animationRunning = false;
-                searchBox.appendText(qsTr("\nAquarium not found. \n\nPlease ensure that aquarium\nis available and restart app."))
+                messageBox.setText(qsTr("Aquarium not found.\nPlease ensure that aquarium\nis available.\n"))
+                messageBox.error = true
+                messageBox.show()
             }
         }
 
@@ -50,7 +52,9 @@ Item {
             if (error != BluetoothDiscoveryModel.NoError && btModel.running) {
                 btModel.running = false
                 searchBox.animationRunning = false
-                searchBox.appendText(qsTr("\n\nDiscovery failed.\nPlease ensure Bluetooth is available."))
+                messageBox.setText(qsTr("Aquarium not found.\nPlease ensure Bluetooth is available.\n"))
+                messageBox.error = true
+                messageBox.show()
             }
         }
 
@@ -167,6 +171,8 @@ Item {
         anchors.fill: parent
         color: "transparent"
 
+        property bool error: false
+
         function show () {
             messageBox.z = 3
         }
@@ -218,7 +224,7 @@ Item {
                 height: 48 * guiScale
 
                 Text {
-                    text: qsTr("OK")
+                    text: messageBox.error ? qsTr("Exit") : qsTr("OK")
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.horizontalCenter: parent.horizontalCenter
                     color: "#1e1e1e"
@@ -227,7 +233,7 @@ Item {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: messageBox.z = 0
+                    onClicked: messageBox.error ? Qt.quit() : messageBox.z = 0
                     onPressed: okButton.color = "#f0f0f0"
                     onReleased: okButton.color = "#33aaff"
                 }

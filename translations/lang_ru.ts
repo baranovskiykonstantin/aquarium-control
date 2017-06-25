@@ -677,136 +677,158 @@ exit
 <context>
     <name>main</name>
     <message>
-        <location filename="../main.qml" line="45"/>
         <source>
 Aquarium not found. 
 
 Please ensure that aquarium
 is available and restart app.</source>
-        <translation>
+        <translation type="vanished">
 Аквариум не найден. 
 
 Пожалуйста, проверьте аквариум
 и запустите приложение заново.</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="52"/>
         <source>
 
 Discovery failed.
 Please ensure Bluetooth is available.</source>
-        <translation>
+        <translation type="vanished">
 
 Поиск не удался.
 Пожалуйста, проверьте состояние Bluetooth.</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="59"/>
+        <location filename="../main.qml" line="45"/>
+        <source>Aquarium not found.
+Please ensure that aquarium
+is available.
+</source>
+        <translation>Аквариум не найден.
+Пожалуйста, проверьте состояние аквариума.
+</translation>
+    </message>
+    <message>
+        <location filename="../main.qml" line="55"/>
+        <source>Aquarium not found.
+Please ensure Bluetooth is available.
+</source>
+        <translation>Аквариум не найден.
+Пожалуйста, проверьте состояние Bluetooth.
+</translation>
+    </message>
+    <message>
+        <location filename="../main.qml" line="64"/>
         <source>
 Found device %1.</source>
         <translation>
 Найдено устройство %1.</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="60"/>
+        <location filename="../main.qml" line="65"/>
         <source>
 Connecting to aquarium...</source>
         <translation>
 Подключение к аквариуму...</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="75"/>
+        <location filename="../main.qml" line="80"/>
         <source>Aquarium (%1)</source>
         <translation>Аквариум (%1)</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="90"/>
+        <location filename="../main.qml" line="95"/>
         <source>%1 %2</source>
         <translation>%1 %2</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="97"/>
+        <location filename="../main.qml" line="102"/>
         <source>%1 (time corrects on %2 sec. everyday at %3)</source>
         <translation>%1 (время корректируется на %2 сек. каждый день в %3)</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="102"/>
+        <location filename="../main.qml" line="107"/>
         <source>%1 °C</source>
         <translation>%1 °C</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="109"/>
-        <location filename="../main.qml" line="120"/>
+        <location filename="../main.qml" line="114"/>
+        <location filename="../main.qml" line="125"/>
         <source>on</source>
         <translation>включен</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="109"/>
-        <location filename="../main.qml" line="121"/>
+        <location filename="../main.qml" line="114"/>
+        <location filename="../main.qml" line="126"/>
         <source>off</source>
         <translation>выключен</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="110"/>
-        <location filename="../main.qml" line="125"/>
+        <location filename="../main.qml" line="115"/>
+        <location filename="../main.qml" line="130"/>
         <source>automatic</source>
         <translation>автоматическом</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="110"/>
-        <location filename="../main.qml" line="126"/>
+        <location filename="../main.qml" line="115"/>
+        <location filename="../main.qml" line="131"/>
         <source>manual</source>
         <translation>ручном</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="111"/>
+        <location filename="../main.qml" line="116"/>
         <source>Heater is %1 in %2 mode (%3)</source>
         <translation>Нагреватель %1 в %2 режиме (%3)</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="122"/>
+        <location filename="../main.qml" line="127"/>
         <source>in unknown state</source>
         <translation>в неизвестном состоянии</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="127"/>
+        <location filename="../main.qml" line="132"/>
         <source>unknown</source>
         <translation>неизвестном</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="129"/>
+        <location filename="../main.qml" line="134"/>
         <source>Light is %1 in %2 mode (%3), brightness %4%</source>
         <translation>Свет %1 в %2 режиме (%3), яркость %4%</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="134"/>
+        <location filename="../main.qml" line="139"/>
         <source>none</source>
         <translation>ничего</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="136"/>
+        <location filename="../main.qml" line="141"/>
         <source>time</source>
         <translation>время</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="137"/>
+        <location filename="../main.qml" line="142"/>
         <source>temperature</source>
         <translation>температура</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="139"/>
+        <location filename="../main.qml" line="144"/>
         <source>Display shows the %1</source>
         <translation>На дисплее отображается %1</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="145"/>
+        <location filename="../main.qml" line="150"/>
         <source>Error occurred while send the command!</source>
         <translation>Во время передачи комманды случилась ошибка!</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="220"/>
+        <location filename="../main.qml" line="227"/>
         <source>OK</source>
         <translation>ОК</translation>
+    </message>
+    <message>
+        <location filename="../main.qml" line="227"/>
+        <source>Exit</source>
+        <translation>Выйти</translation>
     </message>
 </context>
 </TS>
