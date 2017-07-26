@@ -47,7 +47,7 @@ Rectangle {
                 .arg(("00" + itemSecondsSpinbox.value).slice(-2))
             }
             else {
-                messageBox.setText(qsTr("Time of turn on cannot be bigger than time of turn off."))
+                messageBox.setText(qsTr("Time of turn on must be less than time of turn off."))
                 messageBox.show()
             }
             break
@@ -62,7 +62,7 @@ Rectangle {
                 .arg(("00" + itemSecondsSpinbox.value).slice(-2))
             }
             else {
-                messageBox.setText(qsTr("Time of turn off cannot be less than time of turn on."))
+                messageBox.setText(qsTr("Time of turn off must be bigger than time of turn on."))
                 messageBox.show()
             }
             break

@@ -104,7 +104,7 @@ Item {
             if (data.match("Temp: ")) {
                 matchRes = data.toString().match(new RegExp("Temp: (.+)", "m"))
                 temp = matchRes[1]
-                guiBox.setValue("temp", qsTr("%1 °C").arg(temp))
+                guiBox.setValue("temp", qsTr("Water temperature %1 °C").arg(temp))
             }
             if (data.match("Heat: ")) {
                 matchRes = data.toString().match(new RegExp("Heat: (ON|OFF) (auto|manual) \\((\\d+-\\d+)\\)", "m"))

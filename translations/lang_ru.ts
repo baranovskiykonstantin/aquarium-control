@@ -586,14 +586,22 @@ exit
         <translation>Время выключения освещения</translation>
     </message>
     <message>
-        <location filename="../SetupLightTime.qml" line="50"/>
         <source>Time of turn on cannot be bigger than time of turn off.</source>
-        <translation>Время включения не может быть больше времени выключения.</translation>
+        <translation type="vanished">Время включения не может быть больше времени выключения.</translation>
+    </message>
+    <message>
+        <source>Time of turn off cannot be less than time of turn on.</source>
+        <translation type="vanished">Время выключения не может быть меньше времени включения.</translation>
+    </message>
+    <message>
+        <location filename="../SetupLightTime.qml" line="50"/>
+        <source>Time of turn on must be less than time of turn off.</source>
+        <translation>Время включения должно быть меньше времени выключения.</translation>
     </message>
     <message>
         <location filename="../SetupLightTime.qml" line="65"/>
-        <source>Time of turn off cannot be less than time of turn on.</source>
-        <translation>Время выключения не может быть меньше времени включения.</translation>
+        <source>Time of turn off must be bigger than time of turn on.</source>
+        <translation>Время выключения должно быть больше времени включения.</translation>
     </message>
     <message>
         <location filename="../SetupLightTime.qml" line="102"/>
@@ -747,9 +755,13 @@ Connecting to aquarium...</source>
         <translation>%1 (время корректируется на %2 сек. каждый день в %3)</translation>
     </message>
     <message>
-        <location filename="../main.qml" line="107"/>
         <source>%1 °C</source>
-        <translation>%1 °C</translation>
+        <translation type="vanished">%1 °C</translation>
+    </message>
+    <message>
+        <location filename="../main.qml" line="107"/>
+        <source>Water temperature %1 °C</source>
+        <translation>Температура воды %1 °C</translation>
     </message>
     <message>
         <location filename="../main.qml" line="114"/>
