@@ -198,13 +198,13 @@ Rectangle {
             spacing: 5
 
             Rectangle {
-                id: exitButton
+                id: cmdButton
                 color: "#33aaff"
                 width: (parent.width - 2 * parent.spacing) / 3
                 height: parent.height
 
                 Text {
-                    text: qsTr("Exit")
+                    text: qsTr("Terminal")
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
@@ -215,9 +215,9 @@ Rectangle {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: { Qt.quit() }
-                    onPressed: exitButton.color = "#f0f0f0"
-                    onReleased: exitButton.color = "#33aaff"
+                    onClicked: goToCMD()
+                    onPressed: cmdButton.color = "#f0f0f0"
+                    onReleased: cmdButton.color = "#33aaff"
                 }
             }
 
@@ -246,13 +246,13 @@ Rectangle {
             }
 
             Rectangle {
-                id: cmdButton
+                id: exitButton
                 color: "#33aaff"
                 width: (parent.width - 2 * parent.spacing) / 3
                 height: parent.height
 
                 Text {
-                    text: qsTr("Terminal")
+                    text: qsTr("Exit")
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
@@ -263,9 +263,9 @@ Rectangle {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: goToCMD()
-                    onPressed: cmdButton.color = "#f0f0f0"
-                    onReleased: cmdButton.color = "#33aaff"
+                    onClicked: { Qt.quit() }
+                    onPressed: exitButton.color = "#f0f0f0"
+                    onReleased: exitButton.color = "#33aaff"
                 }
             }
 

@@ -279,30 +279,6 @@ Rectangle {
             spacing: 5
 
             Rectangle {
-                id: cancelButton
-                color: "#33aaff"
-                width: (parent.width - 2 * parent.spacing) / 3
-                height: parent.height
-
-                Text {
-                    text: qsTr("Cancel")
-                    anchors.fill: parent
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                    color: "#1e1e1e"
-                    font.pointSize: 11
-                    wrapMode: Text.WordWrap
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: cancel()
-                    onPressed: cancelButton.color = "#f0f0f0"
-                    onReleased: cancelButton.color = "#33aaff"
-                }
-            }
-
-            Rectangle {
                 id: setupCurrentButton
                 color: "#33aaff"
                 width: (parent.width - 2 * parent.spacing) / 3
@@ -347,6 +323,30 @@ Rectangle {
                     onClicked: setup()
                     onPressed: setupButton.color = "#f0f0f0"
                     onReleased: setupButton.color = "#33aaff"
+                }
+            }
+
+            Rectangle {
+                id: cancelButton
+                color: "#33aaff"
+                width: (parent.width - 2 * parent.spacing) / 3
+                height: parent.height
+
+                Text {
+                    text: qsTr("Cancel")
+                    anchors.fill: parent
+                    horizontalAlignment: Text.AlignHCenter
+                    verticalAlignment: Text.AlignVCenter
+                    color: "#1e1e1e"
+                    font.pointSize: 11
+                    wrapMode: Text.WordWrap
+                }
+
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: cancel()
+                    onPressed: cancelButton.color = "#f0f0f0"
+                    onReleased: cancelButton.color = "#33aaff"
                 }
             }
         }
