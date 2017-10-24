@@ -7,11 +7,11 @@ Rectangle {
 
     onOpacityChanged: {
         if (opacity == 1) {
-            var matchRes = date.toString().match(new RegExp("(\\d{2}).(\\d{2}).(\\d{2})", "m"))
+            var matchRes = aquarium.date.toString().match(new RegExp("(\\d{2}).(\\d{2}).(\\d{2})", "m"))
             itemDaySpinbox.value = matchRes[1]
             itemMonthSpinbox.value = matchRes[2]
             itemYearSpinbox.value = matchRes[3]
-            itemDayOfWeekSpinbox.value = daysOfWeek.indexOf(dayOfWeek) + 1
+            itemDayOfWeekSpinbox.value = daysOfWeek.indexOf(aquarium.dayOfWeek) + 1
         }
     }
 
@@ -45,17 +45,19 @@ Rectangle {
     }
 
     function cancel () {
-        mainItem.state = "gui"
+        mainWindow.state = "gui"
     }
 
     function setupCurrent () {
         var currentDate = new Date().toLocaleString(Qt.locale("en_US"), "dd.MM.yy")
         var currentDayOfWeek = new Date().toLocaleString(Qt.locale("en_US"), "dddd")
         cmdBox.appendText('\n')
-        socket.stringData = "date %1 %2\r"
-        .arg(currentDate)
-        .arg(dayOfWeekToInt(currentDayOfWeek))
-        socket.stringData = "status\r"
+        mainWindow.sendToAquarium(
+            "date %1 %2\r"
+            .arg(currentDate)
+            .arg(dayOfWeekToInt(currentDayOfWeek))
+            )
+        mainWindow.sendToAquarium("status\r")
         messageBox.setText(qsTr("Date %1 %2 was set successfull.")
                            .arg(currentDate)
                            .arg(daysOfWeek[dayOfWeekToInt(currentDayOfWeek) - 1])
@@ -64,12 +66,14 @@ Rectangle {
 
     function setup () {
         cmdBox.appendText('\n')
-        socket.stringData = "date %1.%2.%3 %4\r"
-        .arg(("00" + itemDaySpinbox.value).slice(-2))
-        .arg(("00" + itemMonthSpinbox.value).slice(-2))
-        .arg(("00" + itemYearSpinbox.value).slice(-2))
-        .arg(itemDayOfWeekSpinbox.value)
-        socket.stringData = "status\r"
+        mainWindow.sendToAquarium(
+            "date %1.%2.%3 %4\r"
+            .arg(("00" + itemDaySpinbox.value).slice(-2))
+            .arg(("00" + itemMonthSpinbox.value).slice(-2))
+            .arg(("00" + itemYearSpinbox.value).slice(-2))
+            .arg(itemDayOfWeekSpinbox.value)
+            )
+        mainWindow.sendToAquarium("status\r")
         messageBox.setText(qsTr("Date %1.%2.%3 %4 was set successfull.")
                            .arg(("00" + itemDaySpinbox.value).slice(-2))
                            .arg(("00" + itemMonthSpinbox.value).slice(-2))
@@ -100,7 +104,7 @@ Rectangle {
                 Rectangle {
                     id: itemDayBackgound
                     anchors.fill: parent
-                    color: "#33aaff"
+                    color: colors.itemBackground
                 }
 
                 Text {
@@ -111,12 +115,12 @@ Rectangle {
                     anchors.right: itemDaySpinbox.right
                     anchors.leftMargin: 10
                     anchors.rightMargin: 10
-                    color: "#1e1e1e"
+                    color: colors.itemText
                     font.pointSize: 11
                     wrapMode: Text.Wrap
                 }
 
-                MySpinBox {
+                SpinCtrl {
                     id: itemDaySpinbox
                     from: 1
                     to: 31
@@ -134,7 +138,7 @@ Rectangle {
                 Rectangle {
                     id: itemMonthBackgound
                     anchors.fill: parent
-                    color: "#33aaff"
+                    color: colors.itemBackground
                 }
 
                 Text {
@@ -145,12 +149,12 @@ Rectangle {
                     anchors.right: itemMonthSpinbox.right
                     anchors.leftMargin: 10
                     anchors.rightMargin: 10
-                    color: "#1e1e1e"
+                    color: colors.itemText
                     font.pointSize: 11
                     wrapMode: Text.Wrap
                 }
 
-                MySpinBox {
+                SpinCtrl {
                     id: itemMonthSpinbox
                     from: 1
                     to: 12
@@ -168,7 +172,7 @@ Rectangle {
                 Rectangle {
                     id: itemYearBackgound
                     anchors.fill: parent
-                    color: "#33aaff"
+                    color: colors.itemBackground
                 }
 
                 Text {
@@ -179,12 +183,12 @@ Rectangle {
                     anchors.right: itemYearSpinbox.right
                     anchors.leftMargin: 10
                     anchors.rightMargin: 10
-                    color: "#1e1e1e"
+                    color: colors.itemText
                     font.pointSize: 11
                     wrapMode: Text.Wrap
                 }
 
-                MySpinBox {
+                SpinCtrl {
                     id: itemYearSpinbox
                     from: 0
                     to: 99
@@ -202,7 +206,7 @@ Rectangle {
                 Rectangle {
                     id: itemDayOfWeekBackgound
                     anchors.fill: parent
-                    color: "#33aaff"
+                    color: colors.itemBackground
                 }
 
                 Text {
@@ -213,12 +217,12 @@ Rectangle {
                     anchors.right: itemDayOfWeekSpinbox.right
                     anchors.leftMargin: 10
                     anchors.rightMargin: 10
-                    color: "#1e1e1e"
+                    color: colors.itemText
                     font.pointSize: 11
                     wrapMode: Text.Wrap
                 }
 
-                MySpinBox {
+                SpinCtrl {
                     id: itemDayOfWeekSpinbox
                     value: 1
                     from: 1
@@ -245,13 +249,13 @@ Rectangle {
 
     Rectangle {
         id: header
-        color: "#0096ff"
+        color: colors.background
         height: 48 * guiScale
         width: parent.width
 
         Rectangle {
             id: headerBackground
-            color: "#33aaff"
+            color: colors.headerBackground
             width: parent.width
             height: parent.height - 5
         }
@@ -261,14 +265,14 @@ Rectangle {
             text: qsTr("Date setup")
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            color: "#1e1e1e"
+            color: colors.headerText
             font.pointSize: 11
         }
     }
 
     Rectangle {
         id: buttonBox
-        color: "#0096ff"
+        color: colors.background
         anchors.bottom: parent.bottom
         width: parent.width
         height: 48 * guiScale
@@ -280,7 +284,7 @@ Rectangle {
 
             Rectangle {
                 id: setupCurrentButton
-                color: "#33aaff"
+                color: colors.buttonBackground
                 width: (parent.width - 2 * parent.spacing) / 3
                 height: parent.height
 
@@ -289,7 +293,7 @@ Rectangle {
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    color: "#1e1e1e"
+                    color: colors.buttonText
                     font.pointSize: 11
                     wrapMode: Text.WordWrap
                 }
@@ -297,14 +301,14 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: setupCurrent()
-                    onPressed: setupCurrentButton.color = "#f0f0f0"
-                    onReleased: setupCurrentButton.color = "#33aaff"
+                    onPressed: setupCurrentButton.color = colors.buttonPressed
+                    onReleased: setupCurrentButton.color = colors.buttonBackground
                 }
             }
 
             Rectangle {
                 id: setupButton
-                color: "#33aaff"
+                color: colors.buttonBackground
                 width: (parent.width - 2 * parent.spacing) / 3
                 height: parent.height
 
@@ -313,7 +317,7 @@ Rectangle {
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    color: "#1e1e1e"
+                    color: colors.buttonText
                     font.pointSize: 11
                     wrapMode: Text.WordWrap
                 }
@@ -321,14 +325,14 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: setup()
-                    onPressed: setupButton.color = "#f0f0f0"
-                    onReleased: setupButton.color = "#33aaff"
+                    onPressed: setupButton.color = colors.buttonPressed
+                    onReleased: setupButton.color = colors.buttonBackground
                 }
             }
 
             Rectangle {
                 id: cancelButton
-                color: "#33aaff"
+                color: colors.buttonBackground
                 width: (parent.width - 2 * parent.spacing) / 3
                 height: parent.height
 
@@ -337,7 +341,7 @@ Rectangle {
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    color: "#1e1e1e"
+                    color: colors.buttonText
                     font.pointSize: 11
                     wrapMode: Text.WordWrap
                 }
@@ -345,8 +349,8 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: cancel()
-                    onPressed: cancelButton.color = "#f0f0f0"
-                    onReleased: cancelButton.color = "#33aaff"
+                    onPressed: cancelButton.color = colors.buttonPressed
+                    onReleased: cancelButton.color = colors.buttonBackground
                 }
             }
         }

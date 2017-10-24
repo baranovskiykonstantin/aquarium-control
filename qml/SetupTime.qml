@@ -7,25 +7,27 @@ Rectangle {
 
     onOpacityChanged: {
         if (opacity == 1) {
-            var matchRes = time.toString().match(new RegExp("(\\d{2}):(\\d{2}):(\\d{2})", "m"))
+            var matchRes = aquarium.time.toString().match(new RegExp("(\\d{2}):(\\d{2}):(\\d{2})", "m"))
             itemHoursSpinbox.value = matchRes[1]
             itemMinutesSpinbox.value = matchRes[2]
             itemSecondsSpinbox.value = matchRes[3]
-            itemCorrectionSpinbox.value = correction
+            itemCorrectionSpinbox.value = aquarium.correction
         }
     }
 
     function cancel () {
-        mainItem.state = "gui"
+        mainWindow.state = "gui"
     }
 
     function setupCurrent () {
         var currentTime = new Date().toLocaleString(Qt.locale("en_US"), "HH:mm:ss")
         cmdBox.appendText('\n')
-        socket.stringData = "time %1 %2\r"
-        .arg(currentTime)
-        .arg(itemCorrectionSpinbox.getFormattedValue())
-        socket.stringData = "status\r"
+        mainWindow.sendToAquarium(
+            "time %1 %2\r"
+            .arg(currentTime)
+            .arg(itemCorrectionSpinbox.getFormattedValue())
+            )
+        mainWindow.sendToAquarium("status\r")
         messageBox.setText(qsTr("Time %1 with correction %2 was set successfull.")
                            .arg(currentTime)
                            .arg(itemCorrectionSpinbox.value)
@@ -34,12 +36,14 @@ Rectangle {
 
     function setup () {
         cmdBox.appendText('\n')
-        socket.stringData = "time %1:%2:%3 %4\r"
-        .arg(("00" + itemHoursSpinbox.value).slice(-2))
-        .arg(("00" + itemMinutesSpinbox.value).slice(-2))
-        .arg(("00" + itemSecondsSpinbox.value).slice(-2))
-        .arg(itemCorrectionSpinbox.getFormattedValue())
-        socket.stringData = "status\r"
+        mainWindow.sendToAquarium(
+            "time %1:%2:%3 %4\r"
+            .arg(("00" + itemHoursSpinbox.value).slice(-2))
+            .arg(("00" + itemMinutesSpinbox.value).slice(-2))
+            .arg(("00" + itemSecondsSpinbox.value).slice(-2))
+            .arg(itemCorrectionSpinbox.getFormattedValue())
+            )
+        mainWindow.sendToAquarium("status\r")
         messageBox.setText(qsTr("Time %1:%2:%3 with correction %4 was set successfull.")
                            .arg(("00" + itemHoursSpinbox.value).slice(-2))
                            .arg(("00" + itemMinutesSpinbox.value).slice(-2))
@@ -70,7 +74,7 @@ Rectangle {
                 Rectangle {
                     id: itemHoursBackgound
                     anchors.fill: parent
-                    color: "#33aaff"
+                    color: colors.itemBackground
                 }
 
                 Text {
@@ -81,12 +85,12 @@ Rectangle {
                     anchors.right: itemHoursSpinbox.right
                     anchors.leftMargin: 10
                     anchors.rightMargin: 10
-                    color: "#1e1e1e"
+                    color: colors.itemText
                     font.pointSize: 11
                     wrapMode: Text.Wrap
                 }
 
-                MySpinBox {
+                SpinCtrl {
                     id: itemHoursSpinbox
                     from: 0
                     to: 23
@@ -104,7 +108,7 @@ Rectangle {
                 Rectangle {
                     id: itemMinutesBackgound
                     anchors.fill: parent
-                    color: "#33aaff"
+                    color: colors.itemBackground
                 }
 
                 Text {
@@ -115,12 +119,12 @@ Rectangle {
                     anchors.right: itemMinutesSpinbox.right
                     anchors.leftMargin: 10
                     anchors.rightMargin: 10
-                    color: "#1e1e1e"
+                    color: colors.itemText
                     font.pointSize: 11
                     wrapMode: Text.Wrap
                 }
 
-                MySpinBox {
+                SpinCtrl {
                     id: itemMinutesSpinbox
                     from: 0
                     to: 59
@@ -138,7 +142,7 @@ Rectangle {
                 Rectangle {
                     id: itemSecondsBackgound
                     anchors.fill: parent
-                    color: "#33aaff"
+                    color: colors.itemBackground
                 }
 
                 Text {
@@ -149,12 +153,12 @@ Rectangle {
                     anchors.right: itemSecondsSpinbox.right
                     anchors.leftMargin: 10
                     anchors.rightMargin: 10
-                    color: "#1e1e1e"
+                    color: colors.itemText
                     font.pointSize: 11
                     wrapMode: Text.Wrap
                 }
 
-                MySpinBox {
+                SpinCtrl {
                     id: itemSecondsSpinbox
                     from: 0
                     to: 59
@@ -172,7 +176,7 @@ Rectangle {
                 Rectangle {
                     id: itemCorrectionBackgound
                     anchors.fill: parent
-                    color: "#33aaff"
+                    color: colors.itemBackground
                 }
 
                 Text {
@@ -183,12 +187,12 @@ Rectangle {
                     anchors.right: itemCorrectionSpinbox.right
                     anchors.leftMargin: 10
                     anchors.rightMargin: 10
-                    color: "#1e1e1e"
+                    color: colors.itemText
                     font.pointSize: 11
                     wrapMode: Text.Wrap
                 }
 
-                MySpinBox {
+                SpinCtrl {
                     id: itemCorrectionSpinbox
                     from: -59
                     to: 59
@@ -213,13 +217,13 @@ Rectangle {
 
     Rectangle {
         id: header
-        color: "#0096ff"
+        color: colors.background
         height: 48 * guiScale
         width: parent.width
 
         Rectangle {
             id: headerBackground
-            color: "#33aaff"
+            color: colors.headerBackground
             width: parent.width
             height: parent.height - 5
         }
@@ -229,14 +233,14 @@ Rectangle {
             text: qsTr("Time setup")
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            color: "#1e1e1e"
+            color: colors.headerText
             font.pointSize: 11
         }
     }
 
     Rectangle {
         id: buttonBox
-        color: "#0096ff"
+        color: colors.background
         anchors.bottom: parent.bottom
         width: parent.width
         height: 48 * guiScale
@@ -248,7 +252,7 @@ Rectangle {
 
             Rectangle {
                 id: setupCurrentButton
-                color: "#33aaff"
+                color: colors.buttonBackground
                 width: (parent.width - 2 * parent.spacing) / 3
                 height: parent.height
 
@@ -257,7 +261,7 @@ Rectangle {
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    color: "#1e1e1e"
+                    color: colors.buttonText
                     font.pointSize: 11
                     wrapMode: Text.WordWrap
                 }
@@ -265,14 +269,14 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: setupCurrent()
-                    onPressed: setupCurrentButton.color = "#f0f0f0"
-                    onReleased: setupCurrentButton.color = "#33aaff"
+                    onPressed: setupCurrentButton.color = colors.buttonPressed
+                    onReleased: setupCurrentButton.color = colors.buttonBackground
                 }
             }
 
             Rectangle {
                 id: setupButton
-                color: "#33aaff"
+                color: colors.buttonBackground
                 width: (parent.width - 2 * parent.spacing) / 3
                 height: parent.height
 
@@ -281,7 +285,7 @@ Rectangle {
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    color: "#1e1e1e"
+                    color: colors.buttonText
                     font.pointSize: 11
                     wrapMode: Text.WordWrap
                 }
@@ -289,14 +293,14 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: setup()
-                    onPressed: setupButton.color = "#f0f0f0"
-                    onReleased: setupButton.color = "#33aaff"
+                    onPressed: setupButton.color = colors.buttonPressed
+                    onReleased: setupButton.color = colors.buttonBackground
                 }
             }
 
             Rectangle {
                 id: cancelButton
-                color: "#33aaff"
+                color: colors.buttonBackground
                 width: (parent.width - 2 * parent.spacing) / 3
                 height: parent.height
 
@@ -305,7 +309,7 @@ Rectangle {
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    color: "#1e1e1e"
+                    color: colors.buttonText
                     font.pointSize: 11
                     wrapMode: Text.WordWrap
                 }
@@ -313,8 +317,8 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: cancel()
-                    onPressed: cancelButton.color = "#f0f0f0"
-                    onReleased: cancelButton.color = "#33aaff"
+                    onPressed: cancelButton.color = colors.buttonPressed
+                    onReleased: cancelButton.color = colors.buttonBackground
                 }
             }
         }

@@ -29,7 +29,7 @@ Rectangle {
     }
 
     function cancel () {
-        mainItem.state = "setupLight"
+        mainWindow.state = "setupLight"
     }
 
     function ok () {
@@ -94,7 +94,7 @@ Rectangle {
                 Rectangle {
                     id: itemHoursBackgound
                     anchors.fill: parent
-                    color: "#33aaff"
+                    color: colors.itemBackground
                 }
 
                 Text {
@@ -105,12 +105,12 @@ Rectangle {
                     anchors.right: itemHoursSpinbox.right
                     anchors.leftMargin: 10
                     anchors.rightMargin: 10
-                    color: "#1e1e1e"
+                    color: colors.itemText
                     font.pointSize: 11
                     wrapMode: Text.Wrap
                 }
 
-                MySpinBox {
+                SpinCtrl {
                     id: itemHoursSpinbox
                     from: 0
                     to: 23
@@ -128,7 +128,7 @@ Rectangle {
                 Rectangle {
                     id: itemMinutesBackgound
                     anchors.fill: parent
-                    color: "#33aaff"
+                    color: colors.itemBackground
                 }
 
                 Text {
@@ -139,12 +139,12 @@ Rectangle {
                     anchors.right: itemMinutesSpinbox.right
                     anchors.leftMargin: 10
                     anchors.rightMargin: 10
-                    color: "#1e1e1e"
+                    color: colors.itemText
                     font.pointSize: 11
                     wrapMode: Text.Wrap
                 }
 
-                MySpinBox {
+                SpinCtrl {
                     id: itemMinutesSpinbox
                     from: 0
                     to: 59
@@ -162,7 +162,7 @@ Rectangle {
                 Rectangle {
                     id: itemSecondsBackgound
                     anchors.fill: parent
-                    color: "#33aaff"
+                    color: colors.itemBackground
                 }
 
                 Text {
@@ -173,12 +173,12 @@ Rectangle {
                     anchors.right: itemSecondsSpinbox.right
                     anchors.leftMargin: 10
                     anchors.rightMargin: 10
-                    color: "#1e1e1e"
+                    color: colors.itemText
                     font.pointSize: 11
                     wrapMode: Text.Wrap
                 }
 
-                MySpinBox {
+                SpinCtrl {
                     id: itemSecondsSpinbox
                     from: 0
                     to: 59
@@ -192,13 +192,13 @@ Rectangle {
 
     Rectangle {
         id: header
-        color: "#0096ff"
+        color: colors.background
         height: 48 * guiScale
         width: parent.width
 
         Rectangle {
             id: headerBackground
-            color: "#33aaff"
+            color: colors.headerBackground
             width: parent.width
             height: parent.height - 5
         }
@@ -207,14 +207,14 @@ Rectangle {
             id: headerText
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            color: "#1e1e1e"
+            color: colors.headerText
             font.pointSize: 11
         }
     }
 
     Rectangle {
         id: buttonBox
-        color: "#0096ff"
+        color: colors.background
         anchors.bottom: parent.bottom
         width: parent.width
         height: 48 * guiScale
@@ -226,7 +226,7 @@ Rectangle {
 
             Rectangle {
                 id: okButton
-                color: "#33aaff"
+                color: colors.buttonBackground
                 width: (parent.width - parent.spacing) / 2
                 height: parent.height
 
@@ -235,7 +235,7 @@ Rectangle {
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    color: "#1e1e1e"
+                    color: colors.buttonText
                     font.pointSize: 11
                     wrapMode: Text.WordWrap
                 }
@@ -243,14 +243,14 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: ok()
-                    onPressed: okButton.color = "#f0f0f0"
-                    onReleased: okButton.color = "#33aaff"
+                    onPressed: okButton.color = colors.buttonPressed
+                    onReleased: okButton.color = colors.buttonBackground
                 }
             }
 
             Rectangle {
                 id: cancelButton
-                color: "#33aaff"
+                color: colors.buttonBackground
                 width: (parent.width - parent.spacing) / 2
                 height: parent.height
 
@@ -259,7 +259,7 @@ Rectangle {
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    color: "#1e1e1e"
+                    color: colors.buttonText
                     font.pointSize: 11
                     wrapMode: Text.WordWrap
                 }
@@ -267,8 +267,8 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: cancel()
-                    onPressed: cancelButton.color = "#f0f0f0"
-                    onReleased: cancelButton.color = "#33aaff"
+                    onPressed: cancelButton.color = colors.buttonPressed
+                    onReleased: cancelButton.color = colors.buttonBackground
                 }
             }
         }

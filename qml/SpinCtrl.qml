@@ -14,7 +14,7 @@ SpinBox {
         height: control.height
 
         font: control.font
-        color: "#1e1e1e"
+        color: colors.itemText
         horizontalAlignment: Qt.AlignHCenter
         verticalAlignment: Qt.AlignVCenter
 
@@ -30,16 +30,16 @@ SpinBox {
             if (control.width < (control.height * 3))
                 control.width = control.height * 3
             if (control.value == control.to) {
-                upIndicatorText.color = "#0096ff"
+                upIndicatorText.color = colors.background
             }
             else {
-                upIndicatorText.color = "#1e1e1e"
+                upIndicatorText.color = colors.itemText
             }
             if (control.value == control.from) {
-                downIndicatorText.color = "#0096ff"
+                downIndicatorText.color = colors.background
             }
             else {
-                downIndicatorText.color = "#1e1e1e"
+                downIndicatorText.color = colors.itemText
             }
         }
     }
@@ -49,14 +49,14 @@ SpinBox {
         x: control.mirrored ? 0 : parent.width - width
         height: control.height
         width: control.height
-        color: up.pressed ? "#f0f0f0" : "#33aaff"
+        color: up.pressed ? colors.buttonPressed : colors.buttonBackground
 
         Text {
             id: upIndicatorText
             text: "+"
             font.pointSize: control.font.pointSize * 2
             font.family: "Droid Sans Mono"
-            color: "#1e1e1e"
+            color: colors.buttonText
             anchors.fill: parent
             fontSizeMode: Text.Fit
             horizontalAlignment: Text.AlignHCenter
@@ -69,14 +69,14 @@ SpinBox {
         x: control.mirrored ? parent.width - width : 0
         height: control.height
         width: control.height
-        color: down.pressed ? "#f0f0f0" : "#33aaff"
+        color: down.pressed ? colors.buttonPressed : colors.buttonBackground
 
         Text {
             id: downIndicatorText
             text: "−"
             font.pointSize: control.font.pointSize * 2
             font.family: "Droid Sans Mono"
-            color: "#1e1e1e"
+            color: colors.buttonText
             anchors.fill: parent
             fontSizeMode: Text.Fit
             horizontalAlignment: Text.AlignHCenter
@@ -85,7 +85,7 @@ SpinBox {
     }
 
     Rectangle {
-        color: "#0096ff"
+        color: colors.background
         height: 36 * guiScale
         width: 2 * guiScale
         anchors.verticalCenter: downIndicator.verticalCenter
@@ -93,7 +93,7 @@ SpinBox {
     }
 
     Rectangle {
-        color: "#0096ff"
+        color: colors.background
         height: 36 * guiScale
         width: 2 * guiScale
         anchors.verticalCenter: upIndicator.verticalCenter
@@ -101,6 +101,6 @@ SpinBox {
     }
 
     background: Rectangle {
-        color: "#33aaff"
+        color: colors.itemBackground
     }
 }

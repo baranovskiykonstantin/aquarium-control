@@ -8,7 +8,7 @@ SOURCES += main.cpp
 RESOURCES += qml.qrc
 
 lupdate_only {
-    SOURCES += *.qml
+    SOURCES += qml/*.qml
 }
 
 TRANSLATIONS += translations/lang_ru.ts translations/lang_uk.ts

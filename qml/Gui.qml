@@ -6,11 +6,15 @@ Rectangle {
 
     function updateGui() {
         cmdBox.appendText('\n')
-        socket.stringData = "status\r"
+        mainWindow.sendToAquarium("status\r")
     }
 
     function goToCMD() {
-        mainItem.state = "cmd"
+        mainWindow.state = "cmd"
+    }
+
+    function goToSearch() {
+        mainWindow.startSearching()
     }
 
     function setHeader (value) {
@@ -43,31 +47,31 @@ Rectangle {
     function setup (item) {
         switch (item) {
         case "date":
-            mainItem.state = "setupDate"
+            mainWindow.state = "setupDate"
             break
         case "time":
-            mainItem.state = "setupTime"
+            mainWindow.state = "setupTime"
             break
         case "temp":
         case "heat":
-            mainItem.state = "setupHeat"
+            mainWindow.state = "setupHeat"
             break
         case "light":
-            mainItem.state = "setupLight"
+            mainWindow.state = "setupLight"
             break
         case "display":
             cmdBox.appendText('\n')
-            switch (display) {
+            switch (aquarium.display) {
             case "time":
-                socket.stringData = "display temp\r"
+                mainWindow.sendToAquarium("display temp\r")
                 messageBox.setText(qsTr("Display shows the temperature now."))
                 break
             case "temp":
-                socket.stringData = "display time\r"
+                mainWindow.sendToAquarium("display time\r")
                 messageBox.setText(qsTr("Display shows the time now."))
                 break
             }
-            socket.stringData = "status\r"
+            mainWindow.sendToAquarium("status\r")
             break
         }
     }
@@ -119,9 +123,9 @@ Rectangle {
                     height: 52 * guiScale
 
                     Rectangle {
-                        id: itemBackgound
+                        id: itemBackground
                         anchors.fill: parent
-                        color: "#33aaff"
+                        color: colors.itemBackground
                     }
 
                     Rectangle {
@@ -134,7 +138,7 @@ Rectangle {
 
                     Image {
                         id: itemImage
-                        source: "icons/%1.png".arg(name)
+                        source: "../icons/%1.png".arg(name)
                         fillMode: Image.Pad
                         anchors.verticalCenter: itemImageBackground.verticalCenter
                         anchors.horizontalCenter: itemImageBackground.horizontalCenter
@@ -148,7 +152,7 @@ Rectangle {
                         anchors.right: parent.right
                         anchors.leftMargin: 10
                         anchors.rightMargin: 10
-                        color: "#1e1e1e"
+                        color: colors.itemText
                         font.pointSize: 11
                         wrapMode: Text.Wrap
                     }
@@ -156,6 +160,8 @@ Rectangle {
                     MouseArea {
                         anchors.fill: parent
                         onClicked: setup(name)
+                        onPressed: itemBackground.color = colors.itemPressed
+                        onReleased: itemBackground.color = colors.itemBackground
                     }
                 }
             }
@@ -164,30 +170,37 @@ Rectangle {
 
     Rectangle {
         id: guiHeader
-        color: "#0096ff"
+        color: colors.background
         height: 48 * guiScale
         width: parent.width
 
         Rectangle {
             id: guiHeaderBackground
-            color: "#33aaff"
+            color: colors.headerBackground
             width: parent.width
             height: parent.height - 5
         }
 
         Text {
             id: guiHeaderText
-            text: qsTr("Aquarium")
+            text: qsTr("Aquarium (not connected)")
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
-            color: "#1e1e1e"
+            color: colors.headerText
             font.pointSize: 11
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: goToSearch()
+            onPressed: guiHeaderBackground.color = colors.headerPressed
+            onReleased: guiHeaderBackground.color = colors.headerBackground
         }
     }
 
     Rectangle {
         id: guiButtonBox
-        color: "#0096ff"
+        color: colors.background
         anchors.bottom: parent.bottom
         width: parent.width
         height: 48 * guiScale
@@ -199,7 +212,7 @@ Rectangle {
 
             Rectangle {
                 id: cmdButton
-                color: "#33aaff"
+                color: colors.buttonBackground
                 width: (parent.width - 2 * parent.spacing) / 3
                 height: parent.height
 
@@ -208,7 +221,7 @@ Rectangle {
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    color: "#1e1e1e"
+                    color: colors.buttonText
                     font.pointSize: 11
                     wrapMode: Text.WordWrap
                 }
@@ -216,14 +229,14 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: goToCMD()
-                    onPressed: cmdButton.color = "#f0f0f0"
-                    onReleased: cmdButton.color = "#33aaff"
+                    onPressed: cmdButton.color = colors.buttonPressed
+                    onReleased: cmdButton.color = colors.buttonBackground
                 }
             }
 
             Rectangle {
                 id: updateButton
-                color: "#33aaff"
+                color: colors.buttonBackground
                 width: (parent.width - 2 * parent.spacing) / 3
                 height: parent.height
 
@@ -232,7 +245,7 @@ Rectangle {
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    color: "#1e1e1e"
+                    color: colors.buttonText
                     font.pointSize: 11
                     wrapMode: Text.WordWrap
                 }
@@ -240,14 +253,14 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: updateGui()
-                    onPressed: updateButton.color = "#f0f0f0"
-                    onReleased: updateButton.color = "#33aaff"
+                    onPressed: updateButton.color = colors.buttonPressed
+                    onReleased: updateButton.color = colors.buttonBackground
                 }
             }
 
             Rectangle {
                 id: exitButton
-                color: "#33aaff"
+                color: colors.buttonBackground
                 width: (parent.width - 2 * parent.spacing) / 3
                 height: parent.height
 
@@ -256,7 +269,7 @@ Rectangle {
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
-                    color: "#1e1e1e"
+                    color: colors.buttonText
                     font.pointSize: 11
                     wrapMode: Text.WordWrap
                 }
@@ -264,11 +277,10 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: { Qt.quit() }
-                    onPressed: exitButton.color = "#f0f0f0"
-                    onReleased: exitButton.color = "#33aaff"
+                    onPressed: exitButton.color = colors.buttonPressed
+                    onReleased: exitButton.color = colors.buttonBackground
                 }
             }
-
         }
     }
 }

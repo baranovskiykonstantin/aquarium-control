@@ -9,8 +9,8 @@ Rectangle {
 
     property bool animationRunning: true
 
-    function appendText(newText) {
-        searchText.text += newText
+    function setText(newText) {
+        searchText.text = newText
     }
 
     Behavior on height {
@@ -20,7 +20,7 @@ Rectangle {
     Image {
         id: bluetoothImage
         focus: true
-        source: "icons/bt.png"
+        source: "../icons/bt.png"
         width: 48 * guiScale
         height: width
         anchors.top: parent.top
@@ -47,9 +47,9 @@ Rectangle {
         anchors.top: bluetoothImage.bottom
         anchors.topMargin: 30
         anchors.horizontalCenter: parent.horizontalCenter
-        text: qsTr("Searching for aquarium...")
+        text: "..."
         horizontalAlignment: Text.AlignHCenter
-        color: "#1a1a1a"
+        color: colors.itemText
         font.pointSize: 13
     }
 }

@@ -1,9 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>main.qml</file>
-        <file>Search.qml</file>
-        <file>Gui.qml</file>
-        <file>Cmd.qml</file>
         <file>icons/send.png</file>
         <file>icons/gui.png</file>
         <file>icons/bt.png</file>
@@ -13,13 +9,20 @@
         <file>icons/temp.png</file>
         <file>icons/time.png</file>
         <file>icons/heat.png</file>
-        <file>SetupDate.qml</file>
-        <file>SetupTime.qml</file>
-        <file>SetupHeat.qml</file>
-        <file>SetupLight.qml</file>
-        <file>SetupLightTime.qml</file>
         <file>translations/lang_ru.qm</file>
         <file>translations/lang_uk.qm</file>
-        <file>MySpinBox.qml</file>
+        <file>qml/Aquarium.qml</file>
+        <file>qml/Cmd.qml</file>
+        <file>qml/Colors.qml</file>
+        <file>qml/Gui.qml</file>
+        <file>qml/Main.qml</file>
+        <file>qml/Message.qml</file>
+        <file>qml/Search.qml</file>
+        <file>qml/SetupDate.qml</file>
+        <file>qml/SetupHeat.qml</file>
+        <file>qml/SetupLight.qml</file>
+        <file>qml/SetupLightTime.qml</file>
+        <file>qml/SetupTime.qml</file>
+        <file>qml/SpinCtrl.qml</file>
     </qresource>
 </RCC>

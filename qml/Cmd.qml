@@ -3,7 +3,7 @@ import QtQuick.Controls 2.1
 
 Rectangle {
     id: cmdBox
-    color: "#0c0c0c"
+    color: colors.cmdBoxBackground
 
     onOpacityChanged: {
         if (opacity === 1) {
@@ -13,7 +13,7 @@ Rectangle {
     }
 
     function goToGUI() {
-       mainItem.state = "gui"
+       mainWindow.state = "gui"
     }
 
     function sendCmd() {
@@ -99,7 +99,7 @@ Rectangle {
         else {
             var data = cmdText.text + "\r"
             appendText('\n')
-            socket.stringData = data
+            mainWindow.sendToAquarium(data)
         }
         scrollToEnd()
         cmdText.text = ""
@@ -131,7 +131,7 @@ Rectangle {
         Text {
             id: cmdOutput
             width: parent.width
-            color: "#e6e6e6"
+            color: colors.cmdBoxText
             font.family: "Droid Sans Mono"
             font.pointSize: 11
             wrapMode: Text.WrapAnywhere
@@ -145,7 +145,7 @@ Rectangle {
         width: 6
         height: cmdOutputScroll.visibleArea.heightRatio * (parent.height - cmdInput.height)
         radius: 3
-        color: "#303030"
+        color: colors.cmdBoxScrollBar
     }
 
     Item {
@@ -163,11 +163,11 @@ Rectangle {
             onClicked: cmdBox.goToGUI()
 
             background: Rectangle {
-                color: cmdButtonGoToGUI.down ? "#f0f0f0" : "#0096ff"
+                color: cmdButtonGoToGUI.down ? colors.buttonPressed : colors.buttonBackground
 
                 Image {
                     id: cmdButtonGoToGUIImage
-                    source: "icons/gui.png"
+                    source: "../icons/gui.png"
                     width: cmdButtonGoToGUI.width
                     height: cmdButtonGoToGUI.height
                     fillMode: Image.Stretch
@@ -180,9 +180,14 @@ Rectangle {
             placeholderText: qsTr("Enter command")
             anchors.left: cmdButtonGoToGUI.right
             font.pointSize: 11
+            color: colors.cmdInputText
             width: parent.width - cmdButtonGoToGUI.width - cmdButtonSend.width
             height: cmdInput.height
             Keys.onReturnPressed: cmdBox.sendCmd()
+
+            background: Rectangle {
+                color: colors.cmdInputBackground
+            }
         }
 
         Button {
@@ -194,11 +199,11 @@ Rectangle {
             onClicked: cmdBox.sendCmd()
 
             background: Rectangle {
-                color: cmdButtonSend.down ? "#f0f0f0" : "#0096ff"
+                color: cmdButtonSend.down ? colors.buttonPressed : colors.buttonBackground
 
                 Image {
                     id: cmdButtonSendImage
-                    source: "icons/send.png"
+                    source: "../icons/send.png"
                     width: cmdButtonSend.width
                     height: cmdButtonSend.height
                     fillMode: Image.Stretch
