@@ -84,7 +84,7 @@ Rectangle {
                 height: 52 * guiScale
 
                 Rectangle {
-                    id: itemLightOnBackgound
+                    id: itemLightOnBackground
                     anchors.fill: parent
                     color: colors.itemBackground
                 }
@@ -118,6 +118,9 @@ Rectangle {
                         setupLightTimeBox.timeType = "on"
                         mainWindow.state = "setupLightTime"
                     }
+                    onPressed: itemLightOnBackground.color = colors.itemPressed
+                    onReleased: itemLightOnBackground.color = colors.itemBackground
+                    onCanceled: itemLightOnBackground.color = colors.itemBackground
                 }
             }
 
@@ -127,7 +130,7 @@ Rectangle {
                 height: 52 * guiScale
 
                 Rectangle {
-                    id: itemLightOffBackgound
+                    id: itemLightOffBackground
                     anchors.fill: parent
                     color: colors.itemBackground
                 }
@@ -161,6 +164,9 @@ Rectangle {
                         setupLightTimeBox.timeType = "off"
                         mainWindow.state = "setupLightTime"
                     }
+                    onPressed: itemLightOffBackground.color = colors.itemPressed
+                    onReleased: itemLightOffBackground.color = colors.itemBackground
+                    onCanceled: itemLightOffBackground.color = colors.itemBackground
                 }
             }
 
@@ -170,7 +176,7 @@ Rectangle {
                 height: 52 * guiScale
 
                 Rectangle {
-                    id: itemBrightnessBackgound
+                    id: itemBrightnessBackground
                     anchors.fill: parent
                     color: colors.itemBackground
                 }
@@ -203,7 +209,7 @@ Rectangle {
     Rectangle {
         id: header
         color: colors.background
-        height: 48 * guiScale
+        height: 64 * guiScale
         width: parent.width
 
         Rectangle {
@@ -219,7 +225,7 @@ Rectangle {
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
             color: colors.headerText
-            font.pointSize: 11
+            font.pointSize: 15
         }
     }
 

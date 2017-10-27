@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.1
+import QtGraphicalEffects 1.0
 
 Rectangle {
     id: cmdBox
@@ -167,10 +168,16 @@ Rectangle {
 
                 Image {
                     id: cmdButtonGoToGUIImage
-                    source: "../icons/gui.png"
+                    source: "../icons/gui.svg"
                     width: cmdButtonGoToGUI.width
                     height: cmdButtonGoToGUI.height
                     fillMode: Image.Stretch
+                }
+
+                ColorOverlay {
+                    anchors.fill: cmdButtonGoToGUIImage
+                    source: cmdButtonGoToGUIImage
+                    color: colors.buttonText
                 }
             }
         }
@@ -203,10 +210,16 @@ Rectangle {
 
                 Image {
                     id: cmdButtonSendImage
-                    source: "../icons/send.png"
+                    source: "../icons/send.svg"
                     width: cmdButtonSend.width
                     height: cmdButtonSend.height
                     fillMode: Image.Stretch
+                }
+
+                ColorOverlay {
+                    anchors.fill: cmdButtonSendImage
+                    source: cmdButtonSendImage
+                    color: colors.buttonText
                 }
             }
         }

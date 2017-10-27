@@ -49,7 +49,7 @@ SpinBox {
         x: control.mirrored ? 0 : parent.width - width
         height: control.height
         width: control.height
-        color: up.pressed ? colors.buttonPressed : colors.buttonBackground
+        color: up.pressed ? colors.itemPressed : colors.itemBackground
 
         Text {
             id: upIndicatorText
@@ -69,7 +69,7 @@ SpinBox {
         x: control.mirrored ? parent.width - width : 0
         height: control.height
         width: control.height
-        color: down.pressed ? colors.buttonPressed : colors.buttonBackground
+        color: down.pressed ? colors.itemPressed : colors.itemBackground
 
         Text {
             id: downIndicatorText

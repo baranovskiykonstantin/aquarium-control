@@ -3,9 +3,9 @@ import QtQuick 2.0
 Item {
     property string background: "#0096ff"
 
-    property string headerBackground: "#33aaff"
+    property string headerBackground: "#1e1e1e"
     property string headerPressed: "#f0f0f0"
-    property string headerText: "#1e1e1e"
+    property string headerText: "#33aaff"
 
     property string itemBackground: "#33aaff"
     property string itemPressed: "#f0f0f0"

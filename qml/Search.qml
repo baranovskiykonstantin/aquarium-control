@@ -20,7 +20,7 @@ Rectangle {
     Image {
         id: bluetoothImage
         focus: true
-        source: "../icons/bt.png"
+        source: "../icons/bt.svg"
         width: 48 * guiScale
         height: width
         anchors.top: parent.top
@@ -47,10 +47,10 @@ Rectangle {
         anchors.top: bluetoothImage.bottom
         anchors.topMargin: 30
         anchors.horizontalCenter: parent.horizontalCenter
-        text: "..."
+        text: "Aquarium control"
         horizontalAlignment: Text.AlignHCenter
         color: colors.itemText
-        font.pointSize: 13
+        font.pointSize: 15
     }
 }
 

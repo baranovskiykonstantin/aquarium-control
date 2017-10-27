@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtGraphicalEffects 1.0
 
 Rectangle {
     id: guiBox
@@ -138,10 +139,18 @@ Rectangle {
 
                     Image {
                         id: itemImage
-                        source: "../icons/%1.png".arg(name)
-                        fillMode: Image.Pad
+                        source: "../icons/%1.svg".arg(name)
+                        height: 32
+                        width: height
+                        fillMode: Image.Stretch
                         anchors.verticalCenter: itemImageBackground.verticalCenter
                         anchors.horizontalCenter: itemImageBackground.horizontalCenter
+                    }
+
+                    ColorOverlay {
+                        anchors.fill: itemImage
+                        source: itemImage
+                        color: colors.itemText
                     }
 
                     Text {
@@ -162,6 +171,7 @@ Rectangle {
                         onClicked: setup(name)
                         onPressed: itemBackground.color = colors.itemPressed
                         onReleased: itemBackground.color = colors.itemBackground
+                        onCanceled: itemBackground.color = colors.itemBackground
                     }
                 }
             }
@@ -171,7 +181,7 @@ Rectangle {
     Rectangle {
         id: guiHeader
         color: colors.background
-        height: 48 * guiScale
+        height: 64 * guiScale
         width: parent.width
 
         Rectangle {
@@ -187,7 +197,7 @@ Rectangle {
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
             color: colors.headerText
-            font.pointSize: 11
+            font.pointSize: 15
         }
 
         MouseArea {

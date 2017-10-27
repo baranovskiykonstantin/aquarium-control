@@ -218,7 +218,7 @@ Rectangle {
     Rectangle {
         id: header
         color: colors.background
-        height: 48 * guiScale
+        height: 64 * guiScale
         width: parent.width
 
         Rectangle {
@@ -234,7 +234,7 @@ Rectangle {
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
             color: colors.headerText
-            font.pointSize: 11
+            font.pointSize: 15
         }
     }
 

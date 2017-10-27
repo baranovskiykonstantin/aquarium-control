@@ -2,7 +2,6 @@ import QtQuick 2.6
 import QtBluetooth 5.3
 import QtQuick.Window 2.0
 import Qt.labs.settings 1.0
-import "."
 
 Item {
     id: mainWindow
@@ -15,15 +14,19 @@ Item {
             guiScale = 2
 
         mainWindow.state = "search"
-        // If settings has address from previous session - try to use it
-        if (btService.deviceAddress != "00:00:00:00:00:00") {
-            searchBox.setText(qsTr("Connecting to aquarium:\n%1").arg(btService.deviceAddress))
-            btSocket.setService(btService)
-            btSocket.connected = true
-        }
-        // Otherwise - search for another one
-        else {
-            startSearching()
+        // btCheck starts automatically and checks state of Bluetooth
+        if (btCheck.running == true) {
+            btCheck.running = false
+            // If settings has address from previous session - try to use it
+            if (btService.deviceAddress != "00:00:00:00:00:00") {
+                searchBox.setText(qsTr("Connecting to aquarium:\n%1").arg(btService.deviceAddress))
+                btSocket.setService(btService)
+                btSocket.connected = true
+            }
+            // Otherwise - search for another one
+            else {
+                startSearching()
+            }
         }
     }
 
@@ -62,17 +65,39 @@ Item {
     }
 
     BluetoothDiscoveryModel {
+        id: btCheck
+        discoveryMode: BluetoothDiscoveryModel.FullServiceDiscovery
+        running: true
+
+        onErrorChanged: {
+            if (error == BluetoothDiscoveryModel.PoweredOffError) {
+                messageBox.setTitle(qsTr("Bluetooth powered off!"))
+                messageBox.setText(qsTr("Please power on Bluetooth and start app again."))
+                messageBox.error = true
+                messageBox.show()
+            }
+        }
+    }
+
+    BluetoothDiscoveryModel {
         id: btDiscovery
         uuidFilter: btService.serviceUuid
-        discoveryMode: BluetoothDiscoveryModel.MinimalServiceDiscovery
+        discoveryMode: BluetoothDiscoveryModel.FullServiceDiscovery
         running: false
 
         onRunningChanged : {
-            if (!btDiscovery.running && mainWindow.state == "search" && btService.deviceAddress == "00:00:00:00:00:00") {
-                messageBox.setTitle(qsTr("Aquarium not found"))
-                messageBox.setText(qsTr("Please ensure aquarium is available."))
-                messageBox.show()
-                mainWindow.state = "gui"
+            if (!btDiscovery.running) {
+                if (mainWindow.state == "search" && btService.deviceAddress == "00:00:00:00:00:00") {
+                    messageBox.setTitle(qsTr("Aquarium not found"))
+                    messageBox.setText(qsTr("Please ensure aquarium is available."))
+                    messageBox.show()
+                    mainWindow.state = "gui"
+                }
+                else {
+                    btSocket.setService(btService)
+                    btSocket.connected = true
+                    searchBox.setText(qsTr("Connecting to aquarium:\n%1").arg(btService.deviceAddress))
+                }
             }
         }
 
@@ -90,13 +115,10 @@ Item {
         onServiceDiscovered: {
             if (service.deviceName == "aquarium") {
                 btService.deviceAddress = service.deviceAddress
-                btSocket.setService(btService)
-                btSocket.connected = true
-                btDiscovery.running = false
-                searchBox.setText(qsTr("Connecting to aquarium:\n%1").arg(btService.deviceAddress))
                 messageBox.setTitle(qsTr("Aquarium found"))
                 messageBox.setText(qsTr("Adress: %1").arg(btService.deviceAddress))
                 messageBox.show()
+                btDiscovery.running = false
             }
         }
     }

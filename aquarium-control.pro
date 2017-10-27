@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-QT += qml quick bluetooth
+QT += qml quick bluetooth svg
 CONFIG += c++11
 
 SOURCES += main.cpp

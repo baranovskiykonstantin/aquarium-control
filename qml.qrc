@@ -1,14 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>icons/send.png</file>
-        <file>icons/gui.png</file>
-        <file>icons/bt.png</file>
-        <file>icons/date.png</file>
-        <file>icons/display.png</file>
-        <file>icons/light.png</file>
-        <file>icons/temp.png</file>
-        <file>icons/time.png</file>
-        <file>icons/heat.png</file>
         <file>translations/lang_ru.qm</file>
         <file>translations/lang_uk.qm</file>
         <file>qml/Aquarium.qml</file>
@@ -24,5 +15,15 @@
         <file>qml/SetupLightTime.qml</file>
         <file>qml/SetupTime.qml</file>
         <file>qml/SpinCtrl.qml</file>
+        <file>icons/bt.svg</file>
+        <file>icons/date.svg</file>
+        <file>icons/display.svg</file>
+        <file>icons/gui.svg</file>
+        <file>icons/heat.svg</file>
+        <file>icons/light.svg</file>
+        <file>icons/send.svg</file>
+        <file>icons/temp.svg</file>
+        <file>icons/time.svg</file>
+        <file>icons/icon.svg</file>
     </qresource>
 </RCC>
