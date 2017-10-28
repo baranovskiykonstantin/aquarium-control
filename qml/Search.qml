@@ -1,4 +1,4 @@
-import QtQuick 2.2
+import QtQuick 2.0
 import QtQuick.Window 2.0
 
 Rectangle {
@@ -44,7 +44,7 @@ Rectangle {
         id: searchText
 
         anchors.top: bluetoothImage.bottom
-        anchors.topMargin: 30
+        anchors.topMargin: mmTOpx(5)
         anchors.horizontalCenter: parent.horizontalCenter
         text: "Aquarium control"
         horizontalAlignment: Text.AlignHCenter

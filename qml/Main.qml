@@ -1,5 +1,5 @@
-import QtQuick 2.6
-import QtBluetooth 5.3
+import QtQuick 2.0
+import QtBluetooth 5.0
 import QtQuick.Window 2.0
 import Qt.labs.settings 1.0
 
@@ -112,7 +112,6 @@ Item {
         onErrorChanged: {
             if (error != BluetoothDiscoveryModel.NoError && btDiscovery.running) {
                 btDiscovery.running = false
-                searchBox.animationRunning = false
                 messageBox.setTitle(qsTr("Aquarium not found"))
                 messageBox.setText(qsTr("Please ensure Bluetooth is available."))
                 messageBox.error = true

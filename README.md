@@ -1,2 +1,6 @@
 # Aquarium-control
-Приложение для уравления [аквариумом](https://github.com/baranovskiykonstantin/aquarium) с помощью ПК, ноутбука или мобильного устройства.
+App for controlling parameters of the [aquarium controller](https://github.com/baranovskiykonstantin/aquarium).
+
+![gui](https://raw.github.com/baranovskiykonstantin/aquarium-control/master/screenshots/gui.png)
+
+![cmd](https://raw.github.com/baranovskiykonstantin/aquarium-control/master/screenshots/cmd.png)
