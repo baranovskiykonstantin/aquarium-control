@@ -25,7 +25,10 @@ Rectangle {
             appendText(qsTr(
                            "\n" +
                            "Available commands:\n" +
-                           "\n" +
+                           "\n"
+                           ))
+            scrollToEnd()
+            appendText(qsTr(
                            "status\n" +
                            "\n" +
                            "\tGet information about current state of aquarium.\n" +
@@ -101,8 +104,8 @@ Rectangle {
             var data = cmdText.text + "\r"
             appendText('\n')
             mainWindow.sendToAquarium(data)
+            scrollToEnd()
         }
-        scrollToEnd()
         cmdText.text = ""
     }
 
@@ -134,7 +137,7 @@ Rectangle {
             width: parent.width
             color: colors.cmdBoxText
             font.family: "Droid Sans Mono"
-            font.pointSize: 11
+            font.pixelSize: mmTOpx(3.5)
             wrapMode: Text.WrapAnywhere
         }
     }
@@ -143,9 +146,9 @@ Rectangle {
         id: scrollBar
         anchors.right: cmdOutputScroll.right
         y: cmdOutputScroll.visibleArea.yPosition * (parent.height - cmdInput.height)
-        width: 6
+        width: mmTOpx(2)
         height: cmdOutputScroll.visibleArea.heightRatio * (parent.height - cmdInput.height)
-        radius: 3
+        radius: mmTOpx(1)
         color: colors.cmdBoxScrollBar
     }
 
@@ -153,7 +156,7 @@ Rectangle {
         id: cmdInput
         anchors.top:cmdOutputScroll.bottom
         width: parent.width
-        height: 32 * guiScale
+        height: mmTOpx(8)
 
         Button {
             id: cmdButtonGoToGUI
@@ -186,7 +189,7 @@ Rectangle {
             id: cmdText
             placeholderText: qsTr("Enter command")
             anchors.left: cmdButtonGoToGUI.right
-            font.pointSize: 11
+            font.pixelSize: mmTOpx(4)
             color: colors.cmdInputText
             width: parent.width - cmdButtonGoToGUI.width - cmdButtonSend.width
             height: cmdInput.height

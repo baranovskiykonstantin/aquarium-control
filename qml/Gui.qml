@@ -78,7 +78,7 @@ Rectangle {
     }
 
     Flickable {
-        width: parent.width - 10
+        width: parent.width - mmTOpx(2)
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: guiHeader.bottom
         anchors.bottom: guiButtonBox.top
@@ -89,7 +89,7 @@ Rectangle {
         Column {
             id: itemColumn
             width: parent.width
-            spacing: 5
+            spacing: mmTOpx(1)
 
             Repeater {
                 id: list
@@ -121,7 +121,7 @@ Rectangle {
                 delegate: Item {
                     property alias value: itemLabelText.text
                     width: parent.width
-                    height: 52 * guiScale
+                    height: mmTOpx(10)
 
                     Rectangle {
                         id: itemBackground
@@ -140,7 +140,7 @@ Rectangle {
                     Image {
                         id: itemImage
                         source: "../icons/%1.svg".arg(name)
-                        height: 32
+                        height: mmTOpx(8)
                         width: height
                         fillMode: Image.Stretch
                         anchors.verticalCenter: itemImageBackground.verticalCenter
@@ -159,10 +159,9 @@ Rectangle {
                         anchors.verticalCenter: parent.verticalCenter
                         anchors.left: itemImageBackground.right
                         anchors.right: parent.right
-                        anchors.leftMargin: 10
-                        anchors.rightMargin: 10
+                        anchors.leftMargin: mmTOpx(1)
                         color: colors.itemText
-                        font.pointSize: 11
+                        font.pixelSize: mmTOpx(3.5)
                         wrapMode: Text.Wrap
                     }
 
@@ -181,14 +180,14 @@ Rectangle {
     Rectangle {
         id: guiHeader
         color: colors.background
-        height: 64 * guiScale
+        height: mmTOpx(14)
         width: parent.width
 
         Rectangle {
             id: guiHeaderBackground
             color: colors.headerBackground
             width: parent.width
-            height: parent.height - 5
+            height: parent.height - mmTOpx(1)
         }
 
         Text {
@@ -197,7 +196,7 @@ Rectangle {
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
             color: colors.headerText
-            font.pointSize: 15
+            font.pixelSize: mmTOpx(4)
         }
 
         MouseArea {
@@ -213,12 +212,12 @@ Rectangle {
         color: colors.background
         anchors.bottom: parent.bottom
         width: parent.width
-        height: 48 * guiScale
+        height: mmTOpx(10)
 
         Row {
             anchors.fill: parent
-            anchors.margins: 5
-            spacing: 5
+            anchors.margins: mmTOpx(1)
+            spacing: mmTOpx(1)
 
             Rectangle {
                 id: cmdButton
@@ -232,7 +231,7 @@ Rectangle {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     color: colors.buttonText
-                    font.pointSize: 11
+                    font.pixelSize: mmTOpx(3.5)
                     wrapMode: Text.WordWrap
                 }
 
@@ -256,7 +255,7 @@ Rectangle {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     color: colors.buttonText
-                    font.pointSize: 11
+                    font.pixelSize: mmTOpx(3.5)
                     wrapMode: Text.WordWrap
                 }
 
@@ -280,7 +279,7 @@ Rectangle {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     color: colors.buttonText
-                    font.pointSize: 11
+                    font.pixelSize: mmTOpx(3.5)
                     wrapMode: Text.WordWrap
                 }
 

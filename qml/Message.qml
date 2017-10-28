@@ -32,7 +32,7 @@ Rectangle {
         id: message
         color: colors.messageBackground
         width: parent.width * 0.6
-        height: 150 * guiScale
+        height: mmTOpx(40)
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
 
@@ -41,9 +41,9 @@ Rectangle {
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.right: parent.right
-            anchors.topMargin: 10
+            anchors.topMargin: mmTOpx(2)
             color: colors.messageText
-            font.pointSize: 11
+            font.pixelSize: mmTOpx(3.5)
             font.bold: true
             wrapMode: Text.Wrap
             horizontalAlignment: Text.AlignHCenter
@@ -56,9 +56,9 @@ Rectangle {
             anchors.left: parent.left
             anchors.right: parent.right
             anchors.bottom: okButton.top
-            anchors.margins: 5
+            anchors.margins: mmTOpx(1)
             color: colors.messageText
-            font.pointSize: 11
+            font.pixelSize: mmTOpx(3.5)
             wrapMode: Text.Wrap
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
@@ -68,19 +68,19 @@ Rectangle {
             id: okButton
             color: colors.buttonBackground
             anchors.bottom: parent.bottom
-            anchors.bottomMargin: 5
+            anchors.bottomMargin: mmTOpx(1)
             anchors.left: parent.left
-            anchors.leftMargin: 5
+            anchors.leftMargin: mmTOpx(1)
             anchors.right: parent.right
-            anchors.rightMargin: 5
-            height: 48 * guiScale
+            anchors.rightMargin: mmTOpx(1)
+            height: mmTOpx(10)
 
             Text {
                 text: messageBox.error ? qsTr("Exit") : qsTr("OK")
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
                 color: colors.buttonText
-                font.pointSize: 11
+                font.pixelSize: mmTOpx(3.5)
             }
 
             MouseArea {

@@ -28,7 +28,7 @@ Rectangle {
             .arg(itemCorrectionSpinbox.getFormattedValue())
             )
         mainWindow.sendToAquarium("status\r")
-        messageBox.setText(qsTr("Time %1 with correction %2 was set successfull.")
+        messageBox.setText(qsTr("Time %1 with correction %2 sec. was set successfull.")
                            .arg(currentTime)
                            .arg(itemCorrectionSpinbox.value)
                            )
@@ -44,7 +44,7 @@ Rectangle {
             .arg(itemCorrectionSpinbox.getFormattedValue())
             )
         mainWindow.sendToAquarium("status\r")
-        messageBox.setText(qsTr("Time %1:%2:%3 with correction %4 was set successfull.")
+        messageBox.setText(qsTr("Time %1:%2:%3 with correction %4 sec. was set successfull.")
                            .arg(("00" + itemHoursSpinbox.value).slice(-2))
                            .arg(("00" + itemMinutesSpinbox.value).slice(-2))
                            .arg(("00" + itemSecondsSpinbox.value).slice(-2))
@@ -53,7 +53,7 @@ Rectangle {
     }
 
     Flickable {
-        width: parent.width - 10
+        width: parent.width - mmTOpx(2)
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: header.bottom
         anchors.bottom: buttonBox.top
@@ -64,12 +64,12 @@ Rectangle {
         Column {
             id: itemColumn
             width: parent.width
-            spacing: 5
+            spacing: mmTOpx(1)
 
             Item {
                 id: itemHours
                 width: parent.width
-                height: 52 * guiScale
+                height: mmTOpx(10)
 
                 Rectangle {
                     id: itemHoursBackgound
@@ -83,10 +83,9 @@ Rectangle {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.right: itemHoursSpinbox.right
-                    anchors.leftMargin: 10
-                    anchors.rightMargin: 10
+                    anchors.leftMargin: mmTOpx(1)
                     color: colors.itemText
-                    font.pointSize: 11
+                    font.pixelSize: mmTOpx(3.5)
                     wrapMode: Text.Wrap
                 }
 
@@ -103,7 +102,7 @@ Rectangle {
             Item {
                 id: itemMinutes
                 width: parent.width
-                height: 52 * guiScale
+                height: mmTOpx(10)
 
                 Rectangle {
                     id: itemMinutesBackgound
@@ -117,10 +116,9 @@ Rectangle {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.right: itemMinutesSpinbox.right
-                    anchors.leftMargin: 10
-                    anchors.rightMargin: 10
+                    anchors.leftMargin: mmTOpx(1)
                     color: colors.itemText
-                    font.pointSize: 11
+                    font.pixelSize: mmTOpx(3.5)
                     wrapMode: Text.Wrap
                 }
 
@@ -137,7 +135,7 @@ Rectangle {
             Item {
                 id: itemSeconds
                 width: parent.width
-                height: 52 * guiScale
+                height: mmTOpx(10)
 
                 Rectangle {
                     id: itemSecondsBackgound
@@ -151,10 +149,9 @@ Rectangle {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.right: itemSecondsSpinbox.right
-                    anchors.leftMargin: 10
-                    anchors.rightMargin: 10
+                    anchors.leftMargin: mmTOpx(1)
                     color: colors.itemText
-                    font.pointSize: 11
+                    font.pixelSize: mmTOpx(3.5)
                     wrapMode: Text.Wrap
                 }
 
@@ -171,7 +168,7 @@ Rectangle {
             Item {
                 id: itemCorrection
                 width: parent.width
-                height: 52 * guiScale
+                height: mmTOpx(10)
 
                 Rectangle {
                     id: itemCorrectionBackgound
@@ -185,10 +182,9 @@ Rectangle {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.right: itemCorrectionSpinbox.right
-                    anchors.leftMargin: 10
-                    anchors.rightMargin: 10
+                    anchors.leftMargin: mmTOpx(1)
                     color: colors.itemText
-                    font.pointSize: 11
+                    font.pixelSize: mmTOpx(3.5)
                     wrapMode: Text.Wrap
                 }
 
@@ -218,14 +214,14 @@ Rectangle {
     Rectangle {
         id: header
         color: colors.background
-        height: 64 * guiScale
+        height: mmTOpx(14)
         width: parent.width
 
         Rectangle {
             id: headerBackground
             color: colors.headerBackground
             width: parent.width
-            height: parent.height - 5
+            height: parent.height - mmTOpx(1)
         }
 
         Text {
@@ -234,7 +230,7 @@ Rectangle {
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
             color: colors.headerText
-            font.pointSize: 15
+            font.pixelSize: mmTOpx(4)
         }
     }
 
@@ -243,12 +239,12 @@ Rectangle {
         color: colors.background
         anchors.bottom: parent.bottom
         width: parent.width
-        height: 48 * guiScale
+        height: mmTOpx(10)
 
         Row {
             anchors.fill: parent
-            anchors.margins: 5
-            spacing: 5
+            anchors.margins: mmTOpx(1)
+            spacing: mmTOpx(1)
 
             Rectangle {
                 id: setupCurrentButton
@@ -262,7 +258,7 @@ Rectangle {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     color: colors.buttonText
-                    font.pointSize: 11
+                    font.pixelSize: mmTOpx(3.5)
                     wrapMode: Text.WordWrap
                 }
 
@@ -286,7 +282,7 @@ Rectangle {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     color: colors.buttonText
-                    font.pointSize: 11
+                    font.pixelSize: mmTOpx(3.5)
                     wrapMode: Text.WordWrap
                 }
 
@@ -310,7 +306,7 @@ Rectangle {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     color: colors.buttonText
-                    font.pointSize: 11
+                    font.pixelSize: mmTOpx(3.5)
                     wrapMode: Text.WordWrap
                 }
 

@@ -7,8 +7,6 @@ Rectangle {
     height: searchText.height + bluetoothImage.height;
     color: "transparent"
 
-    property bool animationRunning: true
-
     function setText(newText) {
         searchText.text = newText
     }
@@ -21,10 +19,11 @@ Rectangle {
         id: bluetoothImage
         focus: true
         source: "../icons/bt.svg"
-        width: 48 * guiScale
+        width: mmTOpx(8)
         height: width
+        fillMode: Image.Stretch
+
         anchors.top: parent.top
-        anchors.topMargin: 10
         anchors.horizontalCenter: parent.horizontalCenter
 
         RotationAnimation on rotation{
@@ -37,7 +36,7 @@ Rectangle {
             duration: 2000
             loops: Animation.Infinite
             alwaysRunToEnd: true
-            running: animationRunning
+            running: true
         }
     }
 
@@ -50,7 +49,7 @@ Rectangle {
         text: "Aquarium control"
         horizontalAlignment: Text.AlignHCenter
         color: colors.itemText
-        font.pointSize: 15
+        font.pixelSize: mmTOpx(4)
     }
 }
 

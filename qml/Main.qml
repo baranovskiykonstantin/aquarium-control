@@ -6,16 +6,24 @@ import Qt.labs.settings 1.0
 Item {
     id: mainWindow
 
-    property real guiScale: 1
+    // Screen size in inches
+    readonly property real screenSize: Math.sqrt(Math.pow(Screen.height, 2) + Math.pow(Screen.width, 2)) / (Screen.pixelDensity * 25.4)
+
+    // Calculate pixel count per millimeter
+    function mmTOpx (mm) {
+        var px = Screen.pixelDensity * mm
+        // On small screens make size of items bit less
+        if (screenSize < 6.8) {
+            px *= 0.7
+        }
+        return Math.round(px)
+    }
 
     Component.onCompleted: {
-        // If size of icons on screen less then 6mm (48x48px)
-        if (Screen.pixelDensity > 10)
-            guiScale = 2
-
         mainWindow.state = "search"
         // btCheck starts automatically and checks state of Bluetooth
         if (btCheck.running == true) {
+            // If btCheck still running -- Bluetooth is OK
             btCheck.running = false
             // If settings has address from previous session - try to use it
             if (btService.deviceAddress != "00:00:00:00:00:00") {

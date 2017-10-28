@@ -5,7 +5,7 @@ SpinBox {
     id: control
     value: 50
     editable: false
-    font.pointSize: 11
+    font.pixelSize: mmTOpx(3.5)
 
     contentItem: Text {
         id: textValue
@@ -54,7 +54,7 @@ SpinBox {
         Text {
             id: upIndicatorText
             text: "+"
-            font.pointSize: control.font.pointSize * 2
+            font.pixelSize: control.font.pixelSize * 2
             font.family: "Droid Sans Mono"
             color: colors.buttonText
             anchors.fill: parent
@@ -74,7 +74,7 @@ SpinBox {
         Text {
             id: downIndicatorText
             text: "−"
-            font.pointSize: control.font.pointSize * 2
+            font.pixelSize: control.font.pixelSize * 2
             font.family: "Droid Sans Mono"
             color: colors.buttonText
             anchors.fill: parent
@@ -86,16 +86,16 @@ SpinBox {
 
     Rectangle {
         color: colors.background
-        height: 36 * guiScale
-        width: 2 * guiScale
+        height: mmTOpx(8)
+        width: mmTOpx(0.5)
         anchors.verticalCenter: downIndicator.verticalCenter
         anchors.left: downIndicator.right
     }
 
     Rectangle {
         color: colors.background
-        height: 36 * guiScale
-        width: 2 * guiScale
+        height: mmTOpx(8)
+        width: mmTOpx(0.5)
         anchors.verticalCenter: upIndicator.verticalCenter
         anchors.right: upIndicator.left
     }

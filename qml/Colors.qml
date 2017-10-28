@@ -20,7 +20,7 @@ Item {
 
     property string cmdBoxBackground: "#0c0c0c"
     property string cmdBoxText: "#e6e6e6"
-    property string cmdBoxScrollBar: "#303030"
+    property string cmdBoxScrollBar: "#80f0f0f0"
     property string cmdInputBackground: "#f0f0f0"
     property string cmdInputText: "#1e1e1e"
 }

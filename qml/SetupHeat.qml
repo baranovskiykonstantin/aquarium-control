@@ -53,7 +53,7 @@ Rectangle {
     }
 
     Flickable {
-        width: parent.width - 10
+        width: parent.width - mmTOpx(2)
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: header.bottom
         anchors.bottom: buttonBox1.top
@@ -64,12 +64,12 @@ Rectangle {
         Column {
             id: itemColumn
             width: parent.width
-            spacing: 5
+            spacing: mmTOpx(1)
 
             Item {
                 id: itemMinTemp
                 width: parent.width
-                height: 52 * guiScale
+                height: mmTOpx(10)
 
                 Rectangle {
                     id: itemMinTempBackgound
@@ -83,10 +83,9 @@ Rectangle {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.right: itemMinTempSpinbox.right
-                    anchors.leftMargin: 10
-                    anchors.rightMargin: 10
+                    anchors.leftMargin: mmTOpx(1)
                     color: colors.itemText
-                    font.pointSize: 11
+                    font.pixelSize: mmTOpx(3.5)
                     wrapMode: Text.Wrap
                 }
 
@@ -112,7 +111,7 @@ Rectangle {
             Item {
                 id: itemMaxTemp
                 width: parent.width
-                height: 52 * guiScale
+                height: mmTOpx(10)
 
                 Rectangle {
                     id: itemMaxTempBackgound
@@ -126,10 +125,9 @@ Rectangle {
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.right: itemMaxTempSpinbox.right
-                    anchors.leftMargin: 10
-                    anchors.rightMargin: 10
+                    anchors.leftMargin: mmTOpx(1)
                     color: colors.itemText
-                    font.pointSize: 11
+                    font.pixelSize: mmTOpx(3.5)
                     wrapMode: Text.Wrap
                 }
 
@@ -157,14 +155,14 @@ Rectangle {
     Rectangle {
         id: header
         color: colors.background
-        height: 64 * guiScale
+        height: mmTOpx(14)
         width: parent.width
 
         Rectangle {
             id: headerBackground
             color: colors.headerBackground
             width: parent.width
-            height: parent.height - 5
+            height: parent.height - mmTOpx(1)
         }
 
         Text {
@@ -173,7 +171,7 @@ Rectangle {
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
             color: colors.headerText
-            font.pointSize: 15
+            font.pixelSize: mmTOpx(4)
         }
     }
 
@@ -182,14 +180,13 @@ Rectangle {
         color: colors.background
         anchors.bottom: buttonBox2.top
         width: parent.width
-        height: 48 * guiScale
+        height: mmTOpx(10)
 
         Row {
             anchors.fill: parent
-            anchors.leftMargin: 5
-            anchors.rightMargin: 5
-            anchors.topMargin: 5
-            spacing: 5
+            anchors.margins: mmTOpx(1)
+            anchors.bottomMargin: 0
+            spacing: mmTOpx(1)
 
             Rectangle {
                 id: heatOnButton
@@ -203,7 +200,7 @@ Rectangle {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     color: colors.buttonText
-                    font.pointSize: 11
+                    font.pixelSize: mmTOpx(3.5)
                     wrapMode: Text.WordWrap
                 }
 
@@ -227,7 +224,7 @@ Rectangle {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     color: colors.buttonText
-                    font.pointSize: 11
+                    font.pixelSize: mmTOpx(3.5)
                     wrapMode: Text.WordWrap
                 }
 
@@ -251,7 +248,7 @@ Rectangle {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     color: colors.buttonText
-                    font.pointSize: 11
+                    font.pixelSize: mmTOpx(3.5)
                     wrapMode: Text.WordWrap
                 }
 
@@ -270,12 +267,12 @@ Rectangle {
         color: colors.background
         anchors.bottom: parent.bottom
         width: parent.width
-        height: 48 * guiScale
+        height: mmTOpx(10)
 
         Row {
             anchors.fill: parent
-            anchors.margins: 5
-            spacing: 5
+            anchors.margins: mmTOpx(1)
+            spacing: mmTOpx(1)
 
             Rectangle {
                 id: setupButton
@@ -289,7 +286,7 @@ Rectangle {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     color: colors.buttonText
-                    font.pointSize: 11
+                    font.pixelSize: mmTOpx(3.5)
                     wrapMode: Text.WordWrap
                 }
 
@@ -313,7 +310,7 @@ Rectangle {
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
                     color: colors.buttonText
-                    font.pointSize: 11
+                    font.pixelSize: mmTOpx(3.5)
                     wrapMode: Text.WordWrap
                 }
 
