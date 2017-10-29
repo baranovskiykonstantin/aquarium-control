@@ -16,6 +16,6 @@ Qt 5.6 (declarative, connectivity, svg)
 * Ukrainian
 
 # Packages
-* ![Android](https://drive.google.com/open?id=0B5-dsSCmJWWvRmF5TG5IcFQxS0E)
-* ![Archlinux](https://drive.google.com/open?id=0B5-dsSCmJWWvWGI0d3RyREtNMnM)
-* ![Debian](https://drive.google.com/open?id=0B5-dsSCmJWWvNjFoZWZ3cEJMSk0)
+* [Android](https://drive.google.com/open?id=0B5-dsSCmJWWvRmF5TG5IcFQxS0E)
+* [Archlinux](https://drive.google.com/open?id=0B5-dsSCmJWWvWGI0d3RyREtNMnM)
+* [Debian](https://drive.google.com/open?id=0B5-dsSCmJWWvNjFoZWZ3cEJMSk0)
