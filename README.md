@@ -1,11 +1,7 @@
 # Aquarium-control
 App for controlling parameters of the [aquarium controller](https://github.com/baranovskiykonstantin/aquarium).
 
-![gui](https://raw.github.com/baranovskiykonstantin/aquarium-control/master/screenshots/gui.png)
-
-![msg](https://raw.github.com/baranovskiykonstantin/aquarium-control/master/screenshots/msg.png)
-
-![cmd](https://raw.github.com/baranovskiykonstantin/aquarium-control/master/screenshots/cmd.png)
+![app](https://raw.github.com/baranovskiykonstantin/aquarium-control/master/screenshots/app.gif)
 
 # Minimal requirements
 Qt 5.6 (declarative, connectivity, svg)
