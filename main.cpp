@@ -9,6 +9,7 @@
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
+    app.setOrganizationName("baranovskiykonstantin");
 
     QTranslator qtTranslator;
     qtTranslator.load(QLocale(), "lang", "_", ":/translations");
