@@ -1,6 +1,6 @@
 # Maintainer: Baranovskiy Konstantin <baranovskiykonstantin@gmail.com>
 pkgname=aquarium-control
-pkgver=1.0
+pkgver=1.1
 pkgrel=1
 pkgdesc='App for controlling parameters of aquarium controller.'
 arch=('x86_64')

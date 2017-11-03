@@ -25,22 +25,22 @@ Rectangle {
     function setValue (item, value) {
         switch (item) {
         case "date":
-            list.itemAt(0).value = value
+            list.itemAt(0).setValue(value)
             break
         case "time":
-            list.itemAt(1).value = value
+            list.itemAt(1).setValue(value)
             break
         case "temp":
-            list.itemAt(2).value = value
+            list.itemAt(2).setValue(value)
             break
         case "heat":
-            list.itemAt(3).value = value
+            list.itemAt(3).setValue(value)
             break
         case "light":
-            list.itemAt(4).value = value
+            list.itemAt(4).setValue(value)
             break
         case "display":
-            list.itemAt(5).value = value
+            list.itemAt(5).setValue(value)
             break
         }
     }
@@ -119,9 +119,16 @@ Rectangle {
                     }
                 }
                 delegate: Item {
-                    property alias value: itemLabelText.text
                     width: parent.width
                     height: mmTOpx(10)
+
+                    function setValue(value) {
+                        itemLabelText.text = value
+                        // Fit text in label by decreasing font size
+                        while (itemLabelText.truncated == true) {
+                            itemLabelText.font.pixelSize -= mmTOpx(0.1)
+                        }
+                    }
 
                     Rectangle {
                         id: itemBackground
@@ -163,6 +170,7 @@ Rectangle {
                         color: colors.itemText
                         font.pixelSize: mmTOpx(3.5)
                         wrapMode: Text.Wrap
+                        maximumLineCount: 2
                     }
 
                     MouseArea {

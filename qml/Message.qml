@@ -12,11 +12,15 @@ Rectangle {
     }
 
     function setTitle (title) {
-        messageTitle.text = title
+        // Do not modify message box if it's showing
+        if (messageBox.z != 3)
+            messageTitle.text = title
     }
 
     function setText (message) {
-        messageText.text = message
+        // Do not modify message box if it's showing
+        if (messageBox.z != 3)
+            messageText.text = message
     }
 
     MouseArea {

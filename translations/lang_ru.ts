@@ -460,12 +460,12 @@ exit
         <translation>Сейчас на дисплее отображается время.</translation>
     </message>
     <message>
-        <location filename="../qml/Gui.qml" line="158"/>
+        <location filename="../qml/Gui.qml" line="165"/>
         <source>no data</source>
         <translation>нет данных</translation>
     </message>
     <message>
-        <location filename="../qml/Gui.qml" line="195"/>
+        <location filename="../qml/Gui.qml" line="203"/>
         <source>Aquarium (not connected)</source>
         <translation>Аквариум (не подключен)</translation>
     </message>
@@ -474,17 +474,17 @@ exit
         <translation type="vanished">Аквариум</translation>
     </message>
     <message>
-        <location filename="../qml/Gui.qml" line="277"/>
+        <location filename="../qml/Gui.qml" line="285"/>
         <source>Exit</source>
         <translation>Выйти</translation>
     </message>
     <message>
-        <location filename="../qml/Gui.qml" line="253"/>
+        <location filename="../qml/Gui.qml" line="261"/>
         <source>Update</source>
         <translation>Обновить</translation>
     </message>
     <message>
-        <location filename="../qml/Gui.qml" line="229"/>
+        <location filename="../qml/Gui.qml" line="237"/>
         <source>Terminal</source>
         <translation>Терминал</translation>
     </message>
@@ -492,73 +492,72 @@ exit
 <context>
     <name>Main</name>
     <message>
-        <location filename="../qml/Main.qml" line="30"/>
-        <location filename="../qml/Main.qml" line="107"/>
+        <location filename="../qml/Main.qml" line="82"/>
         <source>Connecting to aquarium:
 %1</source>
         <translation>Подключение к аквариуму:
 %1</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="43"/>
+        <location filename="../qml/Main.qml" line="33"/>
         <source>Searching for aquarium...</source>
         <translation>Поиск аквариума...</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="82"/>
+        <location filename="../qml/Main.qml" line="89"/>
         <source>Bluetooth powered off!</source>
         <translation>Bluetooth выключен!</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="83"/>
+        <location filename="../qml/Main.qml" line="90"/>
         <source>Please power on Bluetooth and start app again.</source>
         <translation>Пожалуйста, включите Bluetooth и снова запустите приложение.</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="99"/>
-        <location filename="../qml/Main.qml" line="116"/>
+        <location filename="../qml/Main.qml" line="74"/>
+        <location filename="../qml/Main.qml" line="96"/>
         <source>Aquarium not found</source>
         <translation>Аквариум не найден</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="100"/>
-        <location filename="../qml/Main.qml" line="141"/>
+        <location filename="../qml/Main.qml" line="75"/>
+        <location filename="../qml/Main.qml" line="121"/>
         <source>Please ensure aquarium is available.</source>
         <translation>Пожалуйста, проверьте состояние аквариума.</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="117"/>
+        <location filename="../qml/Main.qml" line="97"/>
         <source>Please ensure Bluetooth is available.</source>
         <translation>Пожалуйста, проверьте состояние Bluetooth.</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="126"/>
+        <location filename="../qml/Main.qml" line="107"/>
         <source>Aquarium found</source>
         <translation>Аквариум найден</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="127"/>
+        <location filename="../qml/Main.qml" line="108"/>
         <source>Adress: %1</source>
         <translation>Адрес: %1</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="140"/>
+        <location filename="../qml/Main.qml" line="120"/>
         <source>Can&apos;t connect to aquarium</source>
         <translation>Не удалось подключиться к аквариуму</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="143"/>
-        <location filename="../qml/Main.qml" line="160"/>
+        <location filename="../qml/Main.qml" line="123"/>
+        <location filename="../qml/Main.qml" line="140"/>
         <source>Aquarium (not connected)</source>
         <translation>Аквариум (не подключен)</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="154"/>
+        <location filename="../qml/Main.qml" line="134"/>
         <source>Aquarium (%1)</source>
         <translation>Аквариум (%1)</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="159"/>
+        <location filename="../qml/Main.qml" line="139"/>
         <source>
 aquarium not connected!
 </source>
@@ -567,86 +566,86 @@ aquarium not connected!
 </translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="176"/>
+        <location filename="../qml/Main.qml" line="156"/>
         <source>%1 %2</source>
         <translation>%1 %2</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="183"/>
+        <location filename="../qml/Main.qml" line="163"/>
         <source>%1 (time corrects on %2 sec. everyday at %3)</source>
         <translation>%1 (время корректируется на %2 сек. каждый день в %3)</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="188"/>
+        <location filename="../qml/Main.qml" line="168"/>
         <source>Water temperature %1 °C</source>
         <translation>Температура воды %1 °C</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="195"/>
-        <location filename="../qml/Main.qml" line="206"/>
+        <location filename="../qml/Main.qml" line="175"/>
+        <location filename="../qml/Main.qml" line="186"/>
         <source>on</source>
         <translation>включен</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="195"/>
-        <location filename="../qml/Main.qml" line="207"/>
+        <location filename="../qml/Main.qml" line="175"/>
+        <location filename="../qml/Main.qml" line="187"/>
         <source>off</source>
         <translation>выключен</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="196"/>
-        <location filename="../qml/Main.qml" line="211"/>
+        <location filename="../qml/Main.qml" line="176"/>
+        <location filename="../qml/Main.qml" line="191"/>
         <source>automatic</source>
         <translation>автоматическом</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="196"/>
-        <location filename="../qml/Main.qml" line="212"/>
+        <location filename="../qml/Main.qml" line="176"/>
+        <location filename="../qml/Main.qml" line="192"/>
         <source>manual</source>
         <translation>ручном</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="197"/>
+        <location filename="../qml/Main.qml" line="177"/>
         <source>Heater is %1 in %2 mode (%3)</source>
         <translation>Нагреватель %1 в %2 режиме (%3)</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="208"/>
+        <location filename="../qml/Main.qml" line="188"/>
         <source>in unknown state</source>
         <translation>в неизвестном состоянии</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="213"/>
+        <location filename="../qml/Main.qml" line="193"/>
         <source>unknown</source>
         <translation>неизвестном</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="215"/>
+        <location filename="../qml/Main.qml" line="195"/>
         <source>Light is %1 in %2 mode (%3), brightness %4%</source>
         <translation>Свет %1 в %2 режиме (%3), яркость %4%</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="220"/>
+        <location filename="../qml/Main.qml" line="200"/>
         <source>none</source>
         <translation>ничего</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="222"/>
+        <location filename="../qml/Main.qml" line="202"/>
         <source>time</source>
         <translation>время</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="223"/>
+        <location filename="../qml/Main.qml" line="203"/>
         <source>temperature</source>
         <translation>температура</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="225"/>
+        <location filename="../qml/Main.qml" line="205"/>
         <source>Display shows the %1</source>
         <translation>На дисплее отображается %1</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="231"/>
+        <location filename="../qml/Main.qml" line="211"/>
         <source>Error occurred while send the command!</source>
         <translation>Во время передачи комманды случилась ошибка!</translation>
     </message>
@@ -654,12 +653,12 @@ aquarium not connected!
 <context>
     <name>Message</name>
     <message>
-        <location filename="../qml/Message.qml" line="79"/>
+        <location filename="../qml/Message.qml" line="83"/>
         <source>Exit</source>
         <translation>Выйти</translation>
     </message>
     <message>
-        <location filename="../qml/Message.qml" line="79"/>
+        <location filename="../qml/Message.qml" line="83"/>
         <source>OK</source>
         <translation>ОК</translation>
     </message>
@@ -667,8 +666,9 @@ aquarium not connected!
 <context>
     <name>Search</name>
     <message>
+        <location filename="../qml/Search.qml" line="51"/>
         <source>Searching for aquarium...</source>
-        <translation type="vanished">Поиск аквариума...</translation>
+        <translation>Поиск аквариума...</translation>
     </message>
 </context>
 <context>

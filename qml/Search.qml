@@ -7,6 +7,8 @@ Rectangle {
     height: searchText.height + bluetoothImage.height;
     color: "transparent"
 
+    property bool animated: false
+
     function setText(newText) {
         searchText.text = newText
     }
@@ -36,7 +38,7 @@ Rectangle {
             duration: 2000
             loops: Animation.Infinite
             alwaysRunToEnd: true
-            running: true
+            running: animated
         }
     }
 
@@ -46,7 +48,7 @@ Rectangle {
         anchors.top: bluetoothImage.bottom
         anchors.topMargin: mmTOpx(5)
         anchors.horizontalCenter: parent.horizontalCenter
-        text: "Aquarium control"
+        text: qsTr("Searching for aquarium...")
         horizontalAlignment: Text.AlignHCenter
         color: colors.itemText
         font.pixelSize: mmTOpx(4)

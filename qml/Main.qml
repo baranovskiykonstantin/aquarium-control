@@ -21,20 +21,10 @@ Item {
 
     Component.onCompleted: {
         mainWindow.state = "search"
-        // btCheck starts automatically and checks state of Bluetooth
-        if (btCheck.running == true) {
-            // If btCheck still running -- Bluetooth is OK
-            btCheck.running = false
-            // If settings has address from previous session - try to use it
-            if (btService.deviceAddress != "00:00:00:00:00:00") {
-                searchBox.setText(qsTr("Connecting to aquarium:\n%1").arg(btService.deviceAddress))
-                btSocket.setService(btService)
-                btSocket.connected = true
-            }
-            // Otherwise - search for another one
-            else {
-                startSearching()
-            }
+        // If settings has address from previous session - try to use it
+        if (btDiscovery.running == true && btService.deviceAddress != "00:00:00:00:00:00") {
+            btDiscovery.running = false
+            // btSocket will connected in btDiscovery.onRunningChanged
         }
     }
 
@@ -73,25 +63,10 @@ Item {
     }
 
     BluetoothDiscoveryModel {
-        id: btCheck
-        discoveryMode: BluetoothDiscoveryModel.FullServiceDiscovery
-        running: true
-
-        onErrorChanged: {
-            if (error == BluetoothDiscoveryModel.PoweredOffError) {
-                messageBox.setTitle(qsTr("Bluetooth powered off!"))
-                messageBox.setText(qsTr("Please power on Bluetooth and start app again."))
-                messageBox.error = true
-                messageBox.show()
-            }
-        }
-    }
-
-    BluetoothDiscoveryModel {
         id: btDiscovery
         uuidFilter: btService.serviceUuid
-        discoveryMode: BluetoothDiscoveryModel.FullServiceDiscovery
-        running: false
+        discoveryMode: BluetoothDiscoveryModel.MinimalServiceDiscovery
+        running: true
 
         onRunningChanged : {
             if (!btDiscovery.running) {
@@ -110,7 +85,13 @@ Item {
         }
 
         onErrorChanged: {
-            if (error != BluetoothDiscoveryModel.NoError && btDiscovery.running) {
+            if (error == BluetoothDiscoveryModel.PoweredOffError) {
+                messageBox.setTitle(qsTr("Bluetooth powered off!"))
+                messageBox.setText(qsTr("Please power on Bluetooth and start app again."))
+                messageBox.error = true
+                messageBox.show()
+            }
+            else if (error != BluetoothDiscoveryModel.NoError && btDiscovery.running) {
                 btDiscovery.running = false
                 messageBox.setTitle(qsTr("Aquarium not found"))
                 messageBox.setText(qsTr("Please ensure Bluetooth is available."))
@@ -120,12 +101,12 @@ Item {
         }
 
         onServiceDiscovered: {
-            if (service.deviceName == "aquarium") {
+            // Use first discovered aquarium only
+            if (service.deviceName == "aquarium" && btService.deviceAddress == "00:00:00:00:00:00") {
                 btService.deviceAddress = service.deviceAddress
                 messageBox.setTitle(qsTr("Aquarium found"))
                 messageBox.setText(qsTr("Adress: %1").arg(btService.deviceAddress))
                 messageBox.show()
-                btDiscovery.running = false
             }
         }
     }
@@ -293,7 +274,7 @@ Item {
     states: [
         State {
             name: "search"
-            PropertyChanges { target: searchBox; opacity: 1; z: 2 }
+            PropertyChanges { target: searchBox; opacity: 1; z: 2; animated: true }
             PropertyChanges { target: guiBox; opacity: 0; z: 0}
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
@@ -304,7 +285,7 @@ Item {
         },
         State {
             name: "gui"
-            PropertyChanges { target: searchBox; opacity: 0; z: 0 }
+            PropertyChanges { target: searchBox; opacity: 0; z: 0; animated: false }
             PropertyChanges { target: guiBox; opacity: 1; z: 2}
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
@@ -315,7 +296,7 @@ Item {
         },
         State {
             name: "setupDate"
-            PropertyChanges { target: searchBox; opacity: 0; z: 0 }
+            PropertyChanges { target: searchBox; opacity: 0; z: 0; animated: false }
             PropertyChanges { target: guiBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupDateBox; opacity: 1; z: 2 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
@@ -326,7 +307,7 @@ Item {
         },
         State {
             name: "setupTime"
-            PropertyChanges { target: searchBox; opacity: 0; z: 0 }
+            PropertyChanges { target: searchBox; opacity: 0; z: 0; animated: false }
             PropertyChanges { target: guiBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 1; z: 2 }
@@ -337,7 +318,7 @@ Item {
         },
         State {
             name: "setupHeat"
-            PropertyChanges { target: searchBox; opacity: 0; z: 0 }
+            PropertyChanges { target: searchBox; opacity: 0; z: 0; animated: false }
             PropertyChanges { target: guiBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
@@ -348,7 +329,7 @@ Item {
         },
         State {
             name: "setupLight"
-            PropertyChanges { target: searchBox; opacity: 0; z: 0 }
+            PropertyChanges { target: searchBox; opacity: 0; z: 0; animated: false }
             PropertyChanges { target: guiBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
@@ -359,7 +340,7 @@ Item {
         },
         State {
             name: "setupLightTime"
-            PropertyChanges { target: searchBox; opacity: 0; z: 0 }
+            PropertyChanges { target: searchBox; opacity: 0; z: 0; animated: false }
             PropertyChanges { target: guiBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
@@ -370,7 +351,7 @@ Item {
         },
         State {
             name: "cmd"
-            PropertyChanges { target: searchBox; opacity: 0; z: 0 }
+            PropertyChanges { target: searchBox; opacity: 0; z: 0; animated: false }
             PropertyChanges { target: guiBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
