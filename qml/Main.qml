@@ -177,11 +177,12 @@ Item {
                 guiBox.setValue("heat", qsTr("Heater is %1 in %2 mode (%3)").arg(state).arg(mode).arg(aquarium.heat))
             }
             if (data.match("Light: ")) {
-                matchRes = data.toString().match(new RegExp("Light: (ON|OFF) (auto|manual) \\((\\d{2}:\\d{2}:\\d{2}-\\d{2}:\\d{2}:\\d{2})\\) (\\d+)%", "m"))
+                matchRes = data.toString().match(new RegExp("Light: (ON|OFF) (auto|manual) \\((\\d{2}:\\d{2}:\\d{2}-\\d{2}:\\d{2}:\\d{2})\\) (\\d+)% (\\d+)min", "m"))
                 aquarium.lightState = matchRes[1]
                 aquarium.lightMode = matchRes[2]
                 aquarium.light = matchRes[3]
                 aquarium.lightLevel = matchRes[4]
+                aquarium.riseTime = matchRes[5]
                 switch (aquarium.lightState) {
                     case "ON": state = qsTr("on"); break
                     case "OFF": state = qsTr("off"); break
@@ -192,7 +193,7 @@ Item {
                     case "manual": mode = qsTr("manual"); break
                     default: mode = qsTr("unknown")
                 }
-                guiBox.setValue("light", qsTr("Light is %1 in %2 mode (%3), brightness %4%").arg(state).arg(mode).arg(aquarium.light).arg(aquarium.lightLevel))
+                guiBox.setValue("light", qsTr("Light is %1 in %2 mode (%3, %4%, %5 min.)").arg(state).arg(mode).arg(aquarium.light).arg(aquarium.lightLevel).arg(aquarium.riseTime))
             }
             if (data.match("Display: ")) {
                 matchRes = data.toString().match(new RegExp("Display: (time|temp)", "m"))

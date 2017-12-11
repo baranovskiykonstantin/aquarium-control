@@ -71,7 +71,8 @@ Rectangle {
                            "\n" +
                            "light H1:M1:S1-H2:M2:S2\n" +
                            "light level XXX\n" +
-                           "light H1:M1:S1-H2:M2:S2 XXX\n" +
+                           "light rise YY\n" +
+                           "light H1:M1:S1-H2:M2:S2 XXX YY\n" +
                            "light on\n" +
                            "light off\n" +
                            "light auto\n" +
@@ -80,7 +81,8 @@ Rectangle {
                            "\n" +
                            "\tH1:M1:S1 - time of turn on light (00:00:00-23:59:59)\n" +
                            "\tH2:M2:S2 - time of turn off light (00:00:00-23:59:59)\n" +
-                           "\tXXX      - brightness level (000-100)\n" +
+                           "\tXXX      - brightness level in percentage (000-100)\n" +
+                           "\tYY       - light rising time in minutes (00-30)\n" +
                            "\n" +
                            "\n" +
                            "display time\n" +

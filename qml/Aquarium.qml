@@ -15,5 +15,6 @@ Item {
     property string lightState: "OFF"
     property string lightMode: "auto"
     property string lightLevel: "60"
+    property string riseTime: "1"
     property string display: "time"
 }

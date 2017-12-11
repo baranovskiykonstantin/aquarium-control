@@ -17,6 +17,7 @@ Rectangle {
                 itemLightOnValue.text = matchRes[1]
                 itemLightOffValue.text = matchRes[2]
                 itemBrightnessSpinbox.value = aquarium.lightLevel
+                itemRiseSpinbox.value = aquarium.riseTime
                 initOnOpacityCahnged = true
             }
         }
@@ -51,16 +52,18 @@ Rectangle {
     function setup () {
         cmdBox.appendText('\n')
         mainWindow.sendToAquarium(
-            "light %1-%2 %3\r"
+            "light %1-%2 %3 %4\r"
             .arg(itemLightOnValue.text)
             .arg(itemLightOffValue.text)
             .arg(("000" + itemBrightnessSpinbox.value).slice(-3))
+            .arg(("00" + itemRiseSpinbox.value).slice(-2))
             )
         mainWindow.sendToAquarium("status\r")
-        messageBox.setText(qsTr("Light will turn on at %1 o'clock with brightness %3% and turn off at %2 o'clock.")
+        messageBox.setText(qsTr("Light will turn on at %1 o'clock with brightness %3% and turn off at %2 o'clock.\nLight will rise/fall %4 minutes.")
                            .arg(itemLightOnValue.text)
                            .arg(itemLightOffValue.text)
                            .arg(itemBrightnessSpinbox.value)
+                           .arg(itemRiseSpinbox.value)
                            )
     }
 
@@ -198,6 +201,39 @@ Rectangle {
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
                     height: itemBrightness.height
+                }
+            }
+
+            Item {
+                id: itemRise
+                width: parent.width
+                height: mmTOpx(10)
+
+                Rectangle {
+                    id: itemRiseBackground
+                    anchors.fill: parent
+                    color: colors.itemBackground
+                }
+
+                Text {
+                    id: itemRiseLabelText
+                    text: qsTr("Rise time")
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: parent.left
+                    anchors.right: itemRiseSpinbox.right
+                    anchors.leftMargin: mmTOpx(1)
+                    color: colors.itemText
+                    font.pixelSize: mmTOpx(3.5)
+                    wrapMode: Text.Wrap
+                }
+
+                SpinCtrl {
+                    id: itemRiseSpinbox
+                    from: 0
+                    to: 30
+                    anchors.right: parent.right
+                    anchors.verticalCenter: parent.verticalCenter
+                    height: itemRise.height
                 }
             }
         }

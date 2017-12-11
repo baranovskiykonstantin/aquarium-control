@@ -4,6 +4,6 @@ Comment=App for controlling parameters of aquarium controller.
 Comment[ru]=Приложение для управления параметрами контроллера аквариума.
 Comment[uk]=Додаток для управління параметрами контролера акваріума.
 Categories=Utility
-Exec=/usr/share/aquarium_control/aquarium-control
+Exec=/usr/bin/aquarium-control
 Icon=aquarium-control
 Type=Application

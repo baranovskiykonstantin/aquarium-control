@@ -4,7 +4,7 @@ sudo checkinstall -D \
     --default \
     --install=no \
     --pkgname=aquarium-control \
-    --pkgversion=1.1\
+    --pkgversion=1.2\
     --pkgarch=amd64 \
     --pkgrelease=1 \
     --pkglicense=GPLv3 \

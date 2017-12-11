@@ -12,6 +12,6 @@ Qt 5.9.2 (declarative, connectivity, svg)
 * Ukrainian
 
 # Packages
-* Android: [aquarium-control-1.1-armeabi-v7a.apk](https://drive.google.com/open?id=1gL70KFy2fDpV8pC0aSZhfma2rKneUnzL)
-* Archlinux: [aquarium-control-1.1-1-x86_64.pkg.tar.xz](https://drive.google.com/open?id=1VP4ry6ZF_R21swCBgQ-5g98NGOHmyGge)
-* Debian: [aquarium-control_1.1-1_amd64.deb](https://drive.google.com/open?id=1-_4KrhlElrmWQ2waHJr95qY-eoTeri_3)
+* Android: [aquarium-control-1.2-armeabi-v7a.apk](https://drive.google.com/open?id=1oMw0taMNseJIvx_3hUQxOoBZSXMGo6xo)
+* Archlinux: [aquarium-control-1.2-1-x86_64.pkg.tar.xz](https://drive.google.com/open?id=1o-2jZ1J10cIlbJuy0R8971tv77lr7II_)
+* Debian: [aquarium-control_1.2-1_amd64.deb](https://drive.google.com/open?id=1YNEpKNlSwRB40UwRes4PgvsIbnG-j9Vq)
