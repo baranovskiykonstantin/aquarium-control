@@ -6,48 +6,81 @@ import Qt.labs.settings 1.0
 Item {
     id: mainWindow
 
+    Component.onCompleted: {
+        if (aquarium.address == "00:00:00:00:00:00") {
+            startSearching()
+        }
+        else {
+            connectToAquarium(aquarium.name, aquarium.address)
+        }
+    }
+
     // Screen size in inches
     readonly property real screenSize: Math.sqrt(Math.pow(Screen.height, 2) + Math.pow(Screen.width, 2)) / (Screen.pixelDensity * 25.4)
 
-    // Calculate pixel count per millimeter
-    function mmTOpx (mm) {
+    // Calculate pixel count per millimeter of the screen
+    function mmTOpx(mm) {
         var px = Screen.pixelDensity * mm
-        // On small screens make size of items bit less
+        // Make size of items bit less on small screens
         if (screenSize < 6.8) {
             px *= 0.7
         }
         return Math.round(px)
     }
 
-    Component.onCompleted: {
-        mainWindow.state = "search"
-        // If settings has address from previous session - try to use it
-        if (btDiscovery.running == true && btService.deviceAddress != "00:00:00:00:00:00") {
-            btDiscovery.running = false
-            // btSocket will connected in btDiscovery.onRunningChanged
-        }
-    }
-
     function startSearching() {
         mainWindow.state = "search"
-        searchBox.setText(qsTr("Searching for aquarium..."))
+        searchBox.setText(qsTr("Search of aquariums..."))
+        deviceListBox.removeItems()
         btSocket.connected = false
         btService.deviceAddress = "00:00:00:00:00:00"
-        btDiscovery.running = false
         btDiscovery.running = true
     }
 
-    function sendToAquarium(data) {
-        if (btSocket.connected == true)
-            btSocket.stringData = data
+    function stopSearching() {
+        btSocket.connected = false
+        btService.deviceAddress = "00:00:00:00:00:00"
+        btDiscovery.running = false
+        mainWindow.state = "gui"
     }
 
-    Settings {
-        property alias aquariumAddress: btService.deviceAddress
+    function connectToAquarium(name, address) {
+        aquarium.name = name
+        // aquarium.address will be set when the connection is established
+        btService.deviceAddress = address
+        btSocket.connected = true
+        searchBox.setText(qsTr("Connecting to\n%1 (%2)").arg(name).arg(address))
+        mainWindow.state = "search"
+    }
+
+    function sendToAquarium(data) {
+        if (btSocket.connected == true) {
+            btSocket.stringData = data
+        }
+    }
+
+    function resetGui() {
+        aquarium.name = ""
+        aquarium.address = "00:00:00:00:00:00"
+        guiBox.setHeader(qsTr("aquarium (disconnected)"))
+        guiBox.setValue("date", qsTr("no data"))
+        guiBox.setValue("time", qsTr("no data"))
+        guiBox.setValue("temp", qsTr("no data"))
+        guiBox.setValue("heat", qsTr("no data"))
+        guiBox.setValue("light", qsTr("no data"))
+        guiBox.setValue("display", qsTr("no data"))
+        cmdBox.setText(qsTr("<font color=\"tomato\">aquarium (disconnected):</font><br>"))
     }
 
     Aquarium {
         id: aquarium
+    }
+
+    Settings {
+        id: settings
+
+        property alias aquariumName: aquarium.name
+        property alias aquariumAddress: aquarium.address
     }
 
     Colors {
@@ -56,8 +89,7 @@ Item {
 
     BluetoothService {
         id: btService
-        //deviceName: "aquarium"
-        deviceAddress: "00:00:00:00:00:00" // Value restores from settings automatically
+        deviceAddress: "00:00:00:00:00:00"
         serviceProtocol: BluetoothService.RfcommProtocol
         serviceUuid: "00001101-0000-1000-8000-00805F9B34FB" // RFCOMM
     }
@@ -66,151 +98,160 @@ Item {
         id: btDiscovery
         uuidFilter: btService.serviceUuid
         discoveryMode: BluetoothDiscoveryModel.MinimalServiceDiscovery
-        running: true
+        running: false
 
         onRunningChanged : {
             if (!btDiscovery.running) {
-                if (mainWindow.state == "search" && btService.deviceAddress == "00:00:00:00:00:00") {
-                    messageBox.setTitle(qsTr("Aquarium not found"))
-                    messageBox.setText(qsTr("Please ensure aquarium is available."))
-                    messageBox.show()
-                    mainWindow.state = "gui"
+                if (deviceListBox.getItemCount() == 0) {
+                    searchBox.stopAnimation()
+                    searchBox.setText(qsTr(
+                        "No aquarium was found!\n" +
+                        "Please ensure aquarium is available."))
                 }
                 else {
-                    btSocket.setService(btService)
-                    btSocket.connected = true
-                    searchBox.setText(qsTr("Connecting to aquarium:\n%1").arg(btService.deviceAddress))
+                    mainWindow.state = "deviceList"
                 }
             }
         }
 
         onErrorChanged: {
             if (error == BluetoothDiscoveryModel.PoweredOffError) {
-                messageBox.setTitle(qsTr("Bluetooth powered off!"))
-                messageBox.setText(qsTr("Please power on Bluetooth and start app again."))
-                messageBox.error = true
-                messageBox.show()
+                searchBox.stopAnimation()
+                searchBox.setText(qsTr(
+                    "Bluetooth is powered off!\n" +
+                    "Please power on Bluetooth and try again."))
             }
             else if (error != BluetoothDiscoveryModel.NoError && btDiscovery.running) {
                 btDiscovery.running = false
-                messageBox.setTitle(qsTr("Aquarium not found"))
-                messageBox.setText(qsTr("Please ensure Bluetooth is available."))
-                messageBox.error = true
-                messageBox.show()
+                searchBox.stopAnimation()
+                searchBox.setText(qsTr(
+                    "No aquarium was found!\n" +
+                    "Please ensure Bluetooth is available."))
             }
         }
 
         onServiceDiscovered: {
-            // Use first discovered aquarium only
-            if (service.deviceName == "aquarium" && btService.deviceAddress == "00:00:00:00:00:00") {
-                btService.deviceAddress = service.deviceAddress
-                messageBox.setTitle(qsTr("Aquarium found"))
-                messageBox.setText(qsTr("Adress: %1").arg(btService.deviceAddress))
-                messageBox.show()
+            if (service.deviceName.startsWith("aquarium")) {
+                deviceListBox.addItem(service.deviceName, service.deviceAddress)
             }
         }
     }
 
     BluetoothSocket {
         id: btSocket
+        service: btService
         connected: false
 
         onErrorChanged: {
             if (error != BluetoothSocket.NoError) {
-                messageBox.setTitle(qsTr("Can't connect to aquarium"))
-                messageBox.setText(qsTr("Please ensure aquarium is available."))
-                messageBox.show()
-                guiBox.setHeader(qsTr("Aquarium (not connected)"))
-                if (mainWindow.state != "cmd")
-                    mainWindow.state = "gui"
+                searchBox.stopAnimation()
+                searchBox.setText(qsTr(
+                    "Cannot connect to aquarium!\n" +
+                    "Please ensure aquarium is available."))
+                resetGui()
             }
         }
 
         onSocketStateChanged: {
             if (btSocket.connected == true) {
                 aquarium.connected = true
+                aquarium.address = service.deviceAddress
                 mainWindow.state = "gui"
-                cmdBox.setText("aquarium (%1):\n".arg(service.deviceAddress))
-                guiBox.setHeader(qsTr("Aquarium (%1)").arg(service.deviceAddress))
+                cmdBox.setText("<font color=\"%1\">%2 (%3):</font><br>"
+                               .arg(colors.headerText)
+                               .arg(aquarium.name)
+                               .arg(aquarium.address))
+                guiBox.setHeader("%1 (%2)"
+                                 .arg(aquarium.name)
+                                 .arg(aquarium.address))
                 guiBox.updateGui()
             }
             else {
-                if (aquarium.connected == true)
-                    cmdBox.appendText(qsTr("\naquarium not connected!\n"))
-                guiBox.setHeader(qsTr("Aquarium (not connected)"))
+                resetGui()
                 aquarium.connected = false
             }
         }
 
         onStringDataChanged: {
-            var data = btSocket.stringData
+            var data = btSocket.stringData.toString()
             var matchRes, state, mode
 
-            cmdBox.appendText(data)
-            cmdBox.scrollToEnd()
+            if (mainWindow.state == "cmd") {
+                cmdBox.appendText(data)
+            }
+            else {
 
-            if (data.match("Date: ")) {
-                matchRes = data.toString().match(new RegExp("Date: (\\d{2}.\\d{2}.\\d{2}) ([A-Za-z]+)", "m"))
-                aquarium.date = matchRes[1]
-                aquarium.dayOfWeek = setupDateBox.daysOfWeek[setupDateBox.dayOfWeekToInt(matchRes[2]) - 1]
-                guiBox.setValue("date", qsTr("%1 %2").arg(aquarium.date).arg(aquarium.dayOfWeek))
-            }
-            if (data.match("Time: ")) {
-                matchRes = data.toString().match(new RegExp("Time: (\\d{2}:\\d{2}:\\d{2}) \\(([+-]\\d+) sec at (\\d{2}:\\d{2}:\\d{2})\\)", "m"))
-                aquarium.time = matchRes[1]
-                aquarium.correction = matchRes[2]
-                aquarium.correctionAt = matchRes[3]
-                guiBox.setValue("time", qsTr("%1 (time corrects on %2 sec. everyday at %3)").arg(aquarium.time).arg(aquarium.correction).arg(aquarium.correctionAt))
-            }
-            if (data.match("Temp: ")) {
-                matchRes = data.toString().match(new RegExp("Temp: (.+)", "m"))
-                aquarium.temp = matchRes[1]
-                guiBox.setValue("temp", qsTr("Water temperature %1 °C").arg(aquarium.temp))
-            }
-            if (data.match("Heat: ")) {
-                matchRes = data.toString().match(new RegExp("Heat: (ON|OFF) (auto|manual) \\((\\d+-\\d+)\\)", "m"))
-                aquarium.heatState = matchRes[1]
-                aquarium.heatMode = matchRes[2]
-                aquarium.heat= matchRes[3]
-                state = aquarium.heatState == "ON" ? qsTr("on") : qsTr("off")
-                mode = aquarium.heatMode == "auto" ? qsTr("automatic") : qsTr("manual")
-                guiBox.setValue("heat", qsTr("Heater is %1 in %2 mode (%3)").arg(state).arg(mode).arg(aquarium.heat))
-            }
-            if (data.match("Light: ")) {
-                matchRes = data.toString().match(new RegExp("Light: (ON|OFF) (auto|manual) \\((\\d{2}:\\d{2}:\\d{2}-\\d{2}:\\d{2}:\\d{2})\\) (\\d+)% (\\d+)min", "m"))
-                aquarium.lightState = matchRes[1]
-                aquarium.lightMode = matchRes[2]
-                aquarium.light = matchRes[3]
-                aquarium.lightLevel = matchRes[4]
-                aquarium.riseTime = matchRes[5]
-                switch (aquarium.lightState) {
-                    case "ON": state = qsTr("on"); break
-                    case "OFF": state = qsTr("off"); break
-                    default: state = qsTr("in unknown state")
+                if (data.match("Date: ")) {
+                    matchRes = data.match(new RegExp("Date: (\\d{2}.\\d{2}.\\d{2}) ([A-Za-z]+)", "m"))
+                    aquarium.date = matchRes[1]
+                    aquarium.dayOfWeek = setupDateBox.daysOfWeek[setupDateBox.dayOfWeekToInt(matchRes[2]) - 1]
+                    guiBox.setValue("date", "%1 %2".arg(aquarium.date).arg(aquarium.dayOfWeek))
                 }
-                switch (aquarium.lightMode) {
-                    case "auto": mode = qsTr("automatic"); break
-                    case "manual": mode = qsTr("manual"); break
-                    default: mode = qsTr("unknown")
+                if (data.match("Time: ")) {
+                    matchRes = data.match(new RegExp("Time: (\\d{2}:\\d{2}:\\d{2}) \\(([+-]\\d+) sec at (\\d{2}:\\d{2}:\\d{2})\\)", "m"))
+                    aquarium.time = matchRes[1]
+                    aquarium.correction = matchRes[2]
+                    aquarium.correctionAt = matchRes[3]
+                    guiBox.setValue("time", qsTr("%1 (time is adjusted for %2 sec. everyday at %3)")
+                                                 .arg(aquarium.time)
+                                                 .arg(aquarium.correction)
+                                                 .arg(aquarium.correctionAt))
                 }
-                guiBox.setValue("light", qsTr("Light is %1 in %2 mode (%3, %4%, %5 min.)").arg(state).arg(mode).arg(aquarium.light).arg(aquarium.lightLevel).arg(aquarium.riseTime))
-            }
-            if (data.match("Display: ")) {
-                matchRes = data.toString().match(new RegExp("Display: (time|temp)", "m"))
-                aquarium.display = matchRes[1]
-                var displayMode = qsTr("none")
-                switch (aquarium.display) {
-                    case "time" : displayMode = qsTr("time"); break
-                    case "temp" : displayMode = qsTr("temperature"); break
+                if (data.match("Temp: ")) {
+                    matchRes = data.match(new RegExp("Temp: (.+)", "m"))
+                    aquarium.temp = matchRes[1]
+                    guiBox.setValue("temp", qsTr("Water temperature %1 °C").arg(aquarium.temp))
                 }
-                guiBox.setValue("display", qsTr("Display shows the %1").arg(displayMode))
-            }
-            if (data.match("OK") && mainWindow.state != "cmd") {
-                messageBox.show()
-            }
-            if (data.match("ERROR") && mainWindow.state != "cmd") {
-                messageBox.setText(qsTr("Error occurred while send the command!"))
-                messageBox.show()
+                if (data.match("Heat: ")) {
+                    matchRes = data.match(new RegExp("Heat: (ON|OFF) (auto|manual) \\((\\d+-\\d+)\\)", "m"))
+                    aquarium.heatState = matchRes[1]
+                    aquarium.heatMode = matchRes[2]
+                    aquarium.heat= matchRes[3]
+                    state = aquarium.heatState == "ON" ? qsTr("on") : qsTr("off")
+                    mode = aquarium.heatMode == "auto" ? qsTr("automatic") : qsTr("manual")
+                    guiBox.setValue("heat", qsTr("Heater is %1 in %2 mode (%3)").arg(state).arg(mode).arg(aquarium.heat))
+                }
+                if (data.match("Light: ")) {
+                    matchRes = data.match(new RegExp("Light: (ON|OFF) (auto|manual) \\((\\d{2}:\\d{2}:\\d{2}-\\d{2}:\\d{2}:\\d{2})\\) (\\d+)/(\\d+)% (\\d+)min", "m"))
+                    aquarium.lightState = matchRes[1]
+                    aquarium.lightMode = matchRes[2]
+                    aquarium.light = matchRes[3]
+                    aquarium.lightLevel = matchRes[5]
+                    aquarium.riseTime = matchRes[6]
+                    switch (aquarium.lightState) {
+                        case "ON": state = qsTr("on"); break
+                        case "OFF": state = qsTr("off"); break
+                        default: state = qsTr("in unknown state")
+                    }
+                    switch (aquarium.lightMode) {
+                        case "auto": mode = qsTr("automatic"); break
+                        case "manual": mode = qsTr("manual"); break
+                        default: mode = qsTr("unknown")
+                    }
+                    guiBox.setValue("light", qsTr("Light is %1 in %2 mode (%3, %4%, %5 min.)")
+                                                  .arg(state)
+                                                  .arg(mode)
+                                                  .arg(aquarium.light)
+                                                  .arg(aquarium.lightLevel)
+                                                  .arg(aquarium.riseTime))
+                }
+                if (data.match("Display: ")) {
+                    matchRes = data.match(new RegExp("Display: (time|temp)", "m"))
+                    aquarium.display = matchRes[1]
+                    var displayMode = qsTr("none")
+                    switch (aquarium.display) {
+                        case "time" : displayMode = qsTr("time"); break
+                        case "temp" : displayMode = qsTr("temperature"); break
+                    }
+                    guiBox.setValue("display", qsTr("Display shows the %1").arg(displayMode))
+                }
+                if (data.match("OK")) {
+                    messageBox.show()
+                }
+                if (data.match("ERROR")) {
+                    messageBox.setText(qsTr("Error has been occurred while send the command!"))
+                    messageBox.show()
+                }
             }
         }
     }
@@ -221,7 +262,7 @@ Item {
         anchors.fill: mainWindow
         color: colors.background
 
-        // MouseArea is need for hiding mouse events from items under background
+        // MouseArea is needed to hide mouse events from items under background
         MouseArea {
             anchors.fill: parent
         }
@@ -234,7 +275,12 @@ Item {
 
     Search {
         id: searchBox
-        anchors.centerIn: mainWindow
+        anchors.fill: mainWindow
+    }
+
+    DeviceList {
+        id: deviceListBox
+        anchors.fill: mainWindow
     }
 
     Gui {
@@ -275,7 +321,20 @@ Item {
     states: [
         State {
             name: "search"
-            PropertyChanges { target: searchBox; opacity: 1; z: 2; animated: true }
+            PropertyChanges { target: searchBox; opacity: 1; z: 2 }
+            PropertyChanges { target: deviceListBox; opacity: 0; z: 0 }
+            PropertyChanges { target: guiBox; opacity: 0; z: 0}
+            PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
+            PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
+            PropertyChanges { target: setupHeatBox; opacity: 0; z: 0 }
+            PropertyChanges { target: setupLightBox; opacity: 0; z: 0 }
+            PropertyChanges { target: setupLightTimeBox; opacity: 0; z: 0 }
+            PropertyChanges { target: cmdBox; opacity: 0; z: 0}
+        },
+        State {
+            name: "deviceList"
+            PropertyChanges { target: searchBox; opacity: 0; z: 0 }
+            PropertyChanges { target: deviceListBox; opacity: 1; z: 2 }
             PropertyChanges { target: guiBox; opacity: 0; z: 0}
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
@@ -286,7 +345,8 @@ Item {
         },
         State {
             name: "gui"
-            PropertyChanges { target: searchBox; opacity: 0; z: 0; animated: false }
+            PropertyChanges { target: searchBox; opacity: 0; z: 0 }
+            PropertyChanges { target: deviceListBox; opacity: 0; z: 0 }
             PropertyChanges { target: guiBox; opacity: 1; z: 2}
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
@@ -297,7 +357,8 @@ Item {
         },
         State {
             name: "setupDate"
-            PropertyChanges { target: searchBox; opacity: 0; z: 0; animated: false }
+            PropertyChanges { target: searchBox; opacity: 0; z: 0 }
+            PropertyChanges { target: deviceListBox; opacity: 0; z: 0 }
             PropertyChanges { target: guiBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupDateBox; opacity: 1; z: 2 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
@@ -308,7 +369,8 @@ Item {
         },
         State {
             name: "setupTime"
-            PropertyChanges { target: searchBox; opacity: 0; z: 0; animated: false }
+            PropertyChanges { target: searchBox; opacity: 0; z: 0 }
+            PropertyChanges { target: deviceListBox; opacity: 0; z: 0 }
             PropertyChanges { target: guiBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 1; z: 2 }
@@ -319,7 +381,8 @@ Item {
         },
         State {
             name: "setupHeat"
-            PropertyChanges { target: searchBox; opacity: 0; z: 0; animated: false }
+            PropertyChanges { target: searchBox; opacity: 0; z: 0 }
+            PropertyChanges { target: deviceListBox; opacity: 0; z: 0 }
             PropertyChanges { target: guiBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
@@ -330,7 +393,8 @@ Item {
         },
         State {
             name: "setupLight"
-            PropertyChanges { target: searchBox; opacity: 0; z: 0; animated: false }
+            PropertyChanges { target: searchBox; opacity: 0; z: 0 }
+            PropertyChanges { target: deviceListBox; opacity: 0; z: 0 }
             PropertyChanges { target: guiBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
@@ -341,7 +405,8 @@ Item {
         },
         State {
             name: "setupLightTime"
-            PropertyChanges { target: searchBox; opacity: 0; z: 0; animated: false }
+            PropertyChanges { target: searchBox; opacity: 0; z: 0 }
+            PropertyChanges { target: deviceListBox; opacity: 0; z: 0 }
             PropertyChanges { target: guiBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
@@ -352,7 +417,8 @@ Item {
         },
         State {
             name: "cmd"
-            PropertyChanges { target: searchBox; opacity: 0; z: 0; animated: false }
+            PropertyChanges { target: searchBox; opacity: 0; z: 0 }
+            PropertyChanges { target: deviceListBox; opacity: 0; z: 0 }
             PropertyChanges { target: guiBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }

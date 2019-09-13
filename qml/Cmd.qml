@@ -7,120 +7,50 @@ Rectangle {
     color: colors.cmdBoxBackground
 
     onOpacityChanged: {
-        if (opacity === 1) {
-            cmdText.focus = true
+        if (opacity == 1) {
             scrollToEnd()
+            cmdText.focus = true
         }
     }
 
+    property string command: ""
+
     function goToGUI() {
-       mainWindow.state = "gui"
+        mainWindow.state = "gui"
     }
 
     function sendCmd() {
         if (cmdText.text == "exit") {
             Qt.quit()
         }
-        else if (cmdText.text == "help") {
-            appendText(qsTr(
-                           "\n" +
-                           "Available commands:\n" +
-                           "\n"
-                           ))
-            scrollToEnd()
-            appendText(qsTr(
-                           "status\n" +
-                           "\n" +
-                           "\tGet information about current state of aquarium.\n" +
-                           "\n" +
-                           "\n" +
-                           "date DD.MM.YY W\n" +
-                           "\n" +
-                           "\tSet date.\n" +
-                           "\n" +
-                           "\tDD - day of month (01-31)\n" +
-                           "\tMM - month (01-12)\n" +
-                           "\tYY - year (00-99)\n" +
-                           "\tW  - day of week (1 - monday .. 7 - sunday)\n" +
-                           "\n" +
-                           "\n" +
-                           "time HH:MM:SS\n" +
-                           "time +CC\n" +
-                           "time -CC\n" +
-                           "time HH:MM:SS +CC\n" +
-                           "time HH:MM:SS -CC\n" +
-                           "\n" +
-                           "\tSet time and/or time correction.\n" +
-                           "\n" +
-                           "\tHH - hours (00-23)\n" +
-                           "\tMM - minutes (00-59)\n" +
-                           "\tSS - seconds (00-59)\n" +
-                           "\tCC - time correction in seconds (00-59)\n" +
-                           "\n" +
-                           "\n" +
-                           "heat LL-HH\n" +
-                           "heat on\n" +
-                           "heat off\n" +
-                           "heat auto\n" +
-                           "\n" +
-                           "\tHeater setup.\n" +
-                           "\n" +
-                           "\tLL - minimal temperature (00-99)\n" +
-                           "\tHH - maximal temperature (00-99)\n" +
-                           "\n" +
-                           "\n" +
-                           "light H1:M1:S1-H2:M2:S2\n" +
-                           "light level XXX\n" +
-                           "light rise YY\n" +
-                           "light H1:M1:S1-H2:M2:S2 XXX YY\n" +
-                           "light on\n" +
-                           "light off\n" +
-                           "light auto\n" +
-                           "\n" +
-                           "\tLight setup.\n" +
-                           "\n" +
-                           "\tH1:M1:S1 - time of turn on light (00:00:00-23:59:59)\n" +
-                           "\tH2:M2:S2 - time of turn off light (00:00:00-23:59:59)\n" +
-                           "\tXXX      - brightness level in percentage (000-100)\n" +
-                           "\tYY       - light rising time in minutes (00-30)\n" +
-                           "\n" +
-                           "\n" +
-                           "display time\n" +
-                           "display temp\n" +
-                           "\n" +
-                           "\tDisplay setup.\n" +
-                           "\n" +
-                           "\n" +
-                           "help\n" +
-                           "\n" +
-                           "\tPrint this help message.\n" +
-                           "\n" +
-                           "\n" +
-                           "exit\n" +
-                           "\n" +
-                           "\tExit application."
-                           )
-                       )
-        }
-        else {
-            var data = cmdText.text + "\r"
-            appendText('\n')
-            mainWindow.sendToAquarium(data)
-            scrollToEnd()
-        }
+        command = cmdText.text
+        mainWindow.sendToAquarium(command)
+        scrollToEnd()
+        cmdText.focus = true
         cmdText.text = ""
     }
 
-    function appendText (str) {
+    function appendText(str) {
+        if (command != "" && str.match(command)) {
+            str = str.replace(command, "<br><font color=\"%1\">%2</font><br>"
+                                       .arg(colors.headerText)
+                                       .arg(command))
+            command = ""
+        }
+        str = str.replace(/\r\n/g, "<br>")
+        str = str.replace("OK", "<font color=\"lime\">OK</font>")
+        str = str.replace("ERROR", "<font color=\"tomato\">ERROR</font>")
+        str = str.replace("UNKNOWN", "<font color=\"gray\">UNKNOWN</font>")
         cmdOutput.text += str
+        scrollToEnd()
     }
 
-    function setText (str) {
+    function setText(str) {
         cmdOutput.text = str
     }
 
-    function scrollToEnd () {
-        // If content bigger then text field - scroll to end
+    function scrollToEnd() {
+        // If content is bigger then the text field - scroll to end
         if (cmdOutput.height > cmdOutputScroll.height) {
             cmdOutputScroll.contentY = cmdOutput.height - cmdOutputScroll.height
         }
@@ -137,10 +67,11 @@ Rectangle {
         Text {
             id: cmdOutput
             width: parent.width
+            textFormat: Text.StyledText
             color: colors.cmdBoxText
-            font.family: "Droid Sans Mono"
             font.pixelSize: mmTOpx(3.5)
             wrapMode: Text.WrapAnywhere
+            text: "<font color=\"tomato\">aquarium (disconnected):</font><br>"
         }
     }
 
@@ -195,6 +126,7 @@ Rectangle {
             color: colors.cmdInputText
             width: parent.width - cmdButtonGoToGUI.width - cmdButtonSend.width
             height: cmdInput.height
+            maximumLength: 63
             Keys.onReturnPressed: cmdBox.sendCmd()
 
             background: Rectangle {

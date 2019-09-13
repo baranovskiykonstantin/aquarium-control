@@ -25,7 +25,7 @@ Rectangle {
         qsTr("Sunday")
     ]
 
-    function dayOfWeekToInt (name) {
+    function dayOfWeekToInt(name) {
         switch (name) {
         case "Monday":
             return 1
@@ -44,42 +44,63 @@ Rectangle {
         }
     }
 
-    function cancel () {
+    function cancel() {
         mainWindow.state = "gui"
     }
 
-    function setupCurrent () {
+    function setupCurrent() {
         var currentDate = new Date().toLocaleString(Qt.locale("en_US"), "dd.MM.yy")
         var currentDayOfWeek = new Date().toLocaleString(Qt.locale("en_US"), "dddd")
-        cmdBox.appendText('\n')
         mainWindow.sendToAquarium(
-            "date %1 %2\r"
+            "date %1 %2"
             .arg(currentDate)
             .arg(dayOfWeekToInt(currentDayOfWeek))
             )
-        mainWindow.sendToAquarium("status\r")
-        messageBox.setText(qsTr("Date %1 %2 was set successfull.")
+        mainWindow.sendToAquarium("status")
+        messageBox.setText(qsTr("Date %1 %2 has been set successfully.")
                            .arg(currentDate)
                            .arg(daysOfWeek[dayOfWeekToInt(currentDayOfWeek) - 1])
                            )
     }
 
-    function setup () {
-        cmdBox.appendText('\n')
+    function setup() {
         mainWindow.sendToAquarium(
-            "date %1.%2.%3 %4\r"
+            "date %1.%2.%3 %4"
             .arg(("00" + itemDaySpinbox.value).slice(-2))
             .arg(("00" + itemMonthSpinbox.value).slice(-2))
             .arg(("00" + itemYearSpinbox.value).slice(-2))
             .arg(itemDayOfWeekSpinbox.value)
             )
-        mainWindow.sendToAquarium("status\r")
-        messageBox.setText(qsTr("Date %1.%2.%3 %4 was set successfull.")
+        mainWindow.sendToAquarium("status")
+        messageBox.setText(qsTr("Date %1.%2.%3 %4 has been set successfully.")
                            .arg(("00" + itemDaySpinbox.value).slice(-2))
                            .arg(("00" + itemMonthSpinbox.value).slice(-2))
                            .arg(("00" + itemYearSpinbox.value).slice(-2))
                            .arg(daysOfWeek[itemDayOfWeekSpinbox.value - 1])
                            )
+    }
+
+    Rectangle {
+        id: header
+        color: colors.background
+        height: mmTOpx(14)
+        width: parent.width
+
+        Rectangle {
+            id: headerBackground
+            color: colors.headerBackground
+            width: parent.width
+            height: parent.height - mmTOpx(1)
+        }
+
+        Text {
+            id: headerText
+            text: qsTr("Date setup")
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: colors.headerText
+            font.pixelSize: mmTOpx(4)
+        }
     }
 
     Flickable {
@@ -208,7 +229,7 @@ Rectangle {
 
                 Text {
                     id: itemDayOfWeekLabelText
-                    text: qsTr("Day of week")
+                    text: qsTr("Day of the week")
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: parent.left
                     anchors.right: itemDayOfWeekSpinbox.right
@@ -233,36 +254,14 @@ Rectangle {
 
                     valueFromText: function (text) {
                         for (var i = 0; i < daysOfWeek.length; i++) {
-                            if (daysOfWeek[i].indexOf(text) === 0)
+                            if (daysOfWeek[i].indexOf(text) === 0) {
                                 return i + 1
+                            }
                         }
                         return 1 // default
                     }
                 }
             }
-        }
-    }
-
-    Rectangle {
-        id: header
-        color: colors.background
-        height: mmTOpx(14)
-        width: parent.width
-
-        Rectangle {
-            id: headerBackground
-            color: colors.headerBackground
-            width: parent.width
-            height: parent.height - mmTOpx(1)
-        }
-
-        Text {
-            id: headerText
-            text: qsTr("Date setup")
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-            color: colors.headerText
-            font.pixelSize: mmTOpx(4)
         }
     }
 

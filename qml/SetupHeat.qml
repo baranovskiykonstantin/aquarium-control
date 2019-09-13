@@ -13,43 +13,62 @@ Rectangle {
         }
     }
 
-    function cancel () {
+    function cancel() {
         mainWindow.state = "gui"
     }
 
-    function heatOn () {
-        cmdBox.appendText('\n')
-        mainWindow.sendToAquarium("heat on\r")
-        mainWindow.sendToAquarium("status\r")
-        messageBox.setText(qsTr("Heater was turned on manually."))
+    function heatOn() {
+        mainWindow.sendToAquarium("heat on")
+        mainWindow.sendToAquarium("status")
+        messageBox.setText(qsTr("Heater has been turned on manually."))
     }
 
-    function heatOff () {
-        cmdBox.appendText('\n')
-        mainWindow.sendToAquarium("heat off\r")
-        mainWindow.sendToAquarium("status\r")
-        messageBox.setText(qsTr("Heater was turned off manually."))
+    function heatOff() {
+        mainWindow.sendToAquarium("heat off")
+        mainWindow.sendToAquarium("status")
+        messageBox.setText(qsTr("Heater has been turned off manually."))
     }
 
-    function heatAuto () {
-        cmdBox.appendText('\n')
-        mainWindow.sendToAquarium("heat auto\r")
-        mainWindow.sendToAquarium("status\r")
-        messageBox.setText(qsTr("Heater was set to automatic mode."))
+    function heatAuto() {
+        mainWindow.sendToAquarium("heat auto")
+        mainWindow.sendToAquarium("status")
+        messageBox.setText(qsTr("Heater has been set to automatic mode."))
     }
 
-    function setup () {
-        cmdBox.appendText('\n')
+    function setup() {
         mainWindow.sendToAquarium(
-            "heat %1-%2\r"
+            "heat %1-%2"
             .arg(("00" + itemMinTempSpinbox.value).slice(-2))
             .arg(("00" + itemMaxTempSpinbox.value).slice(-2))
             )
-        mainWindow.sendToAquarium("status\r")
+        mainWindow.sendToAquarium("status")
         messageBox.setText(qsTr("Water temperature will be maintained in range %1-%2 °C.")
                            .arg(("00" + itemMinTempSpinbox.value).slice(-2))
                            .arg(("00" + itemMaxTempSpinbox.value).slice(-2))
                            )
+    }
+
+    Rectangle {
+        id: header
+        color: colors.background
+        height: mmTOpx(14)
+        width: parent.width
+
+        Rectangle {
+            id: headerBackground
+            color: colors.headerBackground
+            width: parent.width
+            height: parent.height - mmTOpx(1)
+        }
+
+        Text {
+            id: headerText
+            text: qsTr("Heat setup")
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: colors.headerText
+            font.pixelSize: mmTOpx(4)
+        }
     }
 
     Flickable {
@@ -91,18 +110,16 @@ Rectangle {
 
                 SpinCtrl {
                     id: itemMinTempSpinbox
-                    value: 0
-                    from: 0
-                    to: 99
+                    value: 22
+                    from: 18
+                    to: 35
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
                     height: itemMinTemp.height
 
                     onValueChanged: {
                         if (value > itemMaxTempSpinbox.value) {
-                            messageBox.setText(qsTr("Minimal temperature cannot be bigger than maximal."))
-                            messageBox.show()
-                            value = itemMaxTempSpinbox.value
+                            itemMaxTempSpinbox.value = value
                         }
                     }
                 }
@@ -133,45 +150,20 @@ Rectangle {
 
                 SpinCtrl {
                     id: itemMaxTempSpinbox
-                    from: 0
-                    to: 99
-                    value: 99
+                    from: 18
+                    to: 35
+                    value: 25
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
                     height: itemMaxTemp.height
 
                     onValueChanged: {
                         if (value < itemMinTempSpinbox.value) {
-                            messageBox.setText(qsTr("Maximal temperature cannot be less than minimal."))
-                            messageBox.show()
-                            value = itemMinTempSpinbox.value
+                            itemMinTempSpinbox.value = value
                         }
                     }
                 }
             }
-        }
-    }
-
-    Rectangle {
-        id: header
-        color: colors.background
-        height: mmTOpx(14)
-        width: parent.width
-
-        Rectangle {
-            id: headerBackground
-            color: colors.headerBackground
-            width: parent.width
-            height: parent.height - mmTOpx(1)
-        }
-
-        Text {
-            id: headerText
-            text: qsTr("Heat setup")
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-            color: colors.headerText
-            font.pixelSize: mmTOpx(4)
         }
     }
 

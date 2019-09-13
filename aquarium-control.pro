@@ -2,6 +2,7 @@ TEMPLATE = app
 
 QT += qml quick bluetooth svg
 CONFIG += c++11
+CONFIG += qtc_runnable
 
 SOURCES += main.cpp
 
@@ -48,9 +49,10 @@ DISTFILES += \
     icons/icon-mdpi.png \
     icons/icon-xhdpi.png \
     icons/icon.svg \
-    icons/bt.svg \
     icons/date.svg \
     icons/display.svg \
+    icons/fish.svg \
+    icons/fish-sad.svg \
     icons/gui.svg \
     icons/heat.svg \
     icons/light.svg \

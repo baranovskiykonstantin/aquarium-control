@@ -5,6 +5,7 @@
         <file>qml/Aquarium.qml</file>
         <file>qml/Cmd.qml</file>
         <file>qml/Colors.qml</file>
+        <file>qml/DeviceList.qml</file>
         <file>qml/Gui.qml</file>
         <file>qml/Main.qml</file>
         <file>qml/Message.qml</file>
@@ -15,9 +16,10 @@
         <file>qml/SetupLightTime.qml</file>
         <file>qml/SetupTime.qml</file>
         <file>qml/SpinCtrl.qml</file>
-        <file>icons/bt.svg</file>
         <file>icons/date.svg</file>
         <file>icons/display.svg</file>
+        <file>icons/fish.svg</file>
+        <file>icons/fish-sad.svg</file>
         <file>icons/gui.svg</file>
         <file>icons/heat.svg</file>
         <file>icons/light.svg</file>

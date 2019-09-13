@@ -5,11 +5,6 @@ Rectangle {
     id: setupLight
     color: "transparent"
 
-    property alias timeOn: itemLightOnValue.text
-    property alias timeOff: itemLightOffValue.text
-
-    property bool initOnOpacityCahnged: true
-
     onOpacityChanged: {
         if (opacity == 1) {
             if (initOnOpacityCahnged) {
@@ -24,47 +19,70 @@ Rectangle {
         initOnOpacityCahnged = true
     }
 
-    function cancel () {
+    property alias timeOn: itemLightOnValue.text
+    property alias timeOff: itemLightOffValue.text
+    property bool initOnOpacityCahnged: true
+
+    function cancel() {
         mainWindow.state = "gui"
     }
 
-    function lightOn () {
-        cmdBox.appendText('\n')
-        mainWindow.sendToAquarium("light on\r")
-        mainWindow.sendToAquarium("status\r")
-        messageBox.setText(qsTr("Light was turned on manually."))
+    function lightOn() {
+        mainWindow.sendToAquarium("light on")
+        mainWindow.sendToAquarium("status")
+        messageBox.setText(qsTr("Light has been turned on manually."))
     }
 
-    function lightOff () {
-        cmdBox.appendText('\n')
-        mainWindow.sendToAquarium("light off\r")
-        mainWindow.sendToAquarium("status\r")
-        messageBox.setText(qsTr("Light was turned off manually."))
+    function lightOff() {
+        mainWindow.sendToAquarium("light off")
+        mainWindow.sendToAquarium("status")
+        messageBox.setText(qsTr("Light has been turned off manually."))
     }
 
-    function lightAuto () {
-        cmdBox.appendText('\n')
-        mainWindow.sendToAquarium("light auto\r")
-        mainWindow.sendToAquarium("status\r")
-        messageBox.setText(qsTr("Light was set to automatic mode."))
+    function lightAuto() {
+        mainWindow.sendToAquarium("light auto")
+        mainWindow.sendToAquarium("status")
+        messageBox.setText(qsTr("Light has been set to automatic mode."))
     }
 
-    function setup () {
-        cmdBox.appendText('\n')
+    function setup() {
         mainWindow.sendToAquarium(
-            "light %1-%2 %3 %4\r"
+            "light %1-%2 %3 %4"
             .arg(itemLightOnValue.text)
             .arg(itemLightOffValue.text)
             .arg(("000" + itemBrightnessSpinbox.value).slice(-3))
             .arg(("00" + itemRiseSpinbox.value).slice(-2))
             )
-        mainWindow.sendToAquarium("status\r")
-        messageBox.setText(qsTr("Light will turn on at %1 o'clock with brightness %3% and turn off at %2 o'clock.\nLight will rise/fall %4 minutes.")
+        mainWindow.sendToAquarium("status")
+        messageBox.setText(qsTr("Light will turn on at %1 o'clock with brightness %3% and turn off at %2 o'clock.\nLight will rise/fall in %4 minutes.")
                            .arg(itemLightOnValue.text)
                            .arg(itemLightOffValue.text)
                            .arg(itemBrightnessSpinbox.value)
                            .arg(itemRiseSpinbox.value)
                            )
+    }
+
+    Rectangle {
+        id: header
+        color: colors.background
+        height: mmTOpx(14)
+        width: parent.width
+
+        Rectangle {
+            id: headerBackground
+            color: colors.headerBackground
+            width: parent.width
+            height: parent.height - mmTOpx(1)
+        }
+
+        Text {
+            id: headerText
+            text: qsTr("Light setup")
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: colors.headerText
+            font.pixelSize: mmTOpx(3.5)
+        }
     }
 
     Flickable {
@@ -236,29 +254,6 @@ Rectangle {
                     height: itemRise.height
                 }
             }
-        }
-    }
-
-    Rectangle {
-        id: header
-        color: colors.background
-        height: mmTOpx(14)
-        width: parent.width
-
-        Rectangle {
-            id: headerBackground
-            color: colors.headerBackground
-            width: parent.width
-            height: parent.height - mmTOpx(1)
-        }
-
-        Text {
-            id: headerText
-            text: qsTr("Light setup")
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-            color: colors.headerText
-            font.pixelSize: mmTOpx(3.5)
         }
     }
 

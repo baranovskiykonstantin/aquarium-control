@@ -292,18 +292,16 @@ exit
 	Вийти з програми.</translation>
     </message>
     <message>
-        <location filename="../qml/Cmd.qml" line="25"/>
         <source>
 Available commands:
 
 </source>
-        <translation>
+        <translation type="vanished">
 Доступні наступні команди:
 
 </translation>
     </message>
     <message>
-        <location filename="../qml/Cmd.qml" line="31"/>
         <source>status
 
 	Get information about current state of aquarium.
@@ -374,7 +372,7 @@ help
 exit
 
 	Exit application.</source>
-        <translation>status
+        <translation type="vanished">status
 
 	Отримати інформацію про проточний стан акваріуму.
 
@@ -584,49 +582,66 @@ exit
 	Вийти з програми.</translation>
     </message>
     <message>
-        <location filename="../qml/Cmd.qml" line="192"/>
+        <location filename="../qml/Cmd.qml" line="123"/>
         <source>Enter command</source>
         <translation>Введіть команду</translation>
     </message>
 </context>
 <context>
+    <name>DeviceList</name>
+    <message>
+        <location filename="../qml/DeviceList.qml" line="39"/>
+        <source>Select aquarium</source>
+        <translation>Вибір акваріума</translation>
+    </message>
+    <message>
+        <location filename="../qml/DeviceList.qml" line="123"/>
+        <source>Cancel</source>
+        <translation>Скасувати</translation>
+    </message>
+</context>
+<context>
     <name>Gui</name>
     <message>
-        <location filename="../qml/Gui.qml" line="68"/>
+        <location filename="../qml/Gui.qml" line="62"/>
         <source>Display shows the temperature now.</source>
         <translation>Зараз на дисплеї відображається температура.</translation>
     </message>
     <message>
-        <location filename="../qml/Gui.qml" line="72"/>
+        <location filename="../qml/Gui.qml" line="66"/>
         <source>Display shows the time now.</source>
         <translation>Зараз на дисплеї відображається час.</translation>
     </message>
     <message>
-        <location filename="../qml/Gui.qml" line="165"/>
+        <location filename="../qml/Gui.qml" line="89"/>
+        <source>aquarium (disconnected)</source>
+        <translation>aquarium (відключено)</translation>
+    </message>
+    <message>
+        <location filename="../qml/Gui.qml" line="184"/>
         <source>no data</source>
         <translation>дані відсутні</translation>
     </message>
     <message>
-        <location filename="../qml/Gui.qml" line="203"/>
         <source>Aquarium (not connected)</source>
-        <translation>Акваріум (не підключений)</translation>
+        <translation type="vanished">Акваріум (не підключений)</translation>
     </message>
     <message>
         <source>Aquarium</source>
         <translation type="vanished">Акваріум</translation>
     </message>
     <message>
-        <location filename="../qml/Gui.qml" line="285"/>
+        <location filename="../qml/Gui.qml" line="274"/>
         <source>Exit</source>
         <translation>Вийти</translation>
     </message>
     <message>
-        <location filename="../qml/Gui.qml" line="261"/>
+        <location filename="../qml/Gui.qml" line="250"/>
         <source>Update</source>
         <translation>Оновити</translation>
     </message>
     <message>
-        <location filename="../qml/Gui.qml" line="237"/>
+        <location filename="../qml/Gui.qml" line="226"/>
         <source>Terminal</source>
         <translation>Термінал</translation>
     </message>
@@ -634,137 +649,189 @@ exit
 <context>
     <name>Main</name>
     <message>
-        <location filename="../qml/Main.qml" line="82"/>
         <source>Connecting to aquarium:
 %1</source>
-        <translation>Підключення до акваріуму:
+        <translation type="vanished">Підключення до акваріуму:
 %1</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="33"/>
         <source>Searching for aquarium...</source>
-        <translation>Пошук акваріуму...</translation>
+        <translation type="vanished">Пошук акваріуму...</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="89"/>
         <source>Bluetooth powered off!</source>
-        <translation>Bluetooth вимкнений!</translation>
+        <translation type="vanished">Bluetooth вимкнений!</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="90"/>
         <source>Please power on Bluetooth and start app again.</source>
-        <translation>Будь ласка, ввімкніть Bluetooth та знову запустіть додаток.</translation>
+        <translation type="vanished">Будь ласка, ввімкніть Bluetooth та знову запустіть додаток.</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="74"/>
-        <location filename="../qml/Main.qml" line="96"/>
         <source>Aquarium not found</source>
-        <translation>Акваріум не знайдено</translation>
+        <translation type="vanished">Акваріум не знайдено</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="75"/>
-        <location filename="../qml/Main.qml" line="121"/>
         <source>Please ensure aquarium is available.</source>
-        <translation>Будь ласка, перевірте стан акваріума.</translation>
+        <translation type="vanished">Будь ласка, перевірте стан акваріума.</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="97"/>
         <source>Please ensure Bluetooth is available.</source>
-        <translation>Будь ласка, перевірте стан Bluetooth.</translation>
+        <translation type="vanished">Будь ласка, перевірте стан Bluetooth.</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="107"/>
         <source>Aquarium found</source>
-        <translation>Акваріум знайдено</translation>
+        <translation type="vanished">Акваріум знайдено</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="108"/>
         <source>Adress: %1</source>
-        <translation>Адреса: %1</translation>
+        <translation type="vanished">Адреса: %1</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="120"/>
         <source>Can&apos;t connect to aquarium</source>
-        <translation>Не вдалося підключитись до акваріуму</translation>
+        <translation type="vanished">Не вдалося підключитись до акваріуму</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="123"/>
-        <location filename="../qml/Main.qml" line="140"/>
         <source>Aquarium (not connected)</source>
-        <translation>Акваріум (не підключений)</translation>
+        <translation type="vanished">Акваріум (не підключений)</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="134"/>
         <source>Aquarium (%1)</source>
-        <translation>Акваріум (%1)</translation>
+        <translation type="vanished">Акваріум (%1)</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="139"/>
         <source>
 aquarium not connected!
 </source>
-        <translation>
+        <translation type="vanished">
 акваріум не підключений!
 </translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="156"/>
         <source>%1 %2</source>
-        <translation>%1 %2</translation>
+        <translation type="vanished">%1 %2</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="163"/>
         <source>%1 (time corrects on %2 sec. everyday at %3)</source>
+        <translation type="vanished">%1 (час коригується на %2 сек. кожного дня о %3)</translation>
+    </message>
+    <message>
+        <location filename="../qml/Main.qml" line="33"/>
+        <source>Search of aquariums...</source>
+        <translation>Пошук акваріумів...</translation>
+    </message>
+    <message>
+        <location filename="../qml/Main.qml" line="53"/>
+        <source>Connecting to
+%1 (%2)</source>
+        <translation>Підключення до
+%1 (%2)</translation>
+    </message>
+    <message>
+        <location filename="../qml/Main.qml" line="65"/>
+        <source>aquarium (disconnected)</source>
+        <translation>aquarium (відключено)</translation>
+    </message>
+    <message>
+        <location filename="../qml/Main.qml" line="66"/>
+        <location filename="../qml/Main.qml" line="67"/>
+        <location filename="../qml/Main.qml" line="68"/>
+        <location filename="../qml/Main.qml" line="69"/>
+        <location filename="../qml/Main.qml" line="70"/>
+        <location filename="../qml/Main.qml" line="71"/>
+        <source>no data</source>
+        <translation>дані відсутні</translation>
+    </message>
+    <message>
+        <location filename="../qml/Main.qml" line="72"/>
+        <source>&lt;font color=&quot;tomato&quot;&gt;aquarium (disconnected):&lt;/font&gt;&lt;br&gt;</source>
+        <translation>&lt;font color=&quot;tomato&quot;&gt;aquarium (відключено):&lt;/font&gt;&lt;br&gt;</translation>
+    </message>
+    <message>
+        <location filename="../qml/Main.qml" line="107"/>
+        <source>No aquarium was found!
+Please ensure aquarium is available.</source>
+        <translation>Акваріум не знайдено!
+Будь ласка, перевірте стан акваріума.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Main.qml" line="120"/>
+        <source>Bluetooth is powered off!
+Please power on Bluetooth and try again.</source>
+        <translation>Bluetooth вимкнений!
+Будь ласка, ввімкніть Bluetooth та спробуйте знову.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Main.qml" line="127"/>
+        <source>No aquarium was found!
+Please ensure Bluetooth is available.</source>
+        <translation>Акваріум не знайдено!
+Будь ласка, перевірте стан Bluetooth.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Main.qml" line="147"/>
+        <source>Cannot connect to aquarium!
+Please ensure aquarium is available.</source>
+        <translation>Не вдалося підключитись до акваріуму!
+Будь ласка, перевірте стан акваріума.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Main.qml" line="194"/>
+        <source>%1 (time is adjusted for %2 sec. everyday at %3)</source>
         <translation>%1 (час коригується на %2 сек. кожного дня о %3)</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="168"/>
+        <location filename="../qml/Main.qml" line="202"/>
         <source>Water temperature %1 °C</source>
         <translation>Температура води %1 °C</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="175"/>
-        <location filename="../qml/Main.qml" line="187"/>
+        <location filename="../qml/Main.qml" line="209"/>
+        <location filename="../qml/Main.qml" line="221"/>
         <source>on</source>
         <translation>ввімкнено</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="175"/>
-        <location filename="../qml/Main.qml" line="188"/>
+        <location filename="../qml/Main.qml" line="209"/>
+        <location filename="../qml/Main.qml" line="222"/>
         <source>off</source>
         <translation>вимкнено</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="176"/>
-        <location filename="../qml/Main.qml" line="192"/>
+        <location filename="../qml/Main.qml" line="210"/>
+        <location filename="../qml/Main.qml" line="226"/>
         <source>automatic</source>
         <translation>автоматичному</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="176"/>
-        <location filename="../qml/Main.qml" line="193"/>
+        <location filename="../qml/Main.qml" line="210"/>
+        <location filename="../qml/Main.qml" line="227"/>
         <source>manual</source>
         <translation>ручному</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="177"/>
+        <location filename="../qml/Main.qml" line="211"/>
         <source>Heater is %1 in %2 mode (%3)</source>
         <translation>Нагрівач %1 в %2 режимі (%3)</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="189"/>
+        <location filename="../qml/Main.qml" line="223"/>
         <source>in unknown state</source>
         <translation>в невідомому стані</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="194"/>
+        <location filename="../qml/Main.qml" line="228"/>
         <source>unknown</source>
         <translation>невідомому</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="196"/>
+        <location filename="../qml/Main.qml" line="230"/>
         <source>Light is %1 in %2 mode (%3, %4%, %5 min.)</source>
         <translation>Світло %1 в %2 режимі (%3, %4%, %5 хв.)</translation>
+    </message>
+    <message>
+        <location filename="../qml/Main.qml" line="251"/>
+        <source>Error has been occurred while send the command!</source>
+        <translation>При передачі команди виникла помилка!</translation>
     </message>
     <message>
         <source>Light is %1 in %2 mode (%3), brightness %4%, rise %5 min.</source>
@@ -775,40 +842,38 @@ aquarium not connected!
         <translation type="vanished">Світло %1 в %2 режимі (%3), яскравість %4%</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="201"/>
+        <location filename="../qml/Main.qml" line="240"/>
         <source>none</source>
         <translation>нічого</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="203"/>
+        <location filename="../qml/Main.qml" line="242"/>
         <source>time</source>
         <translation>час</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="204"/>
+        <location filename="../qml/Main.qml" line="243"/>
         <source>temperature</source>
         <translation>температура</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="206"/>
+        <location filename="../qml/Main.qml" line="245"/>
         <source>Display shows the %1</source>
         <translation>На дисплеї відображається %1</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="212"/>
         <source>Error occurred while send the command!</source>
-        <translation>Під час передачі команди трапилась помилка!</translation>
+        <translation type="vanished">Під час передачі команди трапилась помилка!</translation>
     </message>
 </context>
 <context>
     <name>Message</name>
     <message>
-        <location filename="../qml/Message.qml" line="83"/>
         <source>Exit</source>
-        <translation>Вийти</translation>
+        <translation type="vanished">Вийти</translation>
     </message>
     <message>
-        <location filename="../qml/Message.qml" line="83"/>
+        <location filename="../qml/Message.qml" line="81"/>
         <source>OK</source>
         <translation>ОК</translation>
     </message>
@@ -816,9 +881,18 @@ aquarium not connected!
 <context>
     <name>Search</name>
     <message>
-        <location filename="../qml/Search.qml" line="51"/>
         <source>Searching for aquarium...</source>
-        <translation>Пошук акваріуму...</translation>
+        <translation type="vanished">Пошук акваріуму...</translation>
+    </message>
+    <message>
+        <location filename="../qml/Search.qml" line="111"/>
+        <source>Search of aquariums...</source>
+        <translation>Пошук акваріумів...</translation>
+    </message>
+    <message>
+        <location filename="../qml/Search.qml" line="128"/>
+        <source>Cancel</source>
+        <translation>Скасувати</translation>
     </message>
 </context>
 <context>
@@ -859,52 +933,64 @@ aquarium not connected!
         <translation>Неділя</translation>
     </message>
     <message>
-        <location filename="../qml/SetupDate.qml" line="61"/>
         <source>Date %1 %2 was set successfull.</source>
-        <translation>Дата %1 %2 була успішно встановлена.</translation>
+        <translation type="vanished">Дата %1 %2 була успішно встановлена.</translation>
     </message>
     <message>
-        <location filename="../qml/SetupDate.qml" line="77"/>
         <source>Date %1.%2.%3 %4 was set successfull.</source>
-        <translation>Дата %1.%2.%3 %4 була успішно встановлена.</translation>
+        <translation type="vanished">Дата %1.%2.%3 %4 була успішно встановлена.</translation>
     </message>
     <message>
-        <location filename="../qml/SetupDate.qml" line="112"/>
+        <location filename="../qml/SetupDate.qml" line="133"/>
         <source>Day</source>
         <translation>Число</translation>
     </message>
     <message>
-        <location filename="../qml/SetupDate.qml" line="145"/>
+        <location filename="../qml/SetupDate.qml" line="166"/>
         <source>Month</source>
         <translation>Місяць</translation>
     </message>
     <message>
-        <location filename="../qml/SetupDate.qml" line="178"/>
+        <location filename="../qml/SetupDate.qml" line="199"/>
         <source>Year</source>
         <translation>Рік</translation>
     </message>
     <message>
-        <location filename="../qml/SetupDate.qml" line="211"/>
         <source>Day of week</source>
-        <translation>День тижня</translation>
+        <translation type="vanished">День тижня</translation>
     </message>
     <message>
-        <location filename="../qml/SetupDate.qml" line="261"/>
+        <location filename="../qml/SetupDate.qml" line="98"/>
         <source>Date setup</source>
         <translation>Налаштування дати</translation>
     </message>
     <message>
-        <location filename="../qml/SetupDate.qml" line="336"/>
+        <location filename="../qml/SetupDate.qml" line="334"/>
         <source>Cancel</source>
-        <translation>Закрити</translation>
+        <translation>Скасувати</translation>
     </message>
     <message>
-        <location filename="../qml/SetupDate.qml" line="288"/>
+        <location filename="../qml/SetupDate.qml" line="286"/>
         <source>Set current date</source>
         <translation>Встановити поточну дату</translation>
     </message>
     <message>
-        <location filename="../qml/SetupDate.qml" line="312"/>
+        <location filename="../qml/SetupDate.qml" line="60"/>
+        <source>Date %1 %2 has been set successfully.</source>
+        <translation>Дата %1 %2 встановлена успішно.</translation>
+    </message>
+    <message>
+        <location filename="../qml/SetupDate.qml" line="75"/>
+        <source>Date %1.%2.%3 %4 has been set successfully.</source>
+        <translation>Дата %1.%2.%3 %4 встановлена успішно.</translation>
+    </message>
+    <message>
+        <location filename="../qml/SetupDate.qml" line="232"/>
+        <source>Day of the week</source>
+        <translation>День тижня</translation>
+    </message>
+    <message>
+        <location filename="../qml/SetupDate.qml" line="310"/>
         <source>Set</source>
         <translation>Встановити</translation>
     </message>
@@ -912,72 +998,82 @@ aquarium not connected!
 <context>
     <name>SetupHeat</name>
     <message>
-        <location filename="../qml/SetupHeat.qml" line="24"/>
         <source>Heater was turned on manually.</source>
-        <translation>Нагрівач ввімкнено вручну.</translation>
+        <translation type="vanished">Нагрівач ввімкнено вручну.</translation>
     </message>
     <message>
-        <location filename="../qml/SetupHeat.qml" line="31"/>
         <source>Heater was turned off manually.</source>
-        <translation>Нагрівач вимкнено вручну.</translation>
+        <translation type="vanished">Нагрівач вимкнено вручну.</translation>
     </message>
     <message>
-        <location filename="../qml/SetupHeat.qml" line="38"/>
         <source>Heater was set to automatic mode.</source>
-        <translation>Нагрівач було встановлено в автоматичний режим.</translation>
+        <translation type="vanished">Нагрівач було встановлено в автоматичний режим.</translation>
     </message>
     <message>
-        <location filename="../qml/SetupHeat.qml" line="49"/>
+        <location filename="../qml/SetupHeat.qml" line="45"/>
         <source>Water temperature will be maintained in range %1-%2 °C.</source>
         <translation>Температура води буде підтримуватись в діапазоні %1-%2 °C.</translation>
     </message>
     <message>
-        <location filename="../qml/SetupHeat.qml" line="82"/>
+        <location filename="../qml/SetupHeat.qml" line="101"/>
         <source>Minimal temperature</source>
         <translation>Мінімальна температура</translation>
     </message>
     <message>
-        <location filename="../qml/SetupHeat.qml" line="103"/>
         <source>Minimal temperature cannot be bigger than maximal.</source>
-        <translation>Мінімальна температура не може бути більше максимальної.</translation>
+        <translation type="vanished">Мінімальна температура не може бути більше максимальної.</translation>
     </message>
     <message>
-        <location filename="../qml/SetupHeat.qml" line="124"/>
+        <location filename="../qml/SetupHeat.qml" line="141"/>
         <source>Maximal temperature</source>
         <translation>Максимальна температура</translation>
     </message>
     <message>
-        <location filename="../qml/SetupHeat.qml" line="145"/>
         <source>Maximal temperature cannot be less than minimal.</source>
-        <translation>Максимальна температура не може бути меньше мінімальної.</translation>
+        <translation type="vanished">Максимальна температура не може бути меньше мінімальної.</translation>
     </message>
     <message>
-        <location filename="../qml/SetupHeat.qml" line="170"/>
+        <location filename="../qml/SetupHeat.qml" line="23"/>
+        <source>Heater has been turned on manually.</source>
+        <translation>Нагрівач ввімкнено вручну.</translation>
+    </message>
+    <message>
+        <location filename="../qml/SetupHeat.qml" line="29"/>
+        <source>Heater has been turned off manually.</source>
+        <translation>Нагрівач вимкнено вручну.</translation>
+    </message>
+    <message>
+        <location filename="../qml/SetupHeat.qml" line="35"/>
+        <source>Heater has been set to automatic mode.</source>
+        <translation>Нагрівач переведено в автоматичний режим.</translation>
+    </message>
+    <message>
+        <location filename="../qml/SetupHeat.qml" line="66"/>
         <source>Heat setup</source>
         <translation>Налаштування нагрівача</translation>
     </message>
     <message>
-        <location filename="../qml/SetupHeat.qml" line="198"/>
+        <location filename="../qml/SetupHeat.qml" line="190"/>
         <source>Turn on</source>
         <translation>Увімкнути</translation>
     </message>
     <message>
-        <location filename="../qml/SetupHeat.qml" line="222"/>
+        <location filename="../qml/SetupHeat.qml" line="214"/>
         <source>Turn off</source>
         <translation>Вимкнути</translation>
     </message>
     <message>
-        <location filename="../qml/SetupHeat.qml" line="246"/>
+        <location filename="../qml/SetupHeat.qml" line="238"/>
         <source>Auto</source>
         <translation>Авто</translation>
     </message>
     <message>
-        <location filename="../qml/SetupHeat.qml" line="308"/>
+        <location filename="../qml/SetupHeat.qml" line="300"/>
         <source>Cancel</source>
-        <translation>Закрити</translation>
+        <translation>Скасувати</translation>
     </message>
     <message>
-        <location filename="../qml/SetupHeat.qml" line="284"/>
+        <location filename="../qml/SetupHeat.qml" line="276"/>
         <source>Set</source>
         <translation>Встановити</translation>
     </message>
@@ -985,78 +1081,96 @@ aquarium not connected!
 <context>
     <name>SetupLight</name>
     <message>
-        <location filename="../qml/SetupLight.qml" line="35"/>
         <source>Light was turned on manually.</source>
-        <translation>Світло ввімкнено вручну.</translation>
+        <translation type="vanished">Світло ввімкнено вручну.</translation>
     </message>
     <message>
-        <location filename="../qml/SetupLight.qml" line="42"/>
         <source>Light was turned off manually.</source>
-        <translation>Світло вимкнено вручну.</translation>
+        <translation type="vanished">Світло вимкнено вручну.</translation>
     </message>
     <message>
-        <location filename="../qml/SetupLight.qml" line="49"/>
         <source>Light was set to automatic mode.</source>
-        <translation>Освітлення було встановлено в автоматичний режим.</translation>
+        <translation type="vanished">Освітлення було встановлено в автоматичний режим.</translation>
     </message>
     <message>
         <source>Light will turn on at %1 o&apos;clock with brightness %3% and turn off at %2 o&apos;clock.</source>
         <translation type="vanished">Світло буде вмикатись о %1 з яскравістю %3% та вимикатись о %2.</translation>
     </message>
     <message>
-        <location filename="../qml/SetupLight.qml" line="62"/>
         <source>Light will turn on at %1 o&apos;clock with brightness %3% and turn off at %2 o&apos;clock.
 Light will rise/fall %4 minutes.</source>
-        <translation type="unfinished">Світло буде вмикатись о %1 з яскравістю %3% та вимикатись о %2.
+        <translation type="obsolete">Світло буде вмикатись о %1 з яскравістю %3% та вимикатись о %2.
 Наростання/затухання триватиме %4 хв.</translation>
     </message>
     <message>
-        <location filename="../qml/SetupLight.qml" line="97"/>
+        <location filename="../qml/SetupLight.qml" line="115"/>
         <source>Turn on time</source>
         <translation>Час ввімкнення</translation>
     </message>
     <message>
-        <location filename="../qml/SetupLight.qml" line="142"/>
+        <location filename="../qml/SetupLight.qml" line="160"/>
         <source>Turn off time</source>
         <translation>Час вимкнення</translation>
     </message>
     <message>
-        <location filename="../qml/SetupLight.qml" line="187"/>
+        <location filename="../qml/SetupLight.qml" line="205"/>
         <source>Brightness</source>
         <translation>Яскравість</translation>
     </message>
     <message>
-        <location filename="../qml/SetupLight.qml" line="220"/>
+        <location filename="../qml/SetupLight.qml" line="238"/>
         <source>Rise time</source>
         <translation>Час наростання</translation>
     </message>
     <message>
-        <location filename="../qml/SetupLight.qml" line="257"/>
+        <location filename="../qml/SetupLight.qml" line="80"/>
         <source>Light setup</source>
         <translation>Налаштування освітлення</translation>
     </message>
     <message>
-        <location filename="../qml/SetupLight.qml" line="285"/>
+        <location filename="../qml/SetupLight.qml" line="33"/>
+        <source>Light has been turned on manually.</source>
+        <translation>Світло ввімкнено вручну.</translation>
+    </message>
+    <message>
+        <location filename="../qml/SetupLight.qml" line="39"/>
+        <source>Light has been turned off manually.</source>
+        <translation>Світло вимкнено вручну.</translation>
+    </message>
+    <message>
+        <location filename="../qml/SetupLight.qml" line="45"/>
+        <source>Light has been set to automatic mode.</source>
+        <translation>Освітлення переведено в автоматичний режим.</translation>
+    </message>
+    <message>
+        <location filename="../qml/SetupLight.qml" line="57"/>
+        <source>Light will turn on at %1 o&apos;clock with brightness %3% and turn off at %2 o&apos;clock.
+Light will rise/fall in %4 minutes.</source>
+        <translation>Світло буде вмикатись о %1 з яскравістю %3% та вимикатись о %2.
+Наростання/затухання триватиме %4 хв.</translation>
+    </message>
+    <message>
+        <location filename="../qml/SetupLight.qml" line="280"/>
         <source>Turn on</source>
         <translation>Увімкнути</translation>
     </message>
     <message>
-        <location filename="../qml/SetupLight.qml" line="309"/>
+        <location filename="../qml/SetupLight.qml" line="304"/>
         <source>Turn off</source>
         <translation>Вимкнути</translation>
     </message>
     <message>
-        <location filename="../qml/SetupLight.qml" line="333"/>
+        <location filename="../qml/SetupLight.qml" line="328"/>
         <source>Auto</source>
         <translation>Авто</translation>
     </message>
     <message>
-        <location filename="../qml/SetupLight.qml" line="395"/>
+        <location filename="../qml/SetupLight.qml" line="390"/>
         <source>Cancel</source>
-        <translation>Закрити</translation>
+        <translation>Скасувати</translation>
     </message>
     <message>
-        <location filename="../qml/SetupLight.qml" line="371"/>
+        <location filename="../qml/SetupLight.qml" line="366"/>
         <source>Set</source>
         <translation>Встановити</translation>
     </message>
@@ -1064,12 +1178,12 @@ Light will rise/fall %4 minutes.</source>
 <context>
     <name>SetupLightTime</name>
     <message>
-        <location filename="../qml/SetupLightTime.qml" line="16"/>
+        <location filename="../qml/SetupLightTime.qml" line="14"/>
         <source>Time of turn on the light</source>
         <translation>Час ввімкнення освітлення</translation>
     </message>
     <message>
-        <location filename="../qml/SetupLightTime.qml" line="20"/>
+        <location filename="../qml/SetupLightTime.qml" line="18"/>
         <source>Time of turn off the light</source>
         <translation>Час вимкнення освітлення</translation>
     </message>
@@ -1092,24 +1206,24 @@ Light will rise/fall %4 minutes.</source>
         <translation>Час вимкненя повинен бути більшим ніж часу ввімкнення.</translation>
     </message>
     <message>
-        <location filename="../qml/SetupLightTime.qml" line="102"/>
+        <location filename="../qml/SetupLightTime.qml" line="124"/>
         <source>Hours</source>
         <translation>Годин</translation>
     </message>
     <message>
-        <location filename="../qml/SetupLightTime.qml" line="135"/>
+        <location filename="../qml/SetupLightTime.qml" line="157"/>
         <source>Minutes</source>
         <translation>Хвилин</translation>
     </message>
     <message>
-        <location filename="../qml/SetupLightTime.qml" line="168"/>
+        <location filename="../qml/SetupLightTime.qml" line="190"/>
         <source>Seconds</source>
         <translation>Секунд</translation>
     </message>
     <message>
         <location filename="../qml/SetupLightTime.qml" line="255"/>
         <source>Cancel</source>
-        <translation>Закрити</translation>
+        <translation>Скасувати</translation>
     </message>
     <message>
         <location filename="../qml/SetupLightTime.qml" line="231"/>
@@ -1128,52 +1242,60 @@ Light will rise/fall %4 minutes.</source>
         <translation type="vanished">Час %1:%2:%3 з корекцією %4 було успішно встановлено.</translation>
     </message>
     <message>
-        <location filename="../qml/SetupTime.qml" line="82"/>
+        <location filename="../qml/SetupTime.qml" line="103"/>
         <source>Hours</source>
         <translation>Годин</translation>
     </message>
     <message>
-        <location filename="../qml/SetupTime.qml" line="115"/>
+        <location filename="../qml/SetupTime.qml" line="136"/>
         <source>Minutes</source>
         <translation>Хвилин</translation>
     </message>
     <message>
-        <location filename="../qml/SetupTime.qml" line="148"/>
+        <location filename="../qml/SetupTime.qml" line="169"/>
         <source>Seconds</source>
         <translation>Секунд</translation>
     </message>
     <message>
-        <location filename="../qml/SetupTime.qml" line="181"/>
+        <location filename="../qml/SetupTime.qml" line="202"/>
         <source>Time correction</source>
         <translation>Корекція часу</translation>
     </message>
     <message>
-        <location filename="../qml/SetupTime.qml" line="229"/>
+        <location filename="../qml/SetupTime.qml" line="68"/>
         <source>Time setup</source>
         <translation>Налаштування часу</translation>
     </message>
     <message>
-        <location filename="../qml/SetupTime.qml" line="304"/>
-        <source>Cancel</source>
-        <translation>Закрити</translation>
+        <location filename="../qml/SetupTime.qml" line="30"/>
+        <source>Time %1 with correction %2 sec. has been set successfully.</source>
+        <translation>Час %1 з корекцією %2 сек. встановлено успішно.</translation>
     </message>
     <message>
-        <location filename="../qml/SetupTime.qml" line="256"/>
+        <location filename="../qml/SetupTime.qml" line="45"/>
+        <source>Time %1:%2:%3 with correction %4 sec. has been set successfully.</source>
+        <translation>Час %1:%2:%3 з корекцією %4 сек. встановлено успішно.</translation>
+    </message>
+    <message>
+        <location filename="../qml/SetupTime.qml" line="302"/>
+        <source>Cancel</source>
+        <translation>Скасувати</translation>
+    </message>
+    <message>
+        <location filename="../qml/SetupTime.qml" line="254"/>
         <source>Set current time</source>
         <translation>Встановити поточний час</translation>
     </message>
     <message>
-        <location filename="../qml/SetupTime.qml" line="31"/>
         <source>Time %1 with correction %2 sec. was set successfull.</source>
-        <translation>Час %1 з корекцією %2 сек. було успішно встановлено.</translation>
+        <translation type="vanished">Час %1 з корекцією %2 сек. було успішно встановлено.</translation>
     </message>
     <message>
-        <location filename="../qml/SetupTime.qml" line="47"/>
         <source>Time %1:%2:%3 with correction %4 sec. was set successfull.</source>
-        <translation>Час %1:%2:%3 з корекцією %4 сек. було успішно встановлено.</translation>
+        <translation type="vanished">Час %1:%2:%3 з корекцією %4 сек. було успішно встановлено.</translation>
     </message>
     <message>
-        <location filename="../qml/SetupTime.qml" line="280"/>
+        <location filename="../qml/SetupTime.qml" line="278"/>
         <source>Set</source>
         <translation>Встановити</translation>
     </message>

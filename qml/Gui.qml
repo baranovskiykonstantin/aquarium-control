@@ -6,23 +6,18 @@ Rectangle {
     color: "transparent"
 
     function updateGui() {
-        cmdBox.appendText('\n')
-        mainWindow.sendToAquarium("status\r")
+        mainWindow.sendToAquarium("status")
     }
 
     function goToCMD() {
         mainWindow.state = "cmd"
     }
 
-    function goToSearch() {
-        mainWindow.startSearching()
-    }
-
-    function setHeader (value) {
+    function setHeader(value) {
         guiHeaderText.text = value
     }
 
-    function setValue (item, value) {
+    function setValue(item, value) {
         switch (item) {
         case "date":
             list.itemAt(0).setValue(value)
@@ -45,7 +40,7 @@ Rectangle {
         }
     }
 
-    function setup (item) {
+    function setup(item) {
         switch (item) {
         case "date":
             mainWindow.state = "setupDate"
@@ -61,19 +56,48 @@ Rectangle {
             mainWindow.state = "setupLight"
             break
         case "display":
-            cmdBox.appendText('\n')
             switch (aquarium.display) {
             case "time":
-                mainWindow.sendToAquarium("display temp\r")
+                mainWindow.sendToAquarium("display temp")
                 messageBox.setText(qsTr("Display shows the temperature now."))
                 break
             case "temp":
-                mainWindow.sendToAquarium("display time\r")
+                mainWindow.sendToAquarium("display time")
                 messageBox.setText(qsTr("Display shows the time now."))
                 break
             }
-            mainWindow.sendToAquarium("status\r")
+            mainWindow.sendToAquarium("status")
             break
+        }
+    }
+
+    Rectangle {
+        id: guiHeader
+        color: colors.background
+        height: mmTOpx(14)
+        width: parent.width
+
+        Rectangle {
+            id: guiHeaderBackground
+            color: colors.headerBackground
+            width: parent.width
+            height: parent.height - mmTOpx(1)
+        }
+
+        Text {
+            id: guiHeaderText
+            text: qsTr("aquarium (disconnected)")
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: colors.headerText
+            font.pixelSize: mmTOpx(4)
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: mainWindow.startSearching()
+            onPressed: guiHeaderBackground.color = colors.headerPressed
+            onReleased: guiHeaderBackground.color = colors.headerBackground
         }
     }
 
@@ -97,23 +121,18 @@ Rectangle {
                     ListElement {
                         name: "date"
                     }
-
                     ListElement {
                         name: "time"
                     }
-
                     ListElement {
                         name: "temp"
                     }
-
                     ListElement {
                         name: "heat"
                     }
-
                     ListElement {
                         name: "light"
                     }
-
                     ListElement {
                         name: "display"
                     }
@@ -182,36 +201,6 @@ Rectangle {
                     }
                 }
             }
-        }
-    }
-
-    Rectangle {
-        id: guiHeader
-        color: colors.background
-        height: mmTOpx(14)
-        width: parent.width
-
-        Rectangle {
-            id: guiHeaderBackground
-            color: colors.headerBackground
-            width: parent.width
-            height: parent.height - mmTOpx(1)
-        }
-
-        Text {
-            id: guiHeaderText
-            text: qsTr("Aquarium (not connected)")
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-            color: colors.headerText
-            font.pixelSize: mmTOpx(4)
-        }
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: goToSearch()
-            onPressed: guiHeaderBackground.color = colors.headerPressed
-            onReleased: guiHeaderBackground.color = colors.headerBackground
         }
     }
 

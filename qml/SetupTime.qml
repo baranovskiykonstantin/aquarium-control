@@ -15,41 +15,62 @@ Rectangle {
         }
     }
 
-    function cancel () {
+    function cancel() {
         mainWindow.state = "gui"
     }
 
-    function setupCurrent () {
+    function setupCurrent() {
         var currentTime = new Date().toLocaleString(Qt.locale("en_US"), "HH:mm:ss")
-        cmdBox.appendText('\n')
         mainWindow.sendToAquarium(
-            "time %1 %2\r"
+            "time %1 %2"
             .arg(currentTime)
             .arg(itemCorrectionSpinbox.getFormattedValue())
             )
-        mainWindow.sendToAquarium("status\r")
-        messageBox.setText(qsTr("Time %1 with correction %2 sec. was set successfull.")
+        mainWindow.sendToAquarium("status")
+        messageBox.setText(qsTr("Time %1 with correction %2 sec. has been set successfully.")
                            .arg(currentTime)
                            .arg(itemCorrectionSpinbox.value)
                            )
     }
 
-    function setup () {
-        cmdBox.appendText('\n')
+    function setup() {
         mainWindow.sendToAquarium(
-            "time %1:%2:%3 %4\r"
+            "time %1:%2:%3 %4"
             .arg(("00" + itemHoursSpinbox.value).slice(-2))
             .arg(("00" + itemMinutesSpinbox.value).slice(-2))
             .arg(("00" + itemSecondsSpinbox.value).slice(-2))
             .arg(itemCorrectionSpinbox.getFormattedValue())
             )
-        mainWindow.sendToAquarium("status\r")
-        messageBox.setText(qsTr("Time %1:%2:%3 with correction %4 sec. was set successfull.")
+        mainWindow.sendToAquarium("status")
+        messageBox.setText(qsTr("Time %1:%2:%3 with correction %4 sec. has been set successfully.")
                            .arg(("00" + itemHoursSpinbox.value).slice(-2))
                            .arg(("00" + itemMinutesSpinbox.value).slice(-2))
                            .arg(("00" + itemSecondsSpinbox.value).slice(-2))
                            .arg(itemCorrectionSpinbox.value)
                            )
+    }
+
+    Rectangle {
+        id: header
+        color: colors.background
+        height: mmTOpx(14)
+        width: parent.width
+
+        Rectangle {
+            id: headerBackground
+            color: colors.headerBackground
+            width: parent.width
+            height: parent.height - mmTOpx(1)
+        }
+
+        Text {
+            id: headerText
+            text: qsTr("Time setup")
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: colors.headerText
+            font.pixelSize: mmTOpx(4)
+        }
     }
 
     Flickable {
@@ -196,41 +217,20 @@ Rectangle {
                     anchors.verticalCenter: parent.verticalCenter
                     height: itemCorrection.height
 
-                    function getFormattedValue () {
+                    function getFormattedValue() {
                         var correctionStr = ""
                         var absCorrectionValue = Math.abs(parseInt(itemCorrectionSpinbox.value, 10))
-                        if (itemCorrectionSpinbox.value >= 0)
+                        if (itemCorrectionSpinbox.value >= 0) {
                             correctionStr = "+"
-                        else
+                        }
+                        else {
                             correctionStr = "-"
+                        }
                         correctionStr += ("00" + absCorrectionValue).slice(-2)
                         return correctionStr
                     }
                 }
             }
-        }
-    }
-
-    Rectangle {
-        id: header
-        color: colors.background
-        height: mmTOpx(14)
-        width: parent.width
-
-        Rectangle {
-            id: headerBackground
-            color: colors.headerBackground
-            width: parent.width
-            height: parent.height - mmTOpx(1)
-        }
-
-        Text {
-            id: headerText
-            text: qsTr("Time setup")
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-            color: colors.headerText
-            font.pixelSize: mmTOpx(4)
         }
     }
 

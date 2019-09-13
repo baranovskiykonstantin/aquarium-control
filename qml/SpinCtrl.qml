@@ -27,8 +27,9 @@ SpinBox {
             // To calculate correct text width needs to add an wide character (W).
             textMetrics.text = textValue.text + "W"
             control.width = textMetrics.width + control.height * 2
-            if (control.width < (control.height * 3))
+            if (control.width < (control.height * 3)) {
                 control.width = control.height * 3
+            }
             if (control.value == control.to) {
                 upIndicatorText.color = colors.background
             }

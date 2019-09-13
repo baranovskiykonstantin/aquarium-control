@@ -5,8 +5,6 @@ Rectangle {
     id: setupLightTime
     color: "transparent"
 
-    property string timeType: "on" // "off"
-
     onOpacityChanged: {
         if (opacity == 1) {
             var matchRes = ["","","",""]
@@ -28,11 +26,13 @@ Rectangle {
         }
     }
 
-    function cancel () {
+    property string timeType: "on" // "off"
+
+    function cancel() {
         mainWindow.state = "setupLight"
     }
 
-    function ok () {
+    function ok() {
         var onTimeSec, offTimeSec, matchRes
 
         switch (timeType) {
@@ -70,6 +70,28 @@ Rectangle {
 
         setupLightBox.initOnOpacityCahnged = false
         cancel()
+    }
+
+    Rectangle {
+        id: header
+        color: colors.background
+        height: mmTOpx(14)
+        width: parent.width
+
+        Rectangle {
+            id: headerBackground
+            color: colors.headerBackground
+            width: parent.width
+            height: parent.height - mmTOpx(1)
+        }
+
+        Text {
+            id: headerText
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: colors.headerText
+            font.pixelSize: mmTOpx(4)
+        }
     }
 
     Flickable {
@@ -184,28 +206,6 @@ Rectangle {
                     height: itemSeconds.height
                 }
             }
-        }
-    }
-
-    Rectangle {
-        id: header
-        color: colors.background
-        height: mmTOpx(14)
-        width: parent.width
-
-        Rectangle {
-            id: headerBackground
-            color: colors.headerBackground
-            width: parent.width
-            height: parent.height - mmTOpx(1)
-        }
-
-        Text {
-            id: headerText
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-            color: colors.headerText
-            font.pixelSize: mmTOpx(4)
         }
     }
 

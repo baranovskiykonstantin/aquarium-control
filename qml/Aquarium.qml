@@ -2,6 +2,8 @@ import QtQuick 2.0
 
 Item {
     property bool connected: false
+    property string name: ""
+    property string address: "00:00:00:00:00:00"
     property string date: "01.01.01"
     property string dayOfWeek: "Monday"
     property string time: "12:00:00"
@@ -11,10 +13,10 @@ Item {
     property string heat: "22-25"
     property string heatState: "OFF"
     property string heatMode: "auto"
-    property string light: "10:00:00-18:00:00"
+    property string light: "08:00:00-18:00:00"
     property string lightState: "OFF"
     property string lightMode: "auto"
-    property string lightLevel: "60"
-    property string riseTime: "1"
+    property string lightLevel: "50"
+    property string riseTime: "15"
     property string display: "time"
 }

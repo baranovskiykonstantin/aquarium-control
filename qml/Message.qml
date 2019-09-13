@@ -5,22 +5,22 @@ Rectangle {
     z: 0
     color: "transparent"
 
-    property bool error: false
-
-    function show () {
+    function show() {
         messageBox.z = 3
     }
 
-    function setTitle (title) {
+    function setTitle(title) {
         // Do not modify message box if it's showing
-        if (messageBox.z != 3)
+        if (messageBox.z != 3) {
             messageTitle.text = title
+        }
     }
 
-    function setText (message) {
+    function setText(message) {
         // Do not modify message box if it's showing
-        if (messageBox.z != 3)
+        if (messageBox.z != 3) {
             messageText.text = message
+        }
     }
 
     MouseArea {
@@ -80,7 +80,7 @@ Rectangle {
             height: mmTOpx(10)
 
             Text {
-                text: messageBox.error ? qsTr("Exit") : qsTr("OK")
+                text: qsTr("OK")
                 anchors.verticalCenter: parent.verticalCenter
                 anchors.horizontalCenter: parent.horizontalCenter
                 color: colors.buttonText
@@ -90,7 +90,7 @@ Rectangle {
             MouseArea {
                 anchors.fill: parent
                 onClicked: {
-                    messageBox.error ? Qt.quit() : messageBox.z = 0
+                    messageBox.z = 0
                     messageTitle.text = ""
                     messageText.text = ""
                 }

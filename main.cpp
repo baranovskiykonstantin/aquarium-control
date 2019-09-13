@@ -15,8 +15,16 @@ int main(int argc, char *argv[])
     qtTranslator.load(QLocale(), "lang", "_", ":/translations");
     app.installTranslator(&qtTranslator);
 
-    //QLoggingCategory::setFilterRules(QStringLiteral("qt.bluetooth* = true"));
-
+//    QLoggingCategory::setFilterRules(QStringLiteral("qt.bluetooth* = true"));
+/*
+    QLoggingCategory::setFilterRules(QStringLiteral("* = true\n"
+                                                    "qt.quick* = false\n"
+                                                    "qt.qml* = false\n"
+                                                    "qt.qpa* = false\n"
+                                                    "qt.opengl* = false\n"
+                                                    "qt.v4* = false\n"
+                                                    "qt.scenegraph* = false"));
+*/
     QQuickView view;
     view.setTitle("Aquarium control");
     view.setSource(QUrl(QStringLiteral("qrc:/qml/Main.qml")));
