@@ -18,14 +18,8 @@ Rectangle {
     }
 
     function setValue(item, value) {
-        switch (item) {
-            case "date": list.itemAt(0).setValue(value); break
-            case "time": list.itemAt(1).setValue(value); break
-            case "temp": list.itemAt(2).setValue(value); break
-            case "heat": list.itemAt(3).setValue(value); break
-            case "light": list.itemAt(4).setValue(value); break
-            case "display": list.itemAt(5).setValue(value); break
-        }
+        var items = ["date", "time", "temp", "heat", "light", "display"]
+        itemListModel.set(items.indexOf(item), {"itemText":value})
     }
 
     function setup(item) {
@@ -85,106 +79,110 @@ Rectangle {
         }
     }
 
-    Flickable {
+    Rectangle {
+        id: itemListControl
+        color: "transparent"
         width: parent.width - mmTOpx(2)
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: guiHeader.bottom
         anchors.bottom: guiButtonBox.top
-        contentWidth: width
-        contentHeight: itemColumn.childrenRect.height
-        boundsBehavior: Flickable.OvershootBounds
 
-        Column {
-            id: itemColumn
-            width: parent.width
-            spacing: mmTOpx(1)
+        ListModel {
+            id: itemListModel
 
-            Repeater {
-                id: list
-                model: ListModel {
-                    ListElement {
-                        name: "date"
-                    }
-                    ListElement {
-                        name: "time"
-                    }
-                    ListElement {
-                        name: "temp"
-                    }
-                    ListElement {
-                        name: "heat"
-                    }
-                    ListElement {
-                        name: "light"
-                    }
-                    ListElement {
-                        name: "display"
-                    }
+            ListElement {
+                itemName: "date"
+                itemText: qsTr("no data")
+            }
+            ListElement {
+                itemName: "time"
+                itemText: qsTr("no data")
+            }
+            ListElement {
+                itemName: "temp"
+                itemText: qsTr("no data")
+            }
+            ListElement {
+                itemName: "heat"
+                itemText: qsTr("no data")
+            }
+            ListElement {
+                itemName: "light"
+                itemText: qsTr("no data")
+            }
+            ListElement {
+                itemName: "display"
+                itemText: qsTr("no data")
+            }
+        }
+
+        Component {
+            id: itemListDelegate
+
+            Item {
+                width: parent.width
+                height: mmTOpx(10)
+
+                Rectangle {
+                    id: itemBackground
+                    anchors.fill: parent
+                    color: colors.itemBackground
                 }
-                delegate: Item {
-                    width: parent.width
-                    height: mmTOpx(10)
 
-                    function setValue(value) {
-                        itemLabelText.text = value
-                        // Fit text in label by decreasing font size
-                        while (itemLabelText.truncated == true) {
-                            itemLabelText.font.pixelSize -= mmTOpx(0.1)
-                        }
-                    }
+                Rectangle {
+                    id: itemImageBackground
+                    anchors.left: parent.left
+                    height: parent.height
+                    width: height
+                    color: "transparent"
+                }
 
-                    Rectangle {
-                        id: itemBackground
-                        anchors.fill: parent
-                        color: colors.itemBackground
-                    }
+                Image {
+                    id: itemImage
+                    source: "../icons/%1.svg".arg(itemName)
+                    height: mmTOpx(8)
+                    width: height
+                    fillMode: Image.Stretch
+                    anchors.verticalCenter: itemImageBackground.verticalCenter
+                    anchors.horizontalCenter: itemImageBackground.horizontalCenter
+                }
 
-                    Rectangle {
-                        id: itemImageBackground
-                        anchors.left: parent.left
-                        height: parent.height
-                        width: height
-                        color: "transparent"
-                    }
+                ColorOverlay {
+                    anchors.fill: itemImage
+                    source: itemImage
+                    color: colors.itemText
+                }
 
-                    Image {
-                        id: itemImage
-                        source: "../icons/%1.svg".arg(name)
-                        height: mmTOpx(8)
-                        width: height
-                        fillMode: Image.Stretch
-                        anchors.verticalCenter: itemImageBackground.verticalCenter
-                        anchors.horizontalCenter: itemImageBackground.horizontalCenter
-                    }
+                Text {
+                    id: itemLabelText
+                    text: itemText
+                    anchors.verticalCenter: parent.verticalCenter
+                    anchors.left: itemImageBackground.right
+                    anchors.right: parent.right
+                    anchors.leftMargin: mmTOpx(1)
+                    color: colors.itemText
+                    font.pixelSize: mmTOpx(3.5)
+                    fontSizeMode: Text.HorizontalFit
+                    minimumPixelSize: mmTOpx(2)
+                }
 
-                    ColorOverlay {
-                        anchors.fill: itemImage
-                        source: itemImage
-                        color: colors.itemText
-                    }
-
-                    Text {
-                        id: itemLabelText
-                        text: qsTr("no data")
-                        anchors.verticalCenter: parent.verticalCenter
-                        anchors.left: itemImageBackground.right
-                        anchors.right: parent.right
-                        anchors.leftMargin: mmTOpx(1)
-                        color: colors.itemText
-                        font.pixelSize: mmTOpx(3.5)
-                        fontSizeMode: Text.HorizontalFit
-                        minimumPixelSize: mmTOpx(2)
-                    }
-
-                    MouseArea {
-                        anchors.fill: parent
-                        onClicked: setup(name)
-                        onPressed: itemBackground.color = colors.itemPressed
-                        onReleased: itemBackground.color = colors.itemBackground
-                        onCanceled: itemBackground.color = colors.itemBackground
-                    }
+                MouseArea {
+                    anchors.fill: parent
+                    onClicked: setup(itemName)
+                    onPressed: itemBackground.color = colors.itemPressed
+                    onReleased: itemBackground.color = colors.itemBackground
+                    onCanceled: itemBackground.color = colors.itemBackground
                 }
             }
+        }
+
+        ListView {
+            id: itemListView
+            anchors.fill: parent
+            spacing: mmTOpx(1)
+            model: itemListModel
+            delegate: itemListDelegate
+            focus: true
         }
     }
 
