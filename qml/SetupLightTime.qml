@@ -7,17 +7,19 @@ Rectangle {
 
     onOpacityChanged: {
         if (opacity == 1) {
-            var matchRes = ["","","",""]
+            var matchRes
 
-            switch (timeType) {
-            case "on":
+            if (turnOnTime) {
                 headerText.text = qsTr("Time of turn on the light")
-                matchRes = setupLightBox.timeOn.toString().match(new RegExp("(\\d{2}):(\\d{2}):(\\d{2})", "m"))
-                break
-            case "off":
+                matchRes = setupLightBox.timeOn.match(
+                    new RegExp("(\\d{2}):(\\d{2}):(\\d{2})", "m")
+                )
+            }
+            else {
                 headerText.text = qsTr("Time of turn off the light")
-                matchRes = setupLightBox.timeOff.toString().match(new RegExp("(\\d{2}):(\\d{2}):(\\d{2})", "m"))
-                break
+                matchRes = setupLightBox.timeOff.match(
+                    new RegExp("(\\d{2}):(\\d{2}):(\\d{2})", "m")
+                )
             }
 
             itemHoursSpinbox.value = matchRes[1]
@@ -26,18 +28,20 @@ Rectangle {
         }
     }
 
-    property string timeType: "on" // "off"
+    property bool turnOnTime: true // false - turnOffTime
 
     function cancel() {
+        setupLightBox.initOnOpacityCahnged = false
         mainWindow.state = "setupLight"
     }
 
     function ok() {
         var onTimeSec, offTimeSec, matchRes
 
-        switch (timeType) {
-        case "on":
-            matchRes = setupLightBox.timeOff.toString().match(new RegExp("(\\d{2}):(\\d{2}):(\\d{2})", "m"))
+        if (turnOnTime) {
+            matchRes = setupLightBox.timeOff.match(
+                new RegExp("(\\d{2}):(\\d{2}):(\\d{2})", "m")
+            )
             onTimeSec = itemHoursSpinbox.value * 3600 + itemMinutesSpinbox.value * 60 + itemSecondsSpinbox.value
             offTimeSec = matchRes[1] * 3600 + matchRes[2] * 60 + matchRes[3] * 1
             if (onTimeSec < offTimeSec) {
@@ -47,12 +51,16 @@ Rectangle {
                 .arg(("00" + itemSecondsSpinbox.value).slice(-2))
             }
             else {
-                messageBox.setText(qsTr("Time of turn on must be less than time of turn off."))
+                messageBox.setText(qsTr(
+                    "Time of turn on must be less than time of turn off."
+                ))
                 messageBox.show()
             }
-            break
-        case "off":
-            matchRes = setupLightBox.timeOn.toString().match(new RegExp("(\\d{2}):(\\d{2}):(\\d{2})", "m"))
+        }
+        else {
+            matchRes = setupLightBox.timeOn.match(
+                new RegExp("(\\d{2}):(\\d{2}):(\\d{2})", "m"
+            ))
             onTimeSec = matchRes[1] * 3600 + matchRes[2] * 60 + matchRes[3] * 1
             offTimeSec = itemHoursSpinbox.value * 3600 + itemMinutesSpinbox.value * 60 + itemSecondsSpinbox.value
             if (offTimeSec > onTimeSec) {
@@ -62,13 +70,13 @@ Rectangle {
                 .arg(("00" + itemSecondsSpinbox.value).slice(-2))
             }
             else {
-                messageBox.setText(qsTr("Time of turn off must be bigger than time of turn on."))
+                messageBox.setText(qsTr(
+                    "Time of turn off must be bigger than time of turn on."
+                ))
                 messageBox.show()
             }
-            break
         }
 
-        setupLightBox.initOnOpacityCahnged = false
         cancel()
     }
 

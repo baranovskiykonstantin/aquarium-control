@@ -8,7 +8,9 @@ Rectangle {
     onOpacityChanged: {
         if (opacity == 1) {
             if (initOnOpacityCahnged) {
-                var matchRes = aquarium.light.toString().match(new RegExp("(\\d+:\\d+:\\d+)-(\\d+:\\d+:\\d+)", "m"))
+                var matchRes = aquarium.light.match(
+                    new RegExp("(\\d+:\\d+:\\d+)-(\\d+:\\d+:\\d+)", "m")
+                )
                 itemLightOnValue.text = matchRes[1]
                 itemLightOffValue.text = matchRes[2]
                 itemBrightnessSpinbox.value = aquarium.lightLevel
@@ -52,14 +54,17 @@ Rectangle {
             .arg(itemLightOffValue.text)
             .arg(("000" + itemBrightnessSpinbox.value).slice(-3))
             .arg(("00" + itemRiseSpinbox.value).slice(-2))
-            )
+        )
         mainWindow.sendToAquarium("status")
-        messageBox.setText(qsTr("Light will turn on at %1 o'clock with brightness %3% and turn off at %2 o'clock.\nLight will rise/fall in %4 minutes.")
-                           .arg(itemLightOnValue.text)
-                           .arg(itemLightOffValue.text)
-                           .arg(itemBrightnessSpinbox.value)
-                           .arg(itemRiseSpinbox.value)
-                           )
+        messageBox.setText(qsTr(
+            "Light will turn on at %1 o'clock with brightness %3% and turn off at %2 o'clock.\n" +
+            "Light will rise/fall in %4 minutes.")
+            .arg(itemLightOnValue.text)
+            .arg(itemLightOffValue.text)
+            .arg(itemBrightnessSpinbox.value)
+            .arg(itemRiseSpinbox.value)
+        )
+        cancel()
     }
 
     Rectangle {
@@ -135,7 +140,7 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        setupLightTimeBox.timeType = "on"
+                        setupLightTimeBox.turnOnTime = true
                         mainWindow.state = "setupLightTime"
                     }
                     onPressed: itemLightOnBackground.color = colors.itemPressed
@@ -180,7 +185,7 @@ Rectangle {
                 MouseArea {
                     anchors.fill: parent
                     onClicked: {
-                        setupLightTimeBox.timeType = "off"
+                        setupLightTimeBox.turnOnTime = false
                         mainWindow.state = "setupLightTime"
                     }
                     onPressed: itemLightOffBackground.color = colors.itemPressed

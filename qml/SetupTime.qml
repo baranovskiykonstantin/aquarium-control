@@ -7,7 +7,9 @@ Rectangle {
 
     onOpacityChanged: {
         if (opacity == 1) {
-            var matchRes = aquarium.time.toString().match(new RegExp("(\\d{2}):(\\d{2}):(\\d{2})", "m"))
+            var matchRes = aquarium.time.match(
+                new RegExp("(\\d{2}):(\\d{2}):(\\d{2})", "m")
+            )
             itemHoursSpinbox.value = matchRes[1]
             itemMinutesSpinbox.value = matchRes[2]
             itemSecondsSpinbox.value = matchRes[3]
@@ -25,12 +27,14 @@ Rectangle {
             "time %1 %2"
             .arg(currentTime)
             .arg(itemCorrectionSpinbox.getFormattedValue())
-            )
+        )
         mainWindow.sendToAquarium("status")
-        messageBox.setText(qsTr("Time %1 with correction %2 sec. has been set successfully.")
-                           .arg(currentTime)
-                           .arg(itemCorrectionSpinbox.value)
-                           )
+        messageBox.setText(qsTr(
+            "Time %1 with correction %2 sec. has been set successfully.")
+            .arg(currentTime)
+            .arg(itemCorrectionSpinbox.value)
+        )
+        cancel()
     }
 
     function setup() {
@@ -40,14 +44,16 @@ Rectangle {
             .arg(("00" + itemMinutesSpinbox.value).slice(-2))
             .arg(("00" + itemSecondsSpinbox.value).slice(-2))
             .arg(itemCorrectionSpinbox.getFormattedValue())
-            )
+        )
         mainWindow.sendToAquarium("status")
-        messageBox.setText(qsTr("Time %1:%2:%3 with correction %4 sec. has been set successfully.")
-                           .arg(("00" + itemHoursSpinbox.value).slice(-2))
-                           .arg(("00" + itemMinutesSpinbox.value).slice(-2))
-                           .arg(("00" + itemSecondsSpinbox.value).slice(-2))
-                           .arg(itemCorrectionSpinbox.value)
-                           )
+        messageBox.setText(qsTr(
+            "Time %1:%2:%3 with correction %4 sec. has been set successfully.")
+            .arg(("00" + itemHoursSpinbox.value).slice(-2))
+            .arg(("00" + itemMinutesSpinbox.value).slice(-2))
+            .arg(("00" + itemSecondsSpinbox.value).slice(-2))
+            .arg(itemCorrectionSpinbox.value)
+        )
+        cancel()
     }
 
     Rectangle {

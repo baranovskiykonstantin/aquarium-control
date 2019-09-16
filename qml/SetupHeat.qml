@@ -7,7 +7,9 @@ Rectangle {
 
     onOpacityChanged: {
         if (opacity == 1) {
-            var matchRes = aquarium.heat.toString().match(new RegExp("(\\d+)-(\\d+)", "m"))
+            var matchRes = aquarium.heat.match(
+                new RegExp("(\\d+)-(\\d+)", "m")
+            )
             itemMinTempSpinbox.value = matchRes[1]
             itemMaxTempSpinbox.value = matchRes[2]
         }
@@ -40,12 +42,14 @@ Rectangle {
             "heat %1-%2"
             .arg(("00" + itemMinTempSpinbox.value).slice(-2))
             .arg(("00" + itemMaxTempSpinbox.value).slice(-2))
-            )
+        )
         mainWindow.sendToAquarium("status")
-        messageBox.setText(qsTr("Water temperature will be maintained in range %1-%2 °C.")
-                           .arg(("00" + itemMinTempSpinbox.value).slice(-2))
-                           .arg(("00" + itemMaxTempSpinbox.value).slice(-2))
-                           )
+        messageBox.setText(qsTr(
+            "Water temperature will be maintained in range %1-%2 °C.")
+            .arg(("00" + itemMinTempSpinbox.value).slice(-2))
+            .arg(("00" + itemMaxTempSpinbox.value).slice(-2))
+        )
+        cancel()
     }
 
     Rectangle {

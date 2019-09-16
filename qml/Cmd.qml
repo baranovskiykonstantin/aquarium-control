@@ -14,7 +14,9 @@ Rectangle {
     }
 
     property string command: ""
-    property string cmdPrompt: qsTr("<font color=\"tomato\">aquarium (disconnected): </font>")
+    property string cmdPrompt: qsTr(
+        "<font color=\"tomato\">aquarium (disconnected): </font>"
+    )
     property int responseLineCount: 0
 
     function goToGUI() {
@@ -77,7 +79,9 @@ Rectangle {
     function setPrompt(name, address) {
         cmdOutput.text = "<pre>"
         if (address == "00:00:00:00:00:00") {
-            cmdPrompt = qsTr("<font color=\"tomato\">aquarium (disconnected): </font>")
+            cmdPrompt = qsTr(
+                "<font color=\"tomato\">aquarium (disconnected): </font>"
+            )
         }
         else {
             cmdPrompt = "<font color=\"%1\">%2 (%3): </font>"

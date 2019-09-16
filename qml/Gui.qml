@@ -19,55 +19,39 @@ Rectangle {
 
     function setValue(item, value) {
         switch (item) {
-        case "date":
-            list.itemAt(0).setValue(value)
-            break
-        case "time":
-            list.itemAt(1).setValue(value)
-            break
-        case "temp":
-            list.itemAt(2).setValue(value)
-            break
-        case "heat":
-            list.itemAt(3).setValue(value)
-            break
-        case "light":
-            list.itemAt(4).setValue(value)
-            break
-        case "display":
-            list.itemAt(5).setValue(value)
-            break
+            case "date": list.itemAt(0).setValue(value); break
+            case "time": list.itemAt(1).setValue(value); break
+            case "temp": list.itemAt(2).setValue(value); break
+            case "heat": list.itemAt(3).setValue(value); break
+            case "light": list.itemAt(4).setValue(value); break
+            case "display": list.itemAt(5).setValue(value); break
         }
     }
 
     function setup(item) {
         switch (item) {
-        case "date":
-            mainWindow.state = "setupDate"
-            break
-        case "time":
-            mainWindow.state = "setupTime"
-            break
-        case "temp":
-        case "heat":
-            mainWindow.state = "setupHeat"
-            break
-        case "light":
-            mainWindow.state = "setupLight"
-            break
-        case "display":
-            switch (aquarium.display) {
-            case "time":
-                mainWindow.sendToAquarium("display temp")
-                messageBox.setText(qsTr("Display shows the temperature now."))
-                break
+            case "date": mainWindow.state = "setupDate"; break
+            case "time": mainWindow.state = "setupTime"; break
             case "temp":
-                mainWindow.sendToAquarium("display time")
-                messageBox.setText(qsTr("Display shows the time now."))
+            case "heat": mainWindow.state = "setupHeat"; break
+            case "light": mainWindow.state = "setupLight"; break
+            case "display":
+                switch (aquarium.display) {
+                    case "time":
+                        mainWindow.sendToAquarium("display temp")
+                        messageBox.setText(qsTr(
+                            "Display shows the temperature now."
+                        ))
+                        break
+                    case "temp":
+                        mainWindow.sendToAquarium("display time")
+                        messageBox.setText(qsTr(
+                            "Display shows the time now."
+                        ))
+                        break
+                }
+                mainWindow.sendToAquarium("status")
                 break
-            }
-            mainWindow.sendToAquarium("status")
-            break
         }
     }
 

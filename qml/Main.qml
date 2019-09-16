@@ -100,7 +100,8 @@ Item {
                 searchBox.stopAnimation()
                 searchBox.setText(qsTr(
                     "No aquarium was found!\n" +
-                    "Please ensure aquarium is available."))
+                    "Please ensure aquarium is available."
+                ))
             }
             else {
                 mainWindow.state = "deviceList"
@@ -112,14 +113,16 @@ Item {
                 searchBox.stopAnimation()
                 searchBox.setText(qsTr(
                     "Bluetooth is powered off!\n" +
-                    "Please power on Bluetooth and try again."))
+                    "Please power on Bluetooth and try again."
+                ))
             }
             else if (error != "NoError" && bluetooth.isDiscovering) {
                 bluetooth.stopDiscovery()
                 searchBox.stopAnimation()
                 searchBox.setText(qsTr(
                     "No aquarium was found!\n" +
-                    "Please ensure Bluetooth is available."))
+                    "Please ensure Bluetooth is available."
+                ))
             }
         }
 
@@ -128,9 +131,11 @@ Item {
             aquarium.address = deviceAddress
             mainWindow.state = "gui"
             cmdBox.setPrompt(aquarium.name, aquarium.address)
-            guiBox.setHeader("%1 (%2)"
-                             .arg(aquarium.name)
-                             .arg(aquarium.address))
+            guiBox.setHeader(
+                "%1 (%2)"
+                .arg(aquarium.name)
+                .arg(aquarium.address)
+            )
             guiBox.updateGui()
         }
 
@@ -148,7 +153,8 @@ Item {
                 searchBox.stopAnimation()
                 searchBox.setText(qsTr(
                     "Cannot connect to aquarium!\n" +
-                    "Please ensure aquarium is available."))
+                    "Please ensure aquarium is available."
+                ))
                 reset()
             }
         }
@@ -161,37 +167,61 @@ Item {
             }
             else {
                 if (line.startsWith("Date: ")) {
-                    matchRes = line.match(new RegExp("Date: (\\d{2}.\\d{2}.\\d{2}) ([A-Za-z]+)", "m"))
+                    matchRes = line.match(
+                        new RegExp("Date: (\\d{2}.\\d{2}.\\d{2}) ([A-Za-z]+)", "m")
+                    )
                     aquarium.date = matchRes[1]
                     aquarium.dayOfWeek = setupDateBox.daysOfWeek[setupDateBox.dayOfWeekToInt(matchRes[2]) - 1]
-                    guiBox.setValue("date", "%1 %2".arg(aquarium.date).arg(aquarium.dayOfWeek))
+                    guiBox.setValue("date",
+                        "%1 %2"
+                        .arg(aquarium.date)
+                        .arg(aquarium.dayOfWeek)
+                    )
                 }
                 else if (line.startsWith("Time: ")) {
-                    matchRes = line.match(new RegExp("Time: (\\d{2}:\\d{2}:\\d{2}) \\(([+-]\\d+) sec at (\\d{2}:\\d{2}:\\d{2})\\)", "m"))
+                    matchRes = line.match(
+                        new RegExp("Time: (\\d{2}:\\d{2}:\\d{2}) \\(([+-]\\d+) sec at (\\d{2}:\\d{2}:\\d{2})\\)", "m")
+                    )
                     aquarium.time = matchRes[1]
                     aquarium.correction = matchRes[2]
                     aquarium.correctionAt = matchRes[3]
-                    guiBox.setValue("time", qsTr("%1 (time is adjusted for %2 sec. everyday at %3)")
-                                                 .arg(aquarium.time)
-                                                 .arg(aquarium.correction)
-                                                 .arg(aquarium.correctionAt))
+                    guiBox.setValue("time", qsTr(
+                        "%1 (time is adjusted for %2 sec. everyday at %3)")
+                        .arg(aquarium.time)
+                        .arg(aquarium.correction)
+                        .arg(aquarium.correctionAt)
+                    )
                 }
                 else if (line.startsWith("Temp: ")) {
-                    matchRes = line.match(new RegExp("Temp: (.+)", "m"))
+                    matchRes = line.match(
+                        new RegExp("Temp: (.+)", "m")
+                    )
                     aquarium.temp = matchRes[1]
-                    guiBox.setValue("temp", qsTr("Water temperature %1 °C").arg(aquarium.temp))
+                    guiBox.setValue("temp", qsTr(
+                        "Water temperature %1 °C")
+                        .arg(aquarium.temp)
+                    )
                 }
                 else if (line.startsWith("Heat: ")) {
-                    matchRes = line.match(new RegExp("Heat: (ON|OFF) (auto|manual) \\((\\d+-\\d+)\\)", "m"))
+                    matchRes = line.match(
+                        new RegExp("Heat: (ON|OFF) (auto|manual) \\((\\d+-\\d+)\\)", "m")
+                    )
                     aquarium.heatState = matchRes[1]
                     aquarium.heatMode = matchRes[2]
                     aquarium.heat= matchRes[3]
                     state = aquarium.heatState == "ON" ? qsTr("on") : qsTr("off")
                     mode = aquarium.heatMode == "auto" ? qsTr("automatic") : qsTr("manual")
-                    guiBox.setValue("heat", qsTr("Heater is %1 in %2 mode (%3)").arg(state).arg(mode).arg(aquarium.heat))
+                    guiBox.setValue("heat", qsTr(
+                        "Heater is %1 in %2 mode (%3)")
+                        .arg(state)
+                        .arg(mode)
+                        .arg(aquarium.heat)
+                    )
                 }
                 else if (line.startsWith("Light: ")) {
-                    matchRes = line.match(new RegExp("Light: (ON|OFF) (auto|manual) \\((\\d{2}:\\d{2}:\\d{2}-\\d{2}:\\d{2}:\\d{2})\\) (\\d+)/(\\d+)% (\\d+)min", "m"))
+                    matchRes = line.match(
+                        new RegExp("Light: (ON|OFF) (auto|manual) \\((\\d{2}:\\d{2}:\\d{2}-\\d{2}:\\d{2}:\\d{2})\\) (\\d+)/(\\d+)% (\\d+)min", "m")
+                    )
                     aquarium.lightState = matchRes[1]
                     aquarium.lightMode = matchRes[2]
                     aquarium.light = matchRes[3]
@@ -208,29 +238,38 @@ Item {
                         case "manual": mode = qsTr("manual"); break
                         default: mode = qsTr("unknown")
                     }
-                    guiBox.setValue("light", qsTr("Light is %1 in %2 mode (%3, %4/%5%, %6 min.)")
-                                                  .arg(state)
-                                                  .arg(mode)
-                                                  .arg(aquarium.light)
-                                                  .arg(currentLightLevel)
-                                                  .arg(aquarium.lightLevel)
-                                                  .arg(aquarium.riseTime))
+                    guiBox.setValue("light", qsTr(
+                        "Light is %1 in %2 mode (%3, %4/%5%, %6 min.)")
+                        .arg(state)
+                        .arg(mode)
+                        .arg(aquarium.light)
+                        .arg(currentLightLevel)
+                        .arg(aquarium.lightLevel)
+                        .arg(aquarium.riseTime)
+                    )
                 }
                 else if (line.startsWith("Display: ")) {
-                    matchRes = line.match(new RegExp("Display: (time|temp)", "m"))
+                    matchRes = line.match(
+                        new RegExp("Display: (time|temp)", "m")
+                    )
                     aquarium.display = matchRes[1]
                     var displayMode = qsTr("none")
                     switch (aquarium.display) {
                         case "time" : displayMode = qsTr("time"); break
                         case "temp" : displayMode = qsTr("temperature"); break
                     }
-                    guiBox.setValue("display", qsTr("Display shows the %1").arg(displayMode))
+                    guiBox.setValue("display", qsTr(
+                        "Display shows the %1")
+                        .arg(displayMode)
+                    )
                 }
                 else if (line == "OK") {
                     messageBox.show()
                 }
                 else if (line == "ERROR") {
-                    messageBox.setText(qsTr("Error has been occurred while send the command!"))
+                    messageBox.setText(qsTr(
+                        "Error has been occurred while send the command!"
+                    ))
                     messageBox.show()
                 }
             }

@@ -7,7 +7,9 @@ Rectangle {
 
     onOpacityChanged: {
         if (opacity == 1) {
-            var matchRes = aquarium.date.toString().match(new RegExp("(\\d{2}).(\\d{2}).(\\d{2})", "m"))
+            var matchRes = aquarium.date.match(
+                new RegExp("(\\d{2}).(\\d{2}).(\\d{2})", "m")
+            )
             itemDaySpinbox.value = matchRes[1]
             itemMonthSpinbox.value = matchRes[2]
             itemYearSpinbox.value = matchRes[3]
@@ -27,20 +29,13 @@ Rectangle {
 
     function dayOfWeekToInt(name) {
         switch (name) {
-        case "Monday":
-            return 1
-        case "Tuesday":
-            return 2
-        case "Wednesday":
-            return 3
-        case "Thursday":
-            return 4
-        case "Friday":
-            return 5
-        case "Saturday":
-            return 6
-        case "Sunday":
-            return 7
+            case "Monday": return 1
+            case "Tuesday": return 2
+            case "Wednesday": return 3
+            case "Thursday": return 4
+            case "Friday": return 5
+            case "Saturday": return 6
+            case "Sunday": return 7
         }
     }
 
@@ -57,10 +52,12 @@ Rectangle {
             .arg(dayOfWeekToInt(currentDayOfWeek))
             )
         mainWindow.sendToAquarium("status")
-        messageBox.setText(qsTr("Date %1 %2 has been set successfully.")
-                           .arg(currentDate)
-                           .arg(daysOfWeek[dayOfWeekToInt(currentDayOfWeek) - 1])
-                           )
+        messageBox.setText(qsTr(
+            "Date %1 %2 has been set successfully.")
+            .arg(currentDate)
+            .arg(daysOfWeek[dayOfWeekToInt(currentDayOfWeek) - 1])
+        )
+        cancel()
     }
 
     function setup() {
@@ -70,14 +67,16 @@ Rectangle {
             .arg(("00" + itemMonthSpinbox.value).slice(-2))
             .arg(("00" + itemYearSpinbox.value).slice(-2))
             .arg(itemDayOfWeekSpinbox.value)
-            )
+        )
         mainWindow.sendToAquarium("status")
-        messageBox.setText(qsTr("Date %1.%2.%3 %4 has been set successfully.")
-                           .arg(("00" + itemDaySpinbox.value).slice(-2))
-                           .arg(("00" + itemMonthSpinbox.value).slice(-2))
-                           .arg(("00" + itemYearSpinbox.value).slice(-2))
-                           .arg(daysOfWeek[itemDayOfWeekSpinbox.value - 1])
-                           )
+        messageBox.setText(qsTr(
+            "Date %1.%2.%3 %4 has been set successfully.")
+            .arg(("00" + itemDaySpinbox.value).slice(-2))
+            .arg(("00" + itemMonthSpinbox.value).slice(-2))
+            .arg(("00" + itemYearSpinbox.value).slice(-2))
+            .arg(daysOfWeek[itemDayOfWeekSpinbox.value - 1])
+        )
+        cancel()
     }
 
     Rectangle {
