@@ -6,6 +6,8 @@
 #include <QTranslator>
 #include <QScreen>
 
+#include "bt_rfcomm.h"
+
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
@@ -14,6 +16,8 @@ int main(int argc, char *argv[])
     QTranslator qtTranslator;
     qtTranslator.load(QLocale(), "lang", "_", ":/translations");
     app.installTranslator(&qtTranslator);
+
+    qmlRegisterType<BTRfcomm>("BTRfcomm", 1, 0, "BTRfcomm");
 
 //    QLoggingCategory::setFilterRules(QStringLiteral("qt.bluetooth* = true"));
 /*

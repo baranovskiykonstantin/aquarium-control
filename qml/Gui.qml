@@ -188,8 +188,8 @@ Rectangle {
                         anchors.leftMargin: mmTOpx(1)
                         color: colors.itemText
                         font.pixelSize: mmTOpx(3.5)
-                        wrapMode: Text.Wrap
-                        maximumLineCount: 2
+                        fontSizeMode: Text.HorizontalFit
+                        minimumPixelSize: mmTOpx(2)
                     }
 
                     MouseArea {

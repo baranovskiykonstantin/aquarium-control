@@ -4,7 +4,9 @@ QT += qml quick bluetooth svg
 CONFIG += c++11
 CONFIG += qtc_runnable
 
-SOURCES += main.cpp
+SOURCES += main.cpp bt_rfcomm.cpp
+
+HEADERS += bt_rfcomm.h
 
 RESOURCES += qml.qrc
 

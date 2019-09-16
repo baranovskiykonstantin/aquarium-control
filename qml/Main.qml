@@ -1,7 +1,7 @@
 import QtQuick 2.0
-import QtBluetooth 5.0
 import QtQuick.Window 2.0
 import Qt.labs.settings 1.0
+import BTRfcomm 1.0
 
 Item {
     id: mainWindow
@@ -32,36 +32,35 @@ Item {
         mainWindow.state = "search"
         searchBox.setText(qsTr("Search of aquariums..."))
         deviceListBox.removeItems()
-        btSocket.connected = false
-        btService.deviceAddress = "00:00:00:00:00:00"
-        btDiscovery.running = true
+        bluetooth.startDiscovery()
     }
 
     function stopSearching() {
-        btSocket.connected = false
-        btService.deviceAddress = "00:00:00:00:00:00"
-        btDiscovery.running = false
         mainWindow.state = "gui"
+        if (bluetooth.isDiscovering) {
+            bluetooth.stopDiscovery()
+        }
+        else {
+            bluetooth.disconnectDevice()
+        }
     }
 
     function connectToAquarium(name, address) {
         aquarium.name = name
         // aquarium.address will be set when the connection is established
-        btService.deviceAddress = address
-        btSocket.connected = true
         searchBox.setText(qsTr("Connecting to\n%1 (%2)").arg(name).arg(address))
         mainWindow.state = "search"
+        bluetooth.connectDevice(address)
     }
 
     function sendToAquarium(data) {
-        if (btSocket.connected == true) {
-            btSocket.stringData = data
-        }
+        bluetooth.sendLine(data)
     }
 
-    function resetGui() {
+    function reset() {
         aquarium.name = ""
         aquarium.address = "00:00:00:00:00:00"
+        aquarium.connected = false
         guiBox.setHeader(qsTr("aquarium (disconnected)"))
         guiBox.setValue("date", qsTr("no data"))
         guiBox.setValue("time", qsTr("no data"))
@@ -69,7 +68,7 @@ Item {
         guiBox.setValue("heat", qsTr("no data"))
         guiBox.setValue("light", qsTr("no data"))
         guiBox.setValue("display", qsTr("no data"))
-        cmdBox.setText(qsTr("<font color=\"tomato\">aquarium (disconnected):</font><br>"))
+        cmdBox.setPrompt(aquarium.name, aquarium.address)
     }
 
     Aquarium {
@@ -87,42 +86,36 @@ Item {
         id: colors
     }
 
-    BluetoothService {
-        id: btService
-        deviceAddress: "00:00:00:00:00:00"
-        serviceProtocol: BluetoothService.RfcommProtocol
-        serviceUuid: "00001101-0000-1000-8000-00805F9B34FB" // RFCOMM
-    }
+    BTRfcomm {
+        id: bluetooth
 
-    BluetoothDiscoveryModel {
-        id: btDiscovery
-        uuidFilter: btService.serviceUuid
-        discoveryMode: BluetoothDiscoveryModel.MinimalServiceDiscovery
-        running: false
-
-        onRunningChanged : {
-            if (!btDiscovery.running) {
-                if (deviceListBox.getItemCount() == 0) {
-                    searchBox.stopAnimation()
-                    searchBox.setText(qsTr(
-                        "No aquarium was found!\n" +
-                        "Please ensure aquarium is available."))
-                }
-                else {
-                    mainWindow.state = "deviceList"
-                }
+        onDiscovered: {
+            if (name.startsWith("aquarium")) {
+                deviceListBox.addItem(name, address)
             }
         }
 
-        onErrorChanged: {
-            if (error == BluetoothDiscoveryModel.PoweredOffError) {
+        onDiscoveryFinished: {
+            if (deviceListBox.getItemCount() == 0) {
+                searchBox.stopAnimation()
+                searchBox.setText(qsTr(
+                    "No aquarium was found!\n" +
+                    "Please ensure aquarium is available."))
+            }
+            else {
+                mainWindow.state = "deviceList"
+            }
+        }
+
+        onDiscoveryError: {
+            if (error == "PoweredOffError") {
                 searchBox.stopAnimation()
                 searchBox.setText(qsTr(
                     "Bluetooth is powered off!\n" +
                     "Please power on Bluetooth and try again."))
             }
-            else if (error != BluetoothDiscoveryModel.NoError && btDiscovery.running) {
-                btDiscovery.running = false
+            else if (error != "NoError" && bluetooth.isDiscovering) {
+                bluetooth.stopDiscovery()
                 searchBox.stopAnimation()
                 searchBox.setText(qsTr(
                     "No aquarium was found!\n" +
@@ -130,65 +123,51 @@ Item {
             }
         }
 
-        onServiceDiscovered: {
-            if (service.deviceName.startsWith("aquarium")) {
-                deviceListBox.addItem(service.deviceName, service.deviceAddress)
+        onConnected: {
+            aquarium.connected = true
+            aquarium.address = deviceAddress
+            mainWindow.state = "gui"
+            cmdBox.setPrompt(aquarium.name, aquarium.address)
+            guiBox.setHeader("%1 (%2)"
+                             .arg(aquarium.name)
+                             .arg(aquarium.address))
+            guiBox.updateGui()
+        }
+
+        onDisconnected: {
+            reset()
+            if (mainWindow.state == "gui")
+            {
+                messageBox.setText(qsTr("Aquarium has been disconnected!"))
+                messageBox.show()
             }
         }
-    }
 
-    BluetoothSocket {
-        id: btSocket
-        service: btService
-        connected: false
-
-        onErrorChanged: {
-            if (error != BluetoothSocket.NoError) {
+        onConnectionError: {
+            if (error != "NoError") {
                 searchBox.stopAnimation()
                 searchBox.setText(qsTr(
                     "Cannot connect to aquarium!\n" +
                     "Please ensure aquarium is available."))
-                resetGui()
+                reset()
             }
         }
 
-        onSocketStateChanged: {
-            if (btSocket.connected == true) {
-                aquarium.connected = true
-                aquarium.address = service.deviceAddress
-                mainWindow.state = "gui"
-                cmdBox.setText("<font color=\"%1\">%2 (%3):</font><br>"
-                               .arg(colors.headerText)
-                               .arg(aquarium.name)
-                               .arg(aquarium.address))
-                guiBox.setHeader("%1 (%2)"
-                                 .arg(aquarium.name)
-                                 .arg(aquarium.address))
-                guiBox.updateGui()
-            }
-            else {
-                resetGui()
-                aquarium.connected = false
-            }
-        }
-
-        onStringDataChanged: {
-            var data = btSocket.stringData.toString()
-            var matchRes, state, mode
+        onLineReceived: {
+            var matchRes, state, mode, currentLightLevel
 
             if (mainWindow.state == "cmd") {
-                cmdBox.appendText(data)
+                cmdBox.appendLine(line)
             }
             else {
-
-                if (data.match("Date: ")) {
-                    matchRes = data.match(new RegExp("Date: (\\d{2}.\\d{2}.\\d{2}) ([A-Za-z]+)", "m"))
+                if (line.startsWith("Date: ")) {
+                    matchRes = line.match(new RegExp("Date: (\\d{2}.\\d{2}.\\d{2}) ([A-Za-z]+)", "m"))
                     aquarium.date = matchRes[1]
                     aquarium.dayOfWeek = setupDateBox.daysOfWeek[setupDateBox.dayOfWeekToInt(matchRes[2]) - 1]
                     guiBox.setValue("date", "%1 %2".arg(aquarium.date).arg(aquarium.dayOfWeek))
                 }
-                if (data.match("Time: ")) {
-                    matchRes = data.match(new RegExp("Time: (\\d{2}:\\d{2}:\\d{2}) \\(([+-]\\d+) sec at (\\d{2}:\\d{2}:\\d{2})\\)", "m"))
+                else if (line.startsWith("Time: ")) {
+                    matchRes = line.match(new RegExp("Time: (\\d{2}:\\d{2}:\\d{2}) \\(([+-]\\d+) sec at (\\d{2}:\\d{2}:\\d{2})\\)", "m"))
                     aquarium.time = matchRes[1]
                     aquarium.correction = matchRes[2]
                     aquarium.correctionAt = matchRes[3]
@@ -197,13 +176,13 @@ Item {
                                                  .arg(aquarium.correction)
                                                  .arg(aquarium.correctionAt))
                 }
-                if (data.match("Temp: ")) {
-                    matchRes = data.match(new RegExp("Temp: (.+)", "m"))
+                else if (line.startsWith("Temp: ")) {
+                    matchRes = line.match(new RegExp("Temp: (.+)", "m"))
                     aquarium.temp = matchRes[1]
                     guiBox.setValue("temp", qsTr("Water temperature %1 °C").arg(aquarium.temp))
                 }
-                if (data.match("Heat: ")) {
-                    matchRes = data.match(new RegExp("Heat: (ON|OFF) (auto|manual) \\((\\d+-\\d+)\\)", "m"))
+                else if (line.startsWith("Heat: ")) {
+                    matchRes = line.match(new RegExp("Heat: (ON|OFF) (auto|manual) \\((\\d+-\\d+)\\)", "m"))
                     aquarium.heatState = matchRes[1]
                     aquarium.heatMode = matchRes[2]
                     aquarium.heat= matchRes[3]
@@ -211,11 +190,12 @@ Item {
                     mode = aquarium.heatMode == "auto" ? qsTr("automatic") : qsTr("manual")
                     guiBox.setValue("heat", qsTr("Heater is %1 in %2 mode (%3)").arg(state).arg(mode).arg(aquarium.heat))
                 }
-                if (data.match("Light: ")) {
-                    matchRes = data.match(new RegExp("Light: (ON|OFF) (auto|manual) \\((\\d{2}:\\d{2}:\\d{2}-\\d{2}:\\d{2}:\\d{2})\\) (\\d+)/(\\d+)% (\\d+)min", "m"))
+                else if (line.startsWith("Light: ")) {
+                    matchRes = line.match(new RegExp("Light: (ON|OFF) (auto|manual) \\((\\d{2}:\\d{2}:\\d{2}-\\d{2}:\\d{2}:\\d{2})\\) (\\d+)/(\\d+)% (\\d+)min", "m"))
                     aquarium.lightState = matchRes[1]
                     aquarium.lightMode = matchRes[2]
                     aquarium.light = matchRes[3]
+                    currentLightLevel = matchRes[4]
                     aquarium.lightLevel = matchRes[5]
                     aquarium.riseTime = matchRes[6]
                     switch (aquarium.lightState) {
@@ -228,15 +208,16 @@ Item {
                         case "manual": mode = qsTr("manual"); break
                         default: mode = qsTr("unknown")
                     }
-                    guiBox.setValue("light", qsTr("Light is %1 in %2 mode (%3, %4%, %5 min.)")
+                    guiBox.setValue("light", qsTr("Light is %1 in %2 mode (%3, %4/%5%, %6 min.)")
                                                   .arg(state)
                                                   .arg(mode)
                                                   .arg(aquarium.light)
+                                                  .arg(currentLightLevel)
                                                   .arg(aquarium.lightLevel)
                                                   .arg(aquarium.riseTime))
                 }
-                if (data.match("Display: ")) {
-                    matchRes = data.match(new RegExp("Display: (time|temp)", "m"))
+                else if (line.startsWith("Display: ")) {
+                    matchRes = line.match(new RegExp("Display: (time|temp)", "m"))
                     aquarium.display = matchRes[1]
                     var displayMode = qsTr("none")
                     switch (aquarium.display) {
@@ -245,10 +226,10 @@ Item {
                     }
                     guiBox.setValue("display", qsTr("Display shows the %1").arg(displayMode))
                 }
-                if (data.match("OK")) {
+                else if (line == "OK") {
                     messageBox.show()
                 }
-                if (data.match("ERROR")) {
+                else if (line == "ERROR") {
                     messageBox.setText(qsTr("Error has been occurred while send the command!"))
                     messageBox.show()
                 }

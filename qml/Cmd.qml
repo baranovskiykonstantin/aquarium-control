@@ -14,6 +14,8 @@ Rectangle {
     }
 
     property string command: ""
+    property string cmdPrompt: qsTr("<font color=\"tomato\">aquarium (disconnected): </font>")
+    property int responseLineCount: 0
 
     function goToGUI() {
         mainWindow.state = "gui"
@@ -23,34 +25,70 @@ Rectangle {
         if (cmdText.text == "exit") {
             Qt.quit()
         }
-        command = cmdText.text
-        mainWindow.sendToAquarium(command)
+        else if (cmdText.text == "clear") {
+            cmdOutput.text = "<pre>%1</pre>".arg(cmdPrompt)
+        }
+        else {
+            command = cmdText.text
+            mainWindow.sendToAquarium(command)
+            switch (command) {
+                case "status": responseLineCount = 7; break
+                case "help": responseLineCount = 27; break
+                default: responseLineCount = 2
+            }
+        }
         scrollToEnd()
-        cmdText.focus = true
         cmdText.text = ""
+        cmdText.focus = true
     }
 
-    function appendText(str) {
-        if (command != "" && str.match(command)) {
-            str = str.replace(command, "<br><font color=\"%1\">%2</font><br>"
-                                       .arg(colors.headerText)
-                                       .arg(command))
+    function appendLine(line) {
+        cmdOutput.text = cmdOutput.text.replace("</pre>", "")
+        if (command != "" && line == command) {
+            cmdOutput.text += "<font color=\"%1\">%2</font><br>"
+                              .arg(colors.headerText)
+                              .arg(line)
             command = ""
         }
-        str = str.replace(/\r\n/g, "<br>")
-        str = str.replace("OK", "<font color=\"lime\">OK</font>")
-        str = str.replace("ERROR", "<font color=\"tomato\">ERROR</font>")
-        str = str.replace("UNKNOWN", "<font color=\"gray\">UNKNOWN</font>")
-        cmdOutput.text += str
+        else if (line == "OK") {
+            cmdOutput.text += "<font color=\"lime\">OK</font><br>"
+        }
+        else if (line == "ERROR") {
+            cmdOutput.text += "<font color=\"tomato\">ERROR</font><br>"
+        }
+        else if (line == "UNKNOWN") {
+            cmdOutput.text += "<font color=\"gray\">UNKNOWN</font><br>"
+        }
+        else {
+            cmdOutput.text += line + "<br>"
+        }
+
+        if (responseLineCount > 0) {
+            responseLineCount -= 1
+            if (responseLineCount == 0) {
+                cmdOutput.text += cmdPrompt
+            }
+        }
+
+        cmdOutput.text += "</pre>"
         scrollToEnd()
     }
 
-    function setText(str) {
-        cmdOutput.text = str
+    function setPrompt(name, address) {
+        cmdOutput.text = "<pre>"
+        if (address == "00:00:00:00:00:00") {
+            cmdPrompt = qsTr("<font color=\"tomato\">aquarium (disconnected): </font>")
+        }
+        else {
+            cmdPrompt = "<font color=\"%1\">%2 (%3): </font>"
+                        .arg(colors.headerText)
+                        .arg(name)
+                        .arg(address)
+        }
+        cmdOutput.text += cmdPrompt + "</pre>"
     }
 
     function scrollToEnd() {
-        // If content is bigger then the text field - scroll to end
         if (cmdOutput.height > cmdOutputScroll.height) {
             cmdOutputScroll.contentY = cmdOutput.height - cmdOutputScroll.height
         }
@@ -71,7 +109,7 @@ Rectangle {
             color: colors.cmdBoxText
             font.pixelSize: mmTOpx(3.5)
             wrapMode: Text.WrapAnywhere
-            text: "<font color=\"tomato\">aquarium (disconnected):</font><br>"
+            text: "<pre>%1</pre>".arg(cmdPrompt)
         }
     }
 

@@ -116,29 +116,34 @@ Rectangle {
     }
 
     Rectangle {
-        id: cancelButton
-        color: colors.buttonBackground
+        id: buttonBox
+        color: colors.background
         anchors.bottom: parent.bottom
-        anchors.margins: mmTOpx(1)
-        anchors.horizontalCenter: parent.horizontalCenter
-        width: parent.width - mmTOpx(2)
+        width: parent.width
         height: mmTOpx(10)
 
-        Text {
-            text: qsTr("Cancel")
+        Rectangle {
+            id: cancelButton
+            color: colors.buttonBackground
+            anchors.margins: mmTOpx(1)
             anchors.fill: parent
-            horizontalAlignment: Text.AlignHCenter
-            verticalAlignment: Text.AlignVCenter
-            color: colors.buttonText
-            font.pixelSize: mmTOpx(3.5)
-            wrapMode: Text.WordWrap
-        }
 
-        MouseArea {
-            anchors.fill: parent
-            onClicked: mainWindow.stopSearching()
-            onPressed: cancelButton.color = colors.buttonPressed
-            onReleased: cancelButton.color = colors.buttonBackground
+            Text {
+                text: qsTr("Cancel")
+                anchors.fill: parent
+                horizontalAlignment: Text.AlignHCenter
+                verticalAlignment: Text.AlignVCenter
+                color: colors.buttonText
+                font.pixelSize: mmTOpx(3.5)
+                wrapMode: Text.WordWrap
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: mainWindow.stopSearching()
+                onPressed: cancelButton.color = colors.buttonPressed
+                onReleased: cancelButton.color = colors.buttonBackground
+            }
         }
     }
 }

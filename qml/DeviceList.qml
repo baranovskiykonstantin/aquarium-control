@@ -116,8 +116,8 @@ Rectangle {
         Rectangle {
             id: cancelButton
             color: colors.buttonBackground
-            width: parent.width
-            height: parent.height
+            anchors.margins: mmTOpx(1)
+            anchors.fill: parent
 
             Text {
                 text: qsTr("Cancel")
