@@ -8,15 +8,6 @@
 BTRfcomm::BTRfcomm(QObject *parent) : QObject(parent)
 {
     m_data = QString();
-    m_discoveryAgent = new QBluetoothServiceDiscoveryAgent(this);
-    m_discoveryAgent->setUuidFilter(QBluetoothUuid(QString("00001101-0000-1000-8000-00805F9B34FB")));
-    connect(m_discoveryAgent, SIGNAL(serviceDiscovered(QBluetoothServiceInfo)),
-            this, SLOT(onServiceDiscovered(QBluetoothServiceInfo)));
-    connect(m_discoveryAgent, SIGNAL(finished()),
-            this, SLOT(onServiceDiscoveryFinished()));
-    connect(m_discoveryAgent, SIGNAL(error(QBluetoothServiceDiscoveryAgent::Error)),
-            this, SLOT(onServiceDiscoveryError(QBluetoothServiceDiscoveryAgent::Error)));
-
 
     m_socket = new QBluetoothSocket(QBluetoothServiceInfo::RfcommProtocol, this);
     connect(m_socket, SIGNAL(readyRead()),
@@ -34,18 +25,35 @@ BTRfcomm::BTRfcomm(QObject *parent) : QObject(parent)
 
 BTRfcomm::~BTRfcomm()
 {
-    m_discoveryAgent->stop();
-    m_socket->disconnectFromService();
+    delete m_discoveryAgent;
+    delete m_socket;
+    delete m_service;
 }
 
 void BTRfcomm::startDiscovery()
 {
+    if (m_discoveryAgent)
+    {
+        delete m_discoveryAgent;
+    }
+
+    m_discoveryAgent = new QBluetoothServiceDiscoveryAgent(this);
+    m_discoveryAgent->setUuidFilter(QBluetoothUuid(QString("00001101-0000-1000-8000-00805F9B34FB")));
+    connect(m_discoveryAgent, SIGNAL(serviceDiscovered(QBluetoothServiceInfo)),
+            this, SLOT(onServiceDiscovered(QBluetoothServiceInfo)));
+    connect(m_discoveryAgent, SIGNAL(finished()),
+            this, SLOT(onServiceDiscoveryFinished()));
+    connect(m_discoveryAgent, SIGNAL(error(QBluetoothServiceDiscoveryAgent::Error)),
+            this, SLOT(onServiceDiscoveryError(QBluetoothServiceDiscoveryAgent::Error)));
     m_discoveryAgent->start();
 }
 
 void BTRfcomm::stopDiscovery()
 {
-    m_discoveryAgent->stop();
+    if (m_discoveryAgent)
+    {
+        m_discoveryAgent->stop();
+    }
 }
 
 void BTRfcomm::onServiceDiscovered(const QBluetoothServiceInfo &service)
@@ -69,12 +77,15 @@ void BTRfcomm::onServiceDiscoveryError(QBluetoothServiceDiscoveryAgent::Error er
 
 bool BTRfcomm::getServiceDiscoveryStatus()
 {
-    return m_discoveryAgent->isActive();
+    if (m_discoveryAgent)
+    {
+        return m_discoveryAgent->isActive();
+    }
+    return false;
 }
 
 void BTRfcomm::connectDevice(QString address)
 {
-    m_socket->disconnectFromService();
     QBluetoothDeviceInfo device(QBluetoothAddress(address), QString(), 0);
     m_service->setDevice(device);
     m_socket->connectToService(*m_service);
