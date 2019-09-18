@@ -1,7 +1,7 @@
 # Aquarium-control
 This application was designed specially to setup the [aquarium controller](https://github.com/baranovskiykonstantin/aquarium).
 
-![app](https://raw.github.com/baranovskiykonstantin/aquarium-control/master/screenshots/app.gif)
+![app](https://raw.github.com/baranovskiykonstantin/aquarium-control/master/screenshots/screencast.gif)
 
 # Packages
 * Android: [aquarium-control-1.2-armeabi-v7a.apk](https://drive.google.com/open?id=1oMw0taMNseJIvx_3hUQxOoBZSXMGo6xo)
