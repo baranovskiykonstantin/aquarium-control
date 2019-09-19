@@ -180,7 +180,7 @@ Rectangle {
 
         MouseArea {
             anchors.fill: parent
-            onClicked: mainWindow.startSearching()
+            onClicked: mainWindow.searchPorts()
             onPressed: guiHeaderBackground.color = colors.headerPressed
             onReleased: guiHeaderBackground.color = colors.headerBackground
         }
@@ -264,7 +264,7 @@ Rectangle {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: { Qt.quit() }
+                    onClicked: mainWindow.quit()
                     onPressed: exitButton.color = colors.buttonPressed
                     onReleased: exitButton.color = colors.buttonBackground
                 }

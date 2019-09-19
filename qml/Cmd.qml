@@ -33,7 +33,7 @@ Rectangle {
         }
 
         if (cmdText.text == "exit") {
-            Qt.quit()
+            mainWindow.quit()
         }
         else if (cmdText.text == "clear") {
             cmdOutput.text = openTag + cmdPrompt + closeTag
@@ -81,17 +81,16 @@ Rectangle {
         scrollToEnd()
     }
 
-    function setPrompt(name, address) {
-        if (address == "00:00:00:00:00:00") {
+    function setPrompt(portName) {
+        if (portName == "") {
             cmdPrompt = qsTr(
                 "<font color=\"tomato\">aquarium (disconnected): </font>"
             )
         }
         else {
-            cmdPrompt = "<font color=\"%1\">%2 (%3): </font>"
+            cmdPrompt = "<font color=\"%1\">aquarium (%2): </font>"
                         .arg(colors.headerText)
-                        .arg(name)
-                        .arg(address)
+                        .arg(portName)
         }
         cmdOutput.text = openTag + cmdPrompt + closeTag
     }

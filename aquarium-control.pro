@@ -1,12 +1,14 @@
 TEMPLATE = app
 
-QT += qml quick bluetooth
-CONFIG += c++11
-CONFIG += qtc_runnable
+RC_ICONS = icons/icon.ico
 
-SOURCES += main.cpp bt_rfcomm.cpp
+QT += qml quick serialport svg
 
-HEADERS += bt_rfcomm.h
+CONFIG += c++11 qtc_runnable
+
+SOURCES += main.cpp serial_port.cpp
+
+HEADERS += serial_port.h
 
 RESOURCES += qml.qrc
 

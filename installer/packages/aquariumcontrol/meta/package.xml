@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<Package>
+    <DisplayName>aquarium-control</DisplayName>
+    <Description>Application executable and libraries.</Description>
+    <Version>2.0</Version>
+    <ReleaseDate>2019-09-20</ReleaseDate>
+    <Name>aquariumcontrol</Name>
+    <Default>true</Default>
+    <Script>installscript.qs</Script>
+</Package>

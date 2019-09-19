@@ -5,10 +5,10 @@
         <file>qml/Aquarium.qml</file>
         <file>qml/Cmd.qml</file>
         <file>qml/Colors.qml</file>
-        <file>qml/DeviceList.qml</file>
         <file>qml/Gui.qml</file>
         <file>qml/Main.qml</file>
         <file>qml/Message.qml</file>
+        <file>qml/PortList.qml</file>
         <file>qml/Search.qml</file>
         <file>qml/SetupDate.qml</file>
         <file>qml/SetupHeat.qml</file>

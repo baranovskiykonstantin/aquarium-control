@@ -6,7 +6,7 @@
 #include <QTranslator>
 #include <QScreen>
 
-#include "bt_rfcomm.h"
+#include "serial_port.h"
 
 int main(int argc, char *argv[])
 {
@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     qtTranslator.load(QLocale(), "lang", "_", ":/translations");
     app.installTranslator(&qtTranslator);
 
-    qmlRegisterType<BTRfcomm>("BTRfcomm", 1, 0, "BTRfcomm");
+    qmlRegisterType<SerialPort>("SerialPort", 1, 0, "SerialPort");
 
 //    QLoggingCategory::setFilterRules(QStringLiteral("qt.bluetooth* = true"));
 

@@ -2,8 +2,7 @@ import QtQuick 2.0
 
 Item {
     property bool connected: false
-    property string name: ""
-    property string address: "00:00:00:00:00:00"
+    property string portName: ""
     property string date: "01.01.01"
     property string dayOfWeek: "Monday"
     property string time: "12:00:00"

@@ -108,7 +108,7 @@ Rectangle {
             anchors.top: fishImage.bottom
             anchors.topMargin: mmTOpx(5)
             anchors.horizontalCenter: parent.horizontalCenter
-            text: qsTr("Search of aquariums...")
+            text: qsTr("Connecting to aquarium")
             horizontalAlignment: Text.AlignHCenter
             color: colors.itemText
             font.pixelSize: mmTOpx(4)
@@ -140,7 +140,7 @@ Rectangle {
 
             MouseArea {
                 anchors.fill: parent
-                onClicked: mainWindow.stopSearching()
+                onClicked: mainWindow.closePort()
                 onPressed: cancelButton.color = colors.buttonPressed
                 onReleased: cancelButton.color = colors.buttonBackground
             }

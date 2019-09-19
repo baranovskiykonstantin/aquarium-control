@@ -1,17 +1,17 @@
 import QtQuick 2.0
 import QtQuick.Window 2.0
 import Qt.labs.settings 1.0
-import BTRfcomm 1.0
+import SerialPort 1.0
 
 Item {
     id: mainWindow
 
     Component.onCompleted: {
-        if (aquarium.address == "00:00:00:00:00:00") {
-            startSearching()
+        if (aquarium.portName == "") {
+            searchPorts()
         }
         else {
-            connectToAquarium(aquarium.name, aquarium.address)
+            connectToAquarium(aquarium.portName)
         }
     }
 
@@ -28,39 +28,42 @@ Item {
         return Math.round(px)
     }
 
-    function startSearching() {
-        mainWindow.state = "search"
-        searchBox.setText(qsTr("Search of aquariums..."))
-        bluetooth.disconnectDevice()
-        deviceListBox.removeItems()
-        bluetooth.startDiscovery()
+    function quit() {
+        if (aquarium.connected == false) {
+            aquarium.portName = ""
+        }
+        Qt.quit()
     }
 
-    function stopSearching() {
-        mainWindow.state = "gui"
-        if (bluetooth.isDiscovering) {
-            bluetooth.stopDiscovery()
-        }
-        else {
-            bluetooth.disconnectDevice()
+    function searchPorts() {
+        mainWindow.state = "portList"
+        serialPort.closePort()
+        reset()
+        portListBox.removeItems()
+        serialPort.searchPorts()
+    }
+
+    function closePort() {
+        serialPort.closePort()
+        if (mainWindow.state != "cmd") {
+            mainWindow.state = "gui"
         }
     }
 
-    function connectToAquarium(name, address) {
-        aquarium.name = name
-        // aquarium.address will be set when the connection is established
-        searchBox.setText(qsTr("Connecting to\n%1 (%2)").arg(name).arg(address))
+    function connectToAquarium(portName) {
+        aquarium.portName = portName
+        searchBox.setText(qsTr("Connecting to aquarium (%1)").arg(portName))
         mainWindow.state = "search"
-        bluetooth.connectDevice(address)
+        serialPort.openPort(portName)
+        sendToAquarium("status")
     }
 
     function sendToAquarium(data) {
-        bluetooth.sendLine(data)
+        serialPort.sendLine(data)
     }
 
     function reset() {
-        aquarium.name = ""
-        aquarium.address = "00:00:00:00:00:00"
+        aquarium.portName = ""
         aquarium.connected = false
         guiBox.setHeader(qsTr("aquarium (disconnected)"))
         guiBox.setValue("date", qsTr("no data"))
@@ -69,7 +72,7 @@ Item {
         guiBox.setValue("heat", qsTr("no data"))
         guiBox.setValue("light", qsTr("no data"))
         guiBox.setValue("display", qsTr("no data"))
-        cmdBox.setPrompt(aquarium.name, aquarium.address)
+        cmdBox.setPrompt(aquarium.portName)
     }
 
     Aquarium {
@@ -79,90 +82,56 @@ Item {
     Settings {
         id: settings
 
-        property alias aquariumName: aquarium.name
-        property alias aquariumAddress: aquarium.address
+        property alias aquariumName: aquarium.portName
     }
 
     Colors {
         id: colors
     }
 
-    BTRfcomm {
-        id: bluetooth
+    SerialPort {
+        id: serialPort
 
-        onDiscovered: {
-            if (name.startsWith("aquarium")) {
-                deviceListBox.addItem(name, address)
-            }
+        onPortFound: {
+            portListBox.addItem(name)
         }
 
-        onDiscoveryFinished: {
-            if (deviceListBox.getItemCount() == 0) {
-                searchBox.stopAnimation()
-                searchBox.setText(qsTr(
-                    "No aquarium was found!\n" +
-                    "Please ensure aquarium is available\n" +
-                    "and Bluetooth is turned on."
-                ))
-            }
-            else {
-                mainWindow.state = "deviceList"
-            }
-        }
-
-        onDiscoveryError: {
-            if (error == "PoweredOffError") {
-                searchBox.stopAnimation()
-                searchBox.setText(qsTr(
-                    "Bluetooth is powered off!\n" +
-                    "Please power on Bluetooth and try again."
-                ))
-            }
-            else if (error != "NoError" && bluetooth.isDiscovering) {
-                bluetooth.stopDiscovery()
-                searchBox.stopAnimation()
-                searchBox.setText(qsTr(
-                    "No aquarium was found!\n" +
-                    "Please ensure Bluetooth is available."
-                ))
-            }
-        }
-
-        onConnected: {
-            aquarium.connected = true
-            aquarium.address = deviceAddress
-            mainWindow.state = "gui"
-            cmdBox.setPrompt(aquarium.name, aquarium.address)
-            guiBox.setHeader(
-                "%1 (%2)"
-                .arg(aquarium.name)
-                .arg(aquarium.address)
-            )
-            guiBox.updateGui()
-        }
-
-        onDisconnected: {
-            reset()
-            if (mainWindow.state == "gui")
-            {
-                messageBox.setText(qsTr("Aquarium has been disconnected!"))
-                messageBox.show()
-            }
-        }
-
-        onConnectionError: {
+        onPortError: {
             if (error != "NoError") {
-                searchBox.stopAnimation()
-                searchBox.setText(qsTr(
-                    "Cannot connect to aquarium!\n" +
-                    "Please ensure aquarium is available."
-                ))
+                if (mainWindow.state == "search")
+                {
+                    searchBox.stopAnimation()
+                    searchBox.setText(qsTr(
+                        "Connection with aquarium has been terminated!\n" +
+                        "Please ensure aquarium is available."
+                    ))
+                }
+                else if (mainWindow.state == "gui")
+                {
+                    messageBox.setText(qsTr(
+                        "Connection with aquarium has been terminated!\n" +
+                        "Please ensure aquarium is available."
+                    ))
+                    messageBox.show()
+                }
                 reset()
             }
         }
 
         onLineReceived: {
             var matchRes, state, mode, currentLightLevel
+
+            if (aquarium.connected == false) {
+                // First data has been successfully received after connection.
+                aquarium.connected = true
+                mainWindow.state = "gui"
+                cmdBox.setPrompt(aquarium.portName)
+                guiBox.setHeader(qsTr(
+                    "aquarium (%1)")
+                    .arg(aquarium.portName)
+                )
+                guiBox.updateGui()
+            }
 
             if (mainWindow.state == "cmd") {
                 cmdBox.appendLine(line)
@@ -300,8 +269,8 @@ Item {
         anchors.fill: mainWindow
     }
 
-    DeviceList {
-        id: deviceListBox
+    PortList {
+        id: portListBox
         anchors.fill: mainWindow
     }
 
@@ -344,7 +313,7 @@ Item {
         State {
             name: "search"
             PropertyChanges { target: searchBox; opacity: 1; z: 2 }
-            PropertyChanges { target: deviceListBox; opacity: 0; z: 0 }
+            PropertyChanges { target: portListBox; opacity: 0; z: 0 }
             PropertyChanges { target: guiBox; opacity: 0; z: 0}
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
@@ -354,9 +323,9 @@ Item {
             PropertyChanges { target: cmdBox; opacity: 0; z: 0}
         },
         State {
-            name: "deviceList"
+            name: "portList"
             PropertyChanges { target: searchBox; opacity: 0; z: 0 }
-            PropertyChanges { target: deviceListBox; opacity: 1; z: 2 }
+            PropertyChanges { target: portListBox; opacity: 1; z: 2 }
             PropertyChanges { target: guiBox; opacity: 0; z: 0}
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
@@ -368,7 +337,7 @@ Item {
         State {
             name: "gui"
             PropertyChanges { target: searchBox; opacity: 0; z: 0 }
-            PropertyChanges { target: deviceListBox; opacity: 0; z: 0 }
+            PropertyChanges { target: portListBox; opacity: 0; z: 0 }
             PropertyChanges { target: guiBox; opacity: 1; z: 2}
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
@@ -380,7 +349,7 @@ Item {
         State {
             name: "setupDate"
             PropertyChanges { target: searchBox; opacity: 0; z: 0 }
-            PropertyChanges { target: deviceListBox; opacity: 0; z: 0 }
+            PropertyChanges { target: portListBox; opacity: 0; z: 0 }
             PropertyChanges { target: guiBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupDateBox; opacity: 1; z: 2 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
@@ -392,7 +361,7 @@ Item {
         State {
             name: "setupTime"
             PropertyChanges { target: searchBox; opacity: 0; z: 0 }
-            PropertyChanges { target: deviceListBox; opacity: 0; z: 0 }
+            PropertyChanges { target: portListBox; opacity: 0; z: 0 }
             PropertyChanges { target: guiBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 1; z: 2 }
@@ -404,7 +373,7 @@ Item {
         State {
             name: "setupHeat"
             PropertyChanges { target: searchBox; opacity: 0; z: 0 }
-            PropertyChanges { target: deviceListBox; opacity: 0; z: 0 }
+            PropertyChanges { target: portListBox; opacity: 0; z: 0 }
             PropertyChanges { target: guiBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
@@ -416,7 +385,7 @@ Item {
         State {
             name: "setupLight"
             PropertyChanges { target: searchBox; opacity: 0; z: 0 }
-            PropertyChanges { target: deviceListBox; opacity: 0; z: 0 }
+            PropertyChanges { target: portListBox; opacity: 0; z: 0 }
             PropertyChanges { target: guiBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
@@ -428,7 +397,7 @@ Item {
         State {
             name: "setupLightTime"
             PropertyChanges { target: searchBox; opacity: 0; z: 0 }
-            PropertyChanges { target: deviceListBox; opacity: 0; z: 0 }
+            PropertyChanges { target: portListBox; opacity: 0; z: 0 }
             PropertyChanges { target: guiBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
@@ -440,7 +409,7 @@ Item {
         State {
             name: "cmd"
             PropertyChanges { target: searchBox; opacity: 0; z: 0 }
-            PropertyChanges { target: deviceListBox; opacity: 0; z: 0 }
+            PropertyChanges { target: portListBox; opacity: 0; z: 0 }
             PropertyChanges { target: guiBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }

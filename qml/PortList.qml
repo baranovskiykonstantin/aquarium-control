@@ -2,23 +2,23 @@ import QtQuick 2.0
 import QtQuick.Controls 2.0
 
 Rectangle {
-    id: deviceListBox
+    id: portListBox
     color: "transparent"
 
     function cancel() {
         mainWindow.state = "gui"
     }
 
-    function addItem(name, address) {
-        deviceListModel.append({"deviceName": name, "deviceAddress": address })
+    function addItem(name) {
+        portListModel.append({"portName": name})
     }
 
     function getItemCount() {
-        return deviceListModel.count
+        return portListModel.count
     }
 
     function removeItems() {
-        deviceListModel.clear()
+        portListModel.clear()
     }
 
     Rectangle {
@@ -36,7 +36,7 @@ Rectangle {
 
         Text {
             id: headerText
-            text: qsTr("Select aquarium")
+            text: qsTr("Select communication port")
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
             color: colors.headerText
@@ -53,11 +53,10 @@ Rectangle {
         anchors.bottom: buttonBox.top
 
         ListModel {
-            id: deviceListModel
+            id: portListModel
 
             // ListItem {
-            //     deviceName: ...
-            //     deviceAddress: ...
+            //     portName: ...
             // }
         }
 
@@ -76,7 +75,7 @@ Rectangle {
 
                 Text {
                     id: listItemText
-                    text: "%1 (%2)".arg(deviceName).arg(deviceAddress)
+                    text: portName
                     anchors.verticalCenter: parent.verticalCenter
                     anchors.left: itemBackground.left
                     anchors.leftMargin: mmTOpx(1)
@@ -88,7 +87,7 @@ Rectangle {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: mainWindow.connectToAquarium(deviceName, deviceAddress)
+                    onClicked: mainWindow.connectToAquarium(portName)
                     onPressed: itemBackground.color = colors.itemPressed
                     onReleased: itemBackground.color = colors.itemBackground
                     onCanceled: itemBackground.color = colors.itemBackground
@@ -97,10 +96,10 @@ Rectangle {
         }
 
         ListView {
-            id: deviceListView
+            id: portListView
             anchors.fill: parent
             spacing: mmTOpx(1)
-            model: deviceListModel
+            model: portListModel
             delegate: listItemDelegate
             focus: true
         }
