@@ -55,7 +55,7 @@ SpinBox {
         Text {
             id: upIndicatorText
             text: "+"
-            font.pixelSize: control.font.pixelSize * 2
+            font.pixelSize: control.font.pixelSize * 1.5
             color: colors.buttonText
             anchors.fill: parent
             fontSizeMode: Text.Fit
@@ -74,7 +74,7 @@ SpinBox {
         Text {
             id: downIndicatorText
             text: "−"
-            font.pixelSize: control.font.pixelSize * 2
+            font.pixelSize: control.font.pixelSize * 1.5
             color: colors.buttonText
             anchors.fill: parent
             fontSizeMode: Text.Fit

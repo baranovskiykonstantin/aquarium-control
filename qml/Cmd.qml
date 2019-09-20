@@ -13,7 +13,6 @@ Rectangle {
         }
     }
 
-    property string command: ""
     property string cmdPrompt: qsTr(
         "<font color=\"tomato\">aquarium (disconnected): </font>"
     )
@@ -24,20 +23,24 @@ Rectangle {
     }
 
     function sendCmd() {
+        if (cmdTimer.running) {
+            return
+        }
+
         if (cmdText.text == "exit") {
             Qt.quit()
         }
         else if (cmdText.text == "clear") {
-            cmdOutput.text = "<pre>%1</pre>".arg(cmdPrompt)
+            cmdOutput.text = "<pre><b>%1</b></pre>".arg(cmdPrompt)
         }
         else {
-            command = cmdText.text
-            mainWindow.sendToAquarium(command)
-            switch (command) {
+            mainWindow.sendToAquarium(cmdText.text)
+            switch (cmdText.text) {
                 case "status": responseLineCount = 7; break
                 case "help": responseLineCount = 27; break
                 default: responseLineCount = 2
             }
+            cmdTimer.start()
         }
         scrollToEnd()
         cmdText.text = ""
@@ -45,14 +48,8 @@ Rectangle {
     }
 
     function appendLine(line) {
-        cmdOutput.text = cmdOutput.text.replace("</pre>", "")
-        if (command != "" && line == command) {
-            cmdOutput.text += "<font color=\"%1\">%2</font><br>"
-                              .arg(colors.headerText)
-                              .arg(line)
-            command = ""
-        }
-        else if (line == "OK") {
+        cmdOutput.text = cmdOutput.text.replace("</b></pre>", "")
+        if (line == "OK") {
             cmdOutput.text += "<font color=\"lime\">OK</font><br>"
         }
         else if (line == "ERROR") {
@@ -69,15 +66,16 @@ Rectangle {
             responseLineCount -= 1
             if (responseLineCount == 0) {
                 cmdOutput.text += cmdPrompt
+                cmdTimer.stop()
             }
         }
 
-        cmdOutput.text += "</pre>"
+        cmdOutput.text += "</b></pre>"
         scrollToEnd()
     }
 
     function setPrompt(name, address) {
-        cmdOutput.text = "<pre>"
+        cmdOutput.text = "<pre><b>"
         if (address == "00:00:00:00:00:00") {
             cmdPrompt = qsTr(
                 "<font color=\"tomato\">aquarium (disconnected): </font>"
@@ -89,12 +87,23 @@ Rectangle {
                         .arg(name)
                         .arg(address)
         }
-        cmdOutput.text += cmdPrompt + "</pre>"
+        cmdOutput.text += cmdPrompt + "</b></pre>"
     }
 
     function scrollToEnd() {
         if (cmdOutput.height > cmdOutputScroll.height) {
             cmdOutputScroll.contentY = cmdOutput.height - cmdOutputScroll.height
+        }
+    }
+
+    Timer {
+        id:cmdTimer
+        interval: 5000
+        repeat: false
+        running: false
+        onTriggered: {
+            responseLineCount = 1
+            appendLine(qsTr("no response"))
         }
     }
 
@@ -109,11 +118,11 @@ Rectangle {
         Text {
             id: cmdOutput
             width: parent.width
-            textFormat: Text.StyledText
+            textFormat: Text.RichText
             color: colors.cmdBoxText
             font.pixelSize: mmTOpx(3.5)
             wrapMode: Text.WrapAnywhere
-            text: "<pre>%1</pre>".arg(cmdPrompt)
+            text: "<pre><b>%1</b></pre>".arg(cmdPrompt)
         }
     }
 

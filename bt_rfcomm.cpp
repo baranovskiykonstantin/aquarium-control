@@ -5,13 +5,14 @@
 
 #include "bt_rfcomm.h"
 
-BTRfcomm::BTRfcomm(QObject *parent) : QObject(parent)
+BTRfcomm::BTRfcomm(QObject *parent) :
+    QObject(parent),
+    m_socket(new QBluetoothSocket(QBluetoothServiceInfo::RfcommProtocol, this)),
+    m_service(new QBluetoothServiceInfo()),
+    m_data()
 {
-    m_data = QString();
-
-    m_socket = new QBluetoothSocket(QBluetoothServiceInfo::RfcommProtocol, this);
     connect(m_socket, SIGNAL(readyRead()),
-            this, SLOT(onReadyRead()));
+            this, SLOT(onSocketReadyRead()));
     connect(m_socket, SIGNAL(connected()),
             this, SLOT(onSocketConnected()));
     connect(m_socket, SIGNAL(disconnected()),
@@ -19,7 +20,6 @@ BTRfcomm::BTRfcomm(QObject *parent) : QObject(parent)
     connect(m_socket, SIGNAL(error(QBluetoothSocket::SocketError)),
             this, SLOT(onSocketError(QBluetoothSocket::SocketError)));
 
-    m_service = new QBluetoothServiceInfo();
     m_service->setServiceUuid(QBluetoothUuid(QString("00001101-0000-1000-8000-00805F9B34FB")));
 }
 
@@ -114,7 +114,7 @@ void BTRfcomm::onSocketError(QBluetoothSocket::SocketError errorType)
     emit connectionError(errorString);
 }
 
-void BTRfcomm::onReadyRead()
+void BTRfcomm::onSocketReadyRead()
 {
 /*  readLine() does not work as expected.
     while (m_socket->canReadLine())
@@ -138,7 +138,6 @@ void BTRfcomm::sendLine(QString line)
 {
     if (m_socket->state() == QBluetoothSocket::ConnectedState)
     {
-        m_data = QString();
         QByteArray text = line.toUtf8() + '\r';
         m_socket->write(text);
     }

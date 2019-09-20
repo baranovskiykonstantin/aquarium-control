@@ -40,7 +40,7 @@ private slots:
     void onServiceDiscoveryFinished();
     void onServiceDiscoveryError(QBluetoothServiceDiscoveryAgent::Error error);
 
-    void onReadyRead();
+    void onSocketReadyRead();
     void onSocketConnected();
     void onSocketDisconnected();
     void onSocketError(QBluetoothSocket::SocketError);
