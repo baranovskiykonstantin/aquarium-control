@@ -48,7 +48,6 @@ private slots:
 private:
     QBluetoothServiceDiscoveryAgent *m_discoveryAgent;
     QBluetoothSocket *m_socket;
-    QBluetoothServiceInfo *m_service;
     QString m_data;
 
     bool getServiceDiscoveryStatus();

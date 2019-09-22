@@ -1,6 +1,5 @@
 #include <QBluetoothUuid>
 #include <QtCore/qmetaobject.h>
-#include <QBluetoothDeviceInfo>
 #include <QBluetoothAddress>
 
 #include "bt_rfcomm.h"
@@ -8,7 +7,6 @@
 BTRfcomm::BTRfcomm(QObject *parent) :
     QObject(parent),
     m_socket(new QBluetoothSocket(QBluetoothServiceInfo::RfcommProtocol, this)),
-    m_service(new QBluetoothServiceInfo()),
     m_data()
 {
     connect(m_socket, SIGNAL(readyRead()),
@@ -19,15 +17,12 @@ BTRfcomm::BTRfcomm(QObject *parent) :
             this, SLOT(onSocketDisconnected()));
     connect(m_socket, SIGNAL(error(QBluetoothSocket::SocketError)),
             this, SLOT(onSocketError(QBluetoothSocket::SocketError)));
-
-    m_service->setServiceUuid(QBluetoothUuid(QString("00001101-0000-1000-8000-00805F9B34FB")));
 }
 
 BTRfcomm::~BTRfcomm()
 {
     delete m_discoveryAgent;
     delete m_socket;
-    delete m_service;
 }
 
 void BTRfcomm::startDiscovery()
@@ -38,7 +33,9 @@ void BTRfcomm::startDiscovery()
     }
 
     m_discoveryAgent = new QBluetoothServiceDiscoveryAgent(this);
-    m_discoveryAgent->setUuidFilter(QBluetoothUuid(QString("00001101-0000-1000-8000-00805F9B34FB")));
+    m_discoveryAgent->setUuidFilter(QBluetoothUuid(QString(
+        "00001101-0000-1000-8000-00805F9B34FB"
+    )));
     connect(m_discoveryAgent, SIGNAL(serviceDiscovered(QBluetoothServiceInfo)),
             this, SLOT(onServiceDiscovered(QBluetoothServiceInfo)));
     connect(m_discoveryAgent, SIGNAL(finished()),
@@ -58,8 +55,10 @@ void BTRfcomm::stopDiscovery()
 
 void BTRfcomm::onServiceDiscovered(const QBluetoothServiceInfo &service)
 {
-    emit discovered(service.device().name(),
-                    service.device().address().toString());
+    emit discovered(
+        service.device().name(),
+        service.device().address().toString()
+    );
 }
 
 void BTRfcomm::onServiceDiscoveryFinished()
@@ -86,9 +85,10 @@ bool BTRfcomm::getServiceDiscoveryStatus()
 
 void BTRfcomm::connectDevice(QString address)
 {
-    QBluetoothDeviceInfo device(QBluetoothAddress(address), QString(), 0);
-    m_service->setDevice(device);
-    m_socket->connectToService(*m_service);
+    m_socket->connectToService(
+        QBluetoothAddress(address),
+        QBluetoothUuid(QString("00001101-0000-1000-8000-00805F9B34FB"))
+    );
 }
 
 void BTRfcomm::disconnectDevice()
@@ -98,7 +98,7 @@ void BTRfcomm::disconnectDevice()
 
 void BTRfcomm::onSocketConnected()
 {
-    emit connected(m_service->device().address().toString());
+    emit connected(m_socket->peerAddress().toString());
 }
 
 void BTRfcomm::onSocketDisconnected()
@@ -130,6 +130,7 @@ void BTRfcomm::onSocketReadyRead()
         int lineEndIndex = m_data.indexOf("\r\n");
         QString line = m_data.left(lineEndIndex);
         m_data.remove(0, lineEndIndex + 2);
+
         emit lineReceived(line);
     }
 }

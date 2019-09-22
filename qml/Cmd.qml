@@ -9,7 +9,9 @@ Rectangle {
     onOpacityChanged: {
         if (opacity == 1) {
             scrollToEnd()
-            cmdText.focus = true
+            if (Qt.platform.os != "android") {
+                cmdText.focus = true
+            }
         }
     }
 
@@ -44,7 +46,9 @@ Rectangle {
         }
         scrollToEnd()
         cmdText.text = ""
-        cmdText.focus = true
+        if (Qt.platform.os != "android") {
+            cmdText.focus = true
+        }
     }
 
     function appendLine(line) {

@@ -101,7 +101,8 @@ Item {
                 searchBox.stopAnimation()
                 searchBox.setText(qsTr(
                     "No aquarium was found!\n" +
-                    "Please ensure aquarium is available."
+                    "Please ensure aquarium is available\n" +
+                    "and Bluetooth is turned on."
                 ))
             }
             else {

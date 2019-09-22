@@ -50,36 +50,6 @@ Rectangle {
     }
 
     Rectangle {
-        id: guiHeader
-        color: colors.background
-        height: mmTOpx(14)
-        width: parent.width
-
-        Rectangle {
-            id: guiHeaderBackground
-            color: colors.headerBackground
-            width: parent.width
-            height: parent.height - mmTOpx(1)
-        }
-
-        Text {
-            id: guiHeaderText
-            text: qsTr("aquarium (disconnected)")
-            anchors.verticalCenter: parent.verticalCenter
-            anchors.horizontalCenter: parent.horizontalCenter
-            color: colors.headerText
-            font.pixelSize: mmTOpx(4)
-        }
-
-        MouseArea {
-            anchors.fill: parent
-            onClicked: mainWindow.startSearching()
-            onPressed: guiHeaderBackground.color = colors.headerPressed
-            onReleased: guiHeaderBackground.color = colors.headerBackground
-        }
-    }
-
-    Rectangle {
         id: itemListControl
         color: "transparent"
         width: parent.width - mmTOpx(2)
@@ -162,8 +132,8 @@ Rectangle {
                     anchors.leftMargin: mmTOpx(1)
                     color: colors.itemText
                     font.pixelSize: mmTOpx(3.5)
-                    fontSizeMode: Text.HorizontalFit
-                    minimumPixelSize: mmTOpx(2)
+                    wrapMode: Text.Wrap
+                    maximumLineCount: 2
                 }
 
                 MouseArea {
@@ -183,6 +153,36 @@ Rectangle {
             model: itemListModel
             delegate: itemListDelegate
             focus: true
+        }
+    }
+
+    Rectangle {
+        id: guiHeader
+        color: colors.background
+        height: mmTOpx(14)
+        width: parent.width
+
+        Rectangle {
+            id: guiHeaderBackground
+            color: colors.headerBackground
+            width: parent.width
+            height: parent.height - mmTOpx(1)
+        }
+
+        Text {
+            id: guiHeaderText
+            text: qsTr("aquarium (disconnected)")
+            anchors.verticalCenter: parent.verticalCenter
+            anchors.horizontalCenter: parent.horizontalCenter
+            color: colors.headerText
+            font.pixelSize: mmTOpx(4)
+        }
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: mainWindow.startSearching()
+            onPressed: guiHeaderBackground.color = colors.headerPressed
+            onReleased: guiHeaderBackground.color = colors.headerBackground
         }
     }
 
