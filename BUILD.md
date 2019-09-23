@@ -1,7 +1,7 @@
 # Build dependencies (Ubuntu 18.04)
 * Qt
 ```
-sudo apt install qtcreator qt5-default qtdeclarative5-dev qtconnectivity5-dev libqt5svg5-dev qml-module-qtbluetooth qml-module-qtquick-controls2 qml-module-qt-labs-settings
+sudo apt install qtcreator qt5-default qtdeclarative5-dev qtconnectivity5-dev libqt5svg5-dev libqt5quick5 libqt5gui5 libqt5qml5 libqt5bluetooth5 libqt5core5a libqt5network5 libqt5dbus5 qml-module-qtquick2 qml-module-qtquick-window2 qml-module-qt-labs-settings qml-module-qtquick-controls2 qml-module-qtgraphicaleffects
 ```
 * Android
 ```
