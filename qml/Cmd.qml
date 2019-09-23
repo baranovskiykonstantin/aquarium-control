@@ -20,6 +20,9 @@ Rectangle {
     )
     property int responseLineCount: 0
 
+    property string openTag: (Qt.platform.os == "windows") ? "<pre><b>" : "<pre>"
+    property string closeTag: (Qt.platform.os == "windows") ? "</b></pre>" : "</pre>"
+
     function goToGUI() {
         mainWindow.state = "gui"
     }
@@ -33,7 +36,7 @@ Rectangle {
             Qt.quit()
         }
         else if (cmdText.text == "clear") {
-            cmdOutput.text = "<pre><b>%1</b></pre>".arg(cmdPrompt)
+            cmdOutput.text = openTag + cmdPrompt + closeTag
         }
         else {
             mainWindow.sendToAquarium(cmdText.text)
@@ -52,7 +55,7 @@ Rectangle {
     }
 
     function appendLine(line) {
-        cmdOutput.text = cmdOutput.text.replace("</b></pre>", "")
+        cmdOutput.text = cmdOutput.text.replace(closeTag, "")
         if (line == "OK") {
             cmdOutput.text += "<font color=\"lime\">OK</font><br>"
         }
@@ -74,12 +77,11 @@ Rectangle {
             }
         }
 
-        cmdOutput.text += "</b></pre>"
+        cmdOutput.text += closeTag
         scrollToEnd()
     }
 
     function setPrompt(name, address) {
-        cmdOutput.text = "<pre><b>"
         if (address == "00:00:00:00:00:00") {
             cmdPrompt = qsTr(
                 "<font color=\"tomato\">aquarium (disconnected): </font>"
@@ -91,7 +93,7 @@ Rectangle {
                         .arg(name)
                         .arg(address)
         }
-        cmdOutput.text += cmdPrompt + "</b></pre>"
+        cmdOutput.text = openTag + cmdPrompt + closeTag
     }
 
     function scrollToEnd() {
@@ -122,11 +124,11 @@ Rectangle {
         Text {
             id: cmdOutput
             width: parent.width
-            textFormat: Text.RichText
+            textFormat: (Qt.platform.os == "windows") ? Text.RichText : Text.StyledText
             color: colors.cmdBoxText
             font.pixelSize: mmTOpx(3.5)
             wrapMode: Text.WrapAnywhere
-            text: "<pre><b>%1</b></pre>".arg(cmdPrompt)
+            text: openTag + cmdPrompt + closeTag
         }
     }
 

@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-QT += qml quick bluetooth svg
+QT += qml quick bluetooth
 CONFIG += c++11
 CONFIG += qtc_runnable
 

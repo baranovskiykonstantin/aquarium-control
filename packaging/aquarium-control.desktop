@@ -1,8 +1,8 @@
 [Desktop Entry]
 Name=Aquarium control
-Comment=App for controlling parameters of aquarium controller.
-Comment[ru]=Приложение для управления параметрами контроллера аквариума.
-Comment[uk]=Додаток для управління параметрами контролера акваріума.
+Comment=Setup aquarium controller parameters.
+Comment[ru]=Настроить параметры контроллера аквариума.
+Comment[uk]=Налаштувати параметри контролера акваріума.
 Categories=Utility
 Exec=/usr/bin/aquarium-control
 Icon=aquarium-control
