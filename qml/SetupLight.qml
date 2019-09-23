@@ -86,7 +86,7 @@ Rectangle {
             anchors.verticalCenter: parent.verticalCenter
             anchors.horizontalCenter: parent.horizontalCenter
             color: colors.headerText
-            font.pixelSize: mmTOpx(3.5)
+            font.pixelSize: mmTOpx(4)
         }
     }
 
