@@ -1,8 +1,8 @@
 TEMPLATE = app
 
-QT += qml quick bluetooth svg
-
-CONFIG += c++11 qtc_runnable
+QT += qml quick bluetooth
+CONFIG += c++11
+CONFIG += qtc_runnable
 
 SOURCES += main.cpp bt_rfcomm.cpp
 
