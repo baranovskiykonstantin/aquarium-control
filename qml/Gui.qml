@@ -1,13 +1,10 @@
 import QtQuick 2.0
 import QtGraphicalEffects 1.0
+import QtQml 2.12
 
 Rectangle {
     id: guiBox
     color: "transparent"
-
-    function updateGui() {
-        mainWindow.sendToAquarium("status")
-    }
 
     function goToCMD() {
         mainWindow.state = "cmd"
@@ -201,7 +198,7 @@ Rectangle {
             Rectangle {
                 id: cmdButton
                 color: colors.buttonBackground
-                width: (parent.width - 2 * parent.spacing) / 3
+                width: (parent.width - parent.spacing) / 2
                 height: parent.height
 
                 Text {
@@ -223,33 +220,9 @@ Rectangle {
             }
 
             Rectangle {
-                id: updateButton
-                color: colors.buttonBackground
-                width: (parent.width - 2 * parent.spacing) / 3
-                height: parent.height
-
-                Text {
-                    text: qsTr("Update")
-                    anchors.fill: parent
-                    horizontalAlignment: Text.AlignHCenter
-                    verticalAlignment: Text.AlignVCenter
-                    color: colors.buttonText
-                    font.pixelSize: mmTOpx(3.5)
-                    wrapMode: Text.WordWrap
-                }
-
-                MouseArea {
-                    anchors.fill: parent
-                    onClicked: updateGui()
-                    onPressed: updateButton.color = colors.buttonPressed
-                    onReleased: updateButton.color = colors.buttonBackground
-                }
-            }
-
-            Rectangle {
                 id: exitButton
                 color: colors.buttonBackground
-                width: (parent.width - 2 * parent.spacing) / 3
+                width: (parent.width - parent.spacing) / 2
                 height: parent.height
 
                 Text {
