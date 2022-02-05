@@ -1,4 +1,5 @@
 import QtQuick 2.0
+import QtQml 2.12
 import QtQuick.Window 2.0
 import Qt.labs.settings 1.0
 import BTRfcomm 1.0
@@ -70,6 +71,12 @@ Item {
         guiBox.setValue("light", qsTr("no data"))
         guiBox.setValue("display", qsTr("no data"))
         cmdBox.setPrompt(aquarium.name, aquarium.address)
+    }
+
+    property bool updatingGui: false
+    function updateGui() {
+        updatingGui = true
+        sendToAquarium("status")
     }
 
     Aquarium {
@@ -164,7 +171,7 @@ Item {
         onLineReceived: {
             var matchRes, state, mode, currentLightLevel
 
-            if (mainWindow.state == "cmd") {
+            if (mainWindow.state == "cmd" && !updatingGui) {
                 cmdBox.appendLine(line)
             }
             else {
@@ -264,6 +271,7 @@ Item {
                         "Display shows the %1")
                         .arg(displayMode)
                     )
+                    updatingGui = false;
                 }
                 else if (line == "OK") {
                     messageBox.show()
@@ -273,6 +281,7 @@ Item {
                         "Error has been occurred while send the command!"
                     ))
                     messageBox.show()
+                    updatingGui = false;
                 }
             }
         }
@@ -308,6 +317,13 @@ Item {
     Gui {
         id: guiBox
         anchors.fill: mainWindow
+    }
+
+    Timer {
+        id: guiUpdater
+        interval: 1000
+        repeat: true
+        onTriggered: updateGui()
     }
 
     SetupDate {
@@ -346,6 +362,7 @@ Item {
             PropertyChanges { target: searchBox; opacity: 1; z: 2 }
             PropertyChanges { target: deviceListBox; opacity: 0; z: 0 }
             PropertyChanges { target: guiBox; opacity: 0; z: 0}
+            PropertyChanges { target: guiUpdater; running: false}
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupHeatBox; opacity: 0; z: 0 }
@@ -358,6 +375,7 @@ Item {
             PropertyChanges { target: searchBox; opacity: 0; z: 0 }
             PropertyChanges { target: deviceListBox; opacity: 1; z: 2 }
             PropertyChanges { target: guiBox; opacity: 0; z: 0}
+            PropertyChanges { target: guiUpdater; running: false}
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupHeatBox; opacity: 0; z: 0 }
@@ -370,6 +388,7 @@ Item {
             PropertyChanges { target: searchBox; opacity: 0; z: 0 }
             PropertyChanges { target: deviceListBox; opacity: 0; z: 0 }
             PropertyChanges { target: guiBox; opacity: 1; z: 2}
+            PropertyChanges { target: guiUpdater; running: true}
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupHeatBox; opacity: 0; z: 0 }
@@ -382,6 +401,7 @@ Item {
             PropertyChanges { target: searchBox; opacity: 0; z: 0 }
             PropertyChanges { target: deviceListBox; opacity: 0; z: 0 }
             PropertyChanges { target: guiBox; opacity: 0; z: 0 }
+            PropertyChanges { target: guiUpdater; running: false}
             PropertyChanges { target: setupDateBox; opacity: 1; z: 2 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupHeatBox; opacity: 0; z: 0 }
@@ -394,6 +414,7 @@ Item {
             PropertyChanges { target: searchBox; opacity: 0; z: 0 }
             PropertyChanges { target: deviceListBox; opacity: 0; z: 0 }
             PropertyChanges { target: guiBox; opacity: 0; z: 0 }
+            PropertyChanges { target: guiUpdater; running: false}
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 1; z: 2 }
             PropertyChanges { target: setupHeatBox; opacity: 0; z: 0 }
@@ -406,6 +427,7 @@ Item {
             PropertyChanges { target: searchBox; opacity: 0; z: 0 }
             PropertyChanges { target: deviceListBox; opacity: 0; z: 0 }
             PropertyChanges { target: guiBox; opacity: 0; z: 0 }
+            PropertyChanges { target: guiUpdater; running: false}
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupHeatBox; opacity: 1; z: 2 }
@@ -418,6 +440,7 @@ Item {
             PropertyChanges { target: searchBox; opacity: 0; z: 0 }
             PropertyChanges { target: deviceListBox; opacity: 0; z: 0 }
             PropertyChanges { target: guiBox; opacity: 0; z: 0 }
+            PropertyChanges { target: guiUpdater; running: false}
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupHeatBox; opacity: 0; z: 0 }
@@ -430,6 +453,7 @@ Item {
             PropertyChanges { target: searchBox; opacity: 0; z: 0 }
             PropertyChanges { target: deviceListBox; opacity: 0; z: 0 }
             PropertyChanges { target: guiBox; opacity: 0; z: 0 }
+            PropertyChanges { target: guiUpdater; running: false}
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupHeatBox; opacity: 0; z: 0 }
@@ -442,6 +466,7 @@ Item {
             PropertyChanges { target: searchBox; opacity: 0; z: 0 }
             PropertyChanges { target: deviceListBox; opacity: 0; z: 0 }
             PropertyChanges { target: guiBox; opacity: 0; z: 0 }
+            PropertyChanges { target: guiUpdater; running: false}
             PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupHeatBox; opacity: 0; z: 0 }
