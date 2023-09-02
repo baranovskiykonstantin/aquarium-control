@@ -246,6 +246,8 @@ Rectangle {
                     anchors.right: parent.right
                     anchors.verticalCenter: parent.verticalCenter
                     height: itemDayOfWeek.height
+                    upLabel: ">"
+                    downLabel: "<"
 
                     textFromValue: function (value) {
                         return daysOfWeek[value - 1]

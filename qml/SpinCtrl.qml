@@ -7,6 +7,9 @@ SpinBox {
     editable: false
     font.pixelSize: mmTOpx(3.5)
 
+    property string upLabel: "+"
+    property string downLabel: "-"
+
     contentItem: Text {
         id: textValue
         z: 2
@@ -54,7 +57,7 @@ SpinBox {
 
         Text {
             id: upIndicatorText
-            text: "+"
+            text: control.upLabel
             font.pixelSize: control.font.pixelSize * 1.5
             color: colors.buttonText
             anchors.fill: parent
@@ -73,7 +76,7 @@ SpinBox {
 
         Text {
             id: downIndicatorText
-            text: "−"
+            text: control.downLabel
             font.pixelSize: control.font.pixelSize * 1.5
             color: colors.buttonText
             anchors.fill: parent
