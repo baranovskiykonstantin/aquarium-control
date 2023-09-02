@@ -30,6 +30,7 @@ Item {
         searchBox.setText(qsTr("Search of aquariums..."))
         bluetooth.disconnectDevice()
         deviceListBox.removeItems()
+        bluetooth.btError = false
         bluetooth.startDiscovery()
     }
 
@@ -93,6 +94,8 @@ Item {
     BTRfcomm {
         id: bluetooth
 
+        property bool btError: false
+
         onDiscovered: {
             if (name.startsWith("aquarium")) {
                 deviceListBox.addItem(name, address)
@@ -102,11 +105,13 @@ Item {
         onDiscoveryFinished: {
             if (deviceListBox.getItemCount() == 0) {
                 searchBox.stopAnimation()
-                searchBox.setText(qsTr(
-                    "No aquarium was found!\n" +
-                    "Please ensure aquarium is available\n" +
-                    "and Bluetooth is turned on."
-                ))
+                if (bluetooth.btError != true) {
+                    searchBox.setText(qsTr(
+                        "No aquarium was found!\n" +
+                        "Please ensure aquarium is available\n" +
+                        "and Bluetooth is turned on."
+                    ))
+                }
             }
             else {
                 mainWindow.state = "deviceList"
@@ -115,6 +120,7 @@ Item {
 
         onDiscoveryError: {
             if (error == "PoweredOffError") {
+                bluetooth.btError = true
                 searchBox.stopAnimation()
                 searchBox.setText(qsTr(
                     "Bluetooth is powered off!\n" +
@@ -122,6 +128,7 @@ Item {
                 ))
             }
             else if (error != "NoError" && bluetooth.isDiscovering) {
+                bluetooth.btError = true
                 bluetooth.stopDiscovery()
                 searchBox.stopAnimation()
                 searchBox.setText(qsTr(
