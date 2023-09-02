@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Installer>
     <Name>Aquarium control</Name>
-    <Version>2.0</Version>
+    <Version>2.1</Version>
     <WizardStyle>Modern</WizardStyle>
     <Logo>fish.png</Logo>
     <TargetDir>@ApplicationsDirX86@/aquariumcontrol</TargetDir>
