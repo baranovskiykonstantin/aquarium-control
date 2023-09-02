@@ -10,7 +10,7 @@ sudo checkinstall -D \
     --default \
     --install=no \
     --pkgname=aquarium-control \
-    --pkgversion=2.0\
+    --pkgversion=2.1\
     --pkgarch=$ARCH \
     --pkgrelease=1 \
     --pkglicense=GPLv3 \
