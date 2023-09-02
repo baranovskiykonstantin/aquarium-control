@@ -16,14 +16,10 @@ Item {
         }
     }
 
-    // Screen size in inches
-    readonly property real screenSize: Math.sqrt(Math.pow(Screen.height, 2) + Math.pow(Screen.width, 2)) / (Screen.pixelDensity * 25.4)
-
     // Calculate pixel count per millimeter of the screen
     function mmTOpx(mm) {
         var px = Screen.pixelDensity * mm
-        // Make size of items bit less on small screens
-        if (screenSize < 6.8) {
+        if (Qt.platform.os == "android") {
             px *= 0.7
         }
         return Math.round(px)

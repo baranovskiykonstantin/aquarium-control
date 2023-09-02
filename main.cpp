@@ -26,12 +26,14 @@ int main(int argc, char *argv[])
     view.setSource(QUrl(QStringLiteral("qrc:/qml/Main.qml")));
     view.setResizeMode(QQuickView::SizeRootObjectToView);
     QObject::connect(view.engine(), SIGNAL(quit()), qApp, SLOT(quit()));
+#ifndef Q_OS_ANDROID
     QSize screenSize = app.primaryScreen()->size();
     int width = 640;
     int height = 480;
     int posX = (screenSize.width() - width) / 2;
     int posY = (screenSize.height() - height) / 2;
     view.setGeometry(QRect(posX, posY, width, height));
+#endif
     view.show();
     return app.exec();
 }
