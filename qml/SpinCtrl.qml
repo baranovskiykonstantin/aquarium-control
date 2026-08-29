@@ -1,11 +1,21 @@
 import QtQuick
-import QtQuick.Controls
+import QtQuick.Controls.Basic
 
 SpinBox {
     id: control
     value: 50
     editable: false
     font.pixelSize: mmTOpx(3.5)
+    width: {
+        let controlWidth
+        // To calculate correct text width needs to add an wide character (W).
+        textMetrics.text = textValue.text + "W"
+        controlWidth = textMetrics.width + control.height * 2
+        if (controlWidth < (control.height * 3)) {
+            controlWidth = control.height * 3
+        }
+        return controlWidth
+    }
 
     property string upLabel: "+"
     property string downLabel: "-"
@@ -25,27 +35,6 @@ SpinBox {
             id: textMetrics
             font: control.font
         }
-
-        onTextChanged: {
-            // To calculate correct text width needs to add an wide character (W).
-            textMetrics.text = textValue.text + "W"
-            control.width = textMetrics.width + control.height * 2
-            if (control.width < (control.height * 3)) {
-                control.width = control.height * 3
-            }
-            if (control.value == control.to) {
-                upIndicatorText.color = colors.background
-            }
-            else {
-                upIndicatorText.color = colors.itemText
-            }
-            if (control.value == control.from) {
-                downIndicatorText.color = colors.background
-            }
-            else {
-                downIndicatorText.color = colors.itemText
-            }
-        }
     }
 
     up.indicator: Rectangle {
@@ -59,7 +48,8 @@ SpinBox {
             id: upIndicatorText
             text: control.upLabel
             font.pixelSize: control.font.pixelSize * 1.5
-            color: colors.buttonText
+            color: control.value == control.to ? colors.background : colors.itemText
+
             anchors.fill: parent
             fontSizeMode: Text.Fit
             horizontalAlignment: Text.AlignHCenter
@@ -78,7 +68,8 @@ SpinBox {
             id: downIndicatorText
             text: control.downLabel
             font.pixelSize: control.font.pixelSize * 1.5
-            color: colors.buttonText
+            color: control.value == control.from ?  colors.background : colors.itemText
+
             anchors.fill: parent
             fontSizeMode: Text.Fit
             horizontalAlignment: Text.AlignHCenter
