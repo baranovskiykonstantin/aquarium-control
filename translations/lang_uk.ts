@@ -730,7 +730,7 @@ aquarium not connected!
         <translation type="vanished">%1 (час коригується на %2 сек. кожного дня о %3)</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="31"/>
+        <location filename="../qml/Main.qml" line="30"/>
         <source>Search of aquariums...</source>
         <translation>Пошук акваріумів...</translation>
     </message>
@@ -785,74 +785,83 @@ Please power on Bluetooth and try again.</source>
     </message>
     <message>
         <location filename="../qml/Main.qml" line="133"/>
+        <location filename="../qml/Main.qml" line="174"/>
+        <source>Bluetooth permission is required!
+Please allow Nearby devices access and try again.</source>
+        <translation>Потрібен дозвіл Bluetooth!
+Будь ласка, дозвольте доступ до пристроїв поблизу
+та спробуйте знову.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Main.qml" line="142"/>
         <source>No aquarium was found!
 Please ensure Bluetooth is available.</source>
         <translation>Акваріум не знайдено!
 Будь ласка, перевірте стан Bluetooth.</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="157"/>
+        <location filename="../qml/Main.qml" line="166"/>
         <source>Aquarium has been disconnected!</source>
         <translation>Акваріум відключено!</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="165"/>
+        <location filename="../qml/Main.qml" line="182"/>
         <source>Cannot connect to aquarium!
 Please ensure aquarium is available.</source>
         <translation>Не вдалося з&apos;єднатися з акваріумом!
 Будь ласка, перевірте стан акваріума.</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="199"/>
+        <location filename="../qml/Main.qml" line="216"/>
         <source>%1 (time is adjusted for %2 sec. everyday at %3)</source>
         <translation>%1 (час коригується на %2 сек. кожного дня о %3)</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="211"/>
+        <location filename="../qml/Main.qml" line="228"/>
         <source>Water temperature %1 °C</source>
         <translation>Температура води %1 °C</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="223"/>
-        <location filename="../qml/Main.qml" line="243"/>
+        <location filename="../qml/Main.qml" line="240"/>
+        <location filename="../qml/Main.qml" line="260"/>
         <source>on</source>
         <translation>ввімкнено</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="223"/>
-        <location filename="../qml/Main.qml" line="244"/>
+        <location filename="../qml/Main.qml" line="240"/>
+        <location filename="../qml/Main.qml" line="261"/>
         <source>off</source>
         <translation>вимкнено</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="224"/>
-        <location filename="../qml/Main.qml" line="248"/>
+        <location filename="../qml/Main.qml" line="241"/>
+        <location filename="../qml/Main.qml" line="265"/>
         <source>automatic</source>
         <translation>автоматичному</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="224"/>
-        <location filename="../qml/Main.qml" line="249"/>
+        <location filename="../qml/Main.qml" line="241"/>
+        <location filename="../qml/Main.qml" line="266"/>
         <source>manual</source>
         <translation>ручному</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="225"/>
+        <location filename="../qml/Main.qml" line="242"/>
         <source>Heater is %1 in %2 mode (%3)</source>
         <translation>Нагрівач %1 в %2 режимі (%3)</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="245"/>
+        <location filename="../qml/Main.qml" line="262"/>
         <source>in unknown state</source>
         <translation>в невідомому стані</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="250"/>
+        <location filename="../qml/Main.qml" line="267"/>
         <source>unknown</source>
         <translation>невідомому</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="252"/>
+        <location filename="../qml/Main.qml" line="269"/>
         <source>Light is %1 in %2 mode (%3, %4/%5%, %6 min.)</source>
         <translation>Світло %1 в %2 режимі (%3, %4/%5%, %6 хв.)</translation>
     </message>
@@ -861,7 +870,7 @@ Please ensure aquarium is available.</source>
         <translation type="vanished">Світло %1 в %2 режимі (%3, %4%, %5 хв.)</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="282"/>
+        <location filename="../qml/Main.qml" line="299"/>
         <source>Error has been occurred while send the command!</source>
         <translation>Під час передачі команди виникла помилка!</translation>
     </message>
@@ -874,22 +883,22 @@ Please ensure aquarium is available.</source>
         <translation type="vanished">Світло %1 в %2 режимі (%3), яскравість %4%</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="267"/>
+        <location filename="../qml/Main.qml" line="284"/>
         <source>none</source>
         <translation>нічого</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="269"/>
+        <location filename="../qml/Main.qml" line="286"/>
         <source>time</source>
         <translation>час</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="270"/>
+        <location filename="../qml/Main.qml" line="287"/>
         <source>temperature</source>
         <translation>температура</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="272"/>
+        <location filename="../qml/Main.qml" line="289"/>
         <source>Display shows the %1</source>
         <translation>На дисплеї відображається %1</translation>
     </message>
@@ -997,12 +1006,12 @@ Please ensure aquarium is available.</source>
         <translation>Налаштування дати</translation>
     </message>
     <message>
-        <location filename="../qml/SetupDate.qml" line="334"/>
+        <location filename="../qml/SetupDate.qml" line="336"/>
         <source>Cancel</source>
         <translation>Скасувати</translation>
     </message>
     <message>
-        <location filename="../qml/SetupDate.qml" line="286"/>
+        <location filename="../qml/SetupDate.qml" line="288"/>
         <source>Set current date</source>
         <translation>Встановити поточну дату</translation>
     </message>
@@ -1022,7 +1031,7 @@ Please ensure aquarium is available.</source>
         <translation>День тижня</translation>
     </message>
     <message>
-        <location filename="../qml/SetupDate.qml" line="310"/>
+        <location filename="../qml/SetupDate.qml" line="312"/>
         <source>Set</source>
         <translation>Встановити</translation>
     </message>

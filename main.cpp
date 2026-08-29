@@ -1,37 +1,37 @@
 #include <QGuiApplication>
 #include <QtQuick/QQuickView>
 #include <QtQml/QQmlEngine>
-#include <QtQml/QQmlContext>
-//#include <QLoggingCategory>
 #include <QTranslator>
 #include <QScreen>
+#include <QLocale>
 
 #include "bt_rfcomm.h"
 
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
-    app.setOrganizationName("baranovskiykonstantin");
+    app.setOrganizationName(QStringLiteral("baranovskiykonstantin"));
+    app.setApplicationName(QStringLiteral("aquarium-control"));
 
     QTranslator qtTranslator;
-    qtTranslator.load(QLocale(), "lang", "_", ":/translations");
-    app.installTranslator(&qtTranslator);
+    if (qtTranslator.load(QLocale(), QStringLiteral("lang"), QStringLiteral("_"),
+                          QStringLiteral(":/translations"))) {
+        app.installTranslator(&qtTranslator);
+    }
 
     qmlRegisterType<BTRfcomm>("BTRfcomm", 1, 0, "BTRfcomm");
 
-//    QLoggingCategory::setFilterRules(QStringLiteral("qt.bluetooth* = true"));
-
     QQuickView view;
-    view.setTitle("Aquarium control");
+    view.setTitle(QStringLiteral("Aquarium control"));
     view.setSource(QUrl(QStringLiteral("qrc:/qml/Main.qml")));
     view.setResizeMode(QQuickView::SizeRootObjectToView);
-    QObject::connect(view.engine(), SIGNAL(quit()), qApp, SLOT(quit()));
+    QObject::connect(view.engine(), &QQmlEngine::quit, &app, &QGuiApplication::quit);
 #ifndef Q_OS_ANDROID
-    QSize screenSize = app.primaryScreen()->size();
-    int width = 640;
-    int height = 480;
-    int posX = (screenSize.width() - width) / 2;
-    int posY = (screenSize.height() - height) / 2;
+    const QSize screenSize = app.primaryScreen()->size();
+    constexpr int width = 640;
+    constexpr int height = 480;
+    const int posX = (screenSize.width() - width) / 2;
+    const int posY = (screenSize.height() - height) / 2;
     view.setGeometry(QRect(posX, posY, width, height));
 #endif
     view.show();

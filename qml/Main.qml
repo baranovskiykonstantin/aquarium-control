@@ -1,7 +1,7 @@
-import QtQuick 2.0
-import QtQml 2.12
-import QtQuick.Window 2.0
-import Qt.labs.settings 1.0
+import QtQuick
+import QtQml
+import QtQuick.Window
+import QtCore
 import BTRfcomm 1.0
 
 Item {
@@ -96,13 +96,13 @@ Item {
 
         property bool btError: false
 
-        onDiscovered: {
+        onDiscovered: function(name, address) {
             if (name.startsWith("aquarium")) {
                 deviceListBox.addItem(name, address)
             }
         }
 
-        onDiscoveryFinished: {
+        onDiscoveryFinished: function() {
             if (deviceListBox.getItemCount() == 0) {
                 searchBox.stopAnimation()
                 if (bluetooth.btError != true) {
@@ -118,13 +118,21 @@ Item {
             }
         }
 
-        onDiscoveryError: {
+        onDiscoveryError: function(error) {
             if (error == "PoweredOffError") {
                 bluetooth.btError = true
                 searchBox.stopAnimation()
                 searchBox.setText(qsTr(
                     "Bluetooth is powered off!\n" +
                     "Please power on Bluetooth and try again."
+                ))
+            }
+            else if (error == "MissingPermissionsError") {
+                bluetooth.btError = true
+                searchBox.stopAnimation()
+                searchBox.setText(qsTr(
+                    "Bluetooth permission is required!\n" +
+                    "Please allow Nearby devices access and try again."
                 ))
             }
             else if (error != "NoError" && bluetooth.isDiscovering) {
@@ -138,7 +146,7 @@ Item {
             }
         }
 
-        onConnected: {
+        onConnected: function(deviceAddress) {
             aquarium.connected = true
             aquarium.address = deviceAddress
             mainWindow.state = "gui"
@@ -151,7 +159,7 @@ Item {
             guiBox.updateGui()
         }
 
-        onDisconnected: {
+        onDisconnected: function() {
             reset()
             if (mainWindow.state == "gui")
             {
@@ -160,8 +168,16 @@ Item {
             }
         }
 
-        onConnectionError: {
-            if (error != "NoError") {
+        onConnectionError: function(error) {
+            if (error == "MissingPermissionsError") {
+                searchBox.stopAnimation()
+                searchBox.setText(qsTr(
+                    "Bluetooth permission is required!\n" +
+                    "Please allow Nearby devices access and try again."
+                ))
+                reset()
+            }
+            else if (error != "NoError") {
                 searchBox.stopAnimation()
                 searchBox.setText(qsTr(
                     "Cannot connect to aquarium!\n" +
@@ -171,7 +187,7 @@ Item {
             }
         }
 
-        onLineReceived: {
+        onLineReceived: function(line) {
             var matchRes, state, mode, currentLightLevel
 
             if (mainWindow.state == "cmd" && !updatingGui) {

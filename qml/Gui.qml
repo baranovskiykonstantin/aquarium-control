@@ -1,6 +1,6 @@
-import QtQuick 2.0
-import QtGraphicalEffects 1.0
-import QtQml 2.12
+import QtQuick
+import Qt5Compat.GraphicalEffects
+import QtQml
 
 Rectangle {
     id: guiBox
