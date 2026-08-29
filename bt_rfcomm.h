@@ -55,7 +55,6 @@ private:
     void doStartDiscovery();
     void doConnectDevice();
     void emitPermissionDenied(const char *deniedErrorSignal);
-    void emitBondedDevices();
     void emitDiscoveredUnique(const QString &name, const QString &address);
 
     bool getDiscoveryStatus() const;

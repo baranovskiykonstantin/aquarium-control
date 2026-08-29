@@ -5,10 +5,6 @@
 #include <QMetaEnum>
 #include <QPermission>
 
-#ifdef Q_OS_ANDROID
-#  include <QJniObject>
-#endif
-
 #include "bt_rfcomm.h"
 
 namespace {
@@ -84,10 +80,6 @@ void BTRfcomm::doStartDiscovery()
 
     m_foundAddresses.clear();
 
-    // Android Classic SDP is unreliable (esp. for already-paired SPP modules).
-    // Enumerate bonded devices first, then run Classic inquiry.
-    emitBondedDevices();
-
     m_discoveryAgent = new QBluetoothDeviceDiscoveryAgent(this);
     connect(m_discoveryAgent, &QBluetoothDeviceDiscoveryAgent::deviceDiscovered,
             this, &BTRfcomm::onDeviceDiscovered);
@@ -105,45 +97,6 @@ void BTRfcomm::doStartDiscovery()
     } else {
         m_discoveryAgent->start();
     }
-}
-
-void BTRfcomm::emitBondedDevices()
-{
-#ifdef Q_OS_ANDROID
-    const QJniObject adapter = QJniObject::callStaticObjectMethod(
-        "android/bluetooth/BluetoothAdapter",
-        "getDefaultAdapter",
-        "()Landroid/bluetooth/BluetoothAdapter;");
-    if (!adapter.isValid()) {
-        return;
-    }
-
-    const QJniObject bondedSet = adapter.callObjectMethod(
-        "getBondedDevices", "()Ljava/util/Set;");
-    if (!bondedSet.isValid()) {
-        return;
-    }
-
-    const QJniObject iterator = bondedSet.callObjectMethod(
-        "iterator", "()Ljava/util/Iterator;");
-    if (!iterator.isValid()) {
-        return;
-    }
-
-    while (iterator.callMethod<jboolean>("hasNext", "()Z")) {
-        const QJniObject device = iterator.callObjectMethod(
-            "next", "()Ljava/lang/Object;");
-        if (!device.isValid()) {
-            continue;
-        }
-
-        const QString name = device.callObjectMethod(
-            "getName", "()Ljava/lang/String;").toString();
-        const QString address = device.callObjectMethod(
-            "getAddress", "()Ljava/lang/String;").toString();
-        emitDiscoveredUnique(name, address);
-    }
-#endif
 }
 
 void BTRfcomm::emitDiscoveredUnique(const QString &name, const QString &address)
