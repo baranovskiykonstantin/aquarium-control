@@ -1007,8 +1007,8 @@ Please ensure aquarium is available.</source>
     </message>
     <message>
         <location filename="../qml/SetupDate.qml" line="336"/>
-        <source>Cancel</source>
-        <translation>Отмена</translation>
+        <source>Back</source>
+        <translation>Назад</translation>
     </message>
     <message>
         <location filename="../qml/SetupDate.qml" line="288"/>
@@ -1110,8 +1110,8 @@ Please ensure aquarium is available.</source>
     </message>
     <message>
         <location filename="../qml/SetupHeat.qml" line="304"/>
-        <source>Cancel</source>
-        <translation>Отмена</translation>
+        <source>Back</source>
+        <translation>Назад</translation>
     </message>
     <message>
         <location filename="../qml/SetupHeat.qml" line="280"/>
@@ -1207,8 +1207,8 @@ Light will rise/fall in %4 minutes.</source>
     </message>
     <message>
         <location filename="../qml/SetupLight.qml" line="395"/>
-        <source>Cancel</source>
-        <translation>Отмена</translation>
+        <source>Back</source>
+        <translation>Назад</translation>
     </message>
     <message>
         <location filename="../qml/SetupLight.qml" line="371"/>
@@ -1263,8 +1263,8 @@ Light will rise/fall in %4 minutes.</source>
     </message>
     <message>
         <location filename="../qml/SetupLightTime.qml" line="263"/>
-        <source>Cancel</source>
-        <translation>Отмена</translation>
+        <source>Back</source>
+        <translation>Назад</translation>
     </message>
     <message>
         <location filename="../qml/SetupLightTime.qml" line="239"/>
@@ -1319,8 +1319,8 @@ Light will rise/fall in %4 minutes.</source>
     </message>
     <message>
         <location filename="../qml/SetupTime.qml" line="310"/>
-        <source>Cancel</source>
-        <translation>Отмена</translation>
+        <source>Back</source>
+        <translation>Назад</translation>
     </message>
     <message>
         <location filename="../qml/SetupTime.qml" line="262"/>

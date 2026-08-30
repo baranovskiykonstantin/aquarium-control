@@ -392,7 +392,7 @@ Rectangle {
                 height: parent.height
 
                 Text {
-                    text: qsTr("Cancel")
+                    text: qsTr("Back")
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter
