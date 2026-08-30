@@ -7,10 +7,7 @@ SpinBox {
     editable: false
     font.pixelSize: mmTOpx(3.5)
     width: {
-        let controlWidth
-        // To calculate correct text width needs to add an wide character (W).
-        textMetrics.text = textValue.text + "W"
-        controlWidth = textMetrics.width + control.height * 2
+        let controlWidth = textMetrics.width + control.height * 2
         if (controlWidth < (control.height * 3)) {
             controlWidth = control.height * 3
         }
@@ -34,6 +31,8 @@ SpinBox {
         TextMetrics {
             id: textMetrics
             font: control.font
+            // To calculate correct text width needs to add an wide character (W).
+            text: textValue.text + "W"
         }
     }
 
