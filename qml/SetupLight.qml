@@ -1,12 +1,12 @@
 import QtQuick
-import QtQuick.Controls
+import QtQuick.Controls.Basic
 
 Rectangle {
     id: setupLight
     color: "transparent"
 
     onOpacityChanged: {
-        if (opacity == 1) {
+        if (opacity === 1) {
             if (initOnOpacityCahnged) {
                 var matchRes = aquarium.light.match(
                     new RegExp("(\\d+:\\d+:\\d+)-(\\d+:\\d+:\\d+)", "m")

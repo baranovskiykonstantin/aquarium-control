@@ -1,5 +1,5 @@
 import QtQuick
-import QtQuick.Controls
+import QtQuick.Controls.Basic
 import Qt5Compat.GraphicalEffects
 
 Rectangle {
@@ -7,9 +7,9 @@ Rectangle {
     color: colors.cmdBoxBackground
 
     onOpacityChanged: {
-        if (opacity == 1) {
+        if (opacity === 1) {
             scrollToEnd()
-            if (Qt.platform.os != "android") {
+            if (Qt.platform.os !== "android") {
                 cmdText.focus = true
             }
         }
@@ -20,8 +20,8 @@ Rectangle {
     )
     property int responseLineCount: 0
 
-    property string openTag: (Qt.platform.os == "windows") ? "<pre><b>" : "<pre>"
-    property string closeTag: (Qt.platform.os == "windows") ? "</b></pre>" : "</pre>"
+    property string openTag: (Qt.platform.os === "windows") ? "<pre><b>" : "<pre>"
+    property string closeTag: (Qt.platform.os === "windows") ? "</b></pre>" : "</pre>"
 
     function goToGUI() {
         mainWindow.state = "gui"
@@ -32,10 +32,10 @@ Rectangle {
             return
         }
 
-        if (cmdText.text == "exit") {
+        if (cmdText.text === "exit") {
             Qt.quit()
         }
-        else if (cmdText.text == "clear") {
+        else if (cmdText.text === "clear") {
             cmdOutput.text = openTag + cmdPrompt + closeTag
         }
         else {
@@ -49,20 +49,20 @@ Rectangle {
         }
         scrollToEnd()
         cmdText.text = ""
-        if (Qt.platform.os != "android") {
+        if (Qt.platform.os !== "android") {
             cmdText.focus = true
         }
     }
 
     function appendLine(line) {
         cmdOutput.text = cmdOutput.text.replace(closeTag, "")
-        if (line == "OK") {
+        if (line === "OK") {
             cmdOutput.text += "<font color=\"lime\">OK</font><br>"
         }
-        else if (line == "ERROR") {
+        else if (line === "ERROR") {
             cmdOutput.text += "<font color=\"tomato\">ERROR</font><br>"
         }
-        else if (line == "UNKNOWN") {
+        else if (line === "UNKNOWN") {
             cmdOutput.text += "<font color=\"gray\">UNKNOWN</font><br>"
         }
         else {
@@ -82,7 +82,7 @@ Rectangle {
     }
 
     function setPrompt(name, address) {
-        if (address == "00:00:00:00:00:00") {
+        if (address === "00:00:00:00:00:00") {
             cmdPrompt = qsTr(
                 "<font color=\"tomato\">aquarium (disconnected): </font>"
             )
@@ -124,7 +124,7 @@ Rectangle {
         Text {
             id: cmdOutput
             width: parent.width
-            textFormat: (Qt.platform.os == "windows") ? Text.RichText : Text.StyledText
+            textFormat: (Qt.platform.os === "windows") ? Text.RichText : Text.StyledText
             color: colors.cmdBoxText
             font.pixelSize: mmTOpx(3.5)
             wrapMode: Text.WrapAnywhere

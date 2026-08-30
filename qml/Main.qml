@@ -19,7 +19,7 @@ Item {
     // Calculate pixel count per millimeter of the screen
     function mmTOpx(mm) {
         var px = Screen.pixelDensity * mm
-        if (Qt.platform.os == "android") {
+        if (Qt.platform.os === "android") {
             px *= 0.7
         }
         return Math.round(px)
@@ -103,7 +103,7 @@ Item {
         }
 
         onDiscoveryFinished: function() {
-            if (deviceListBox.getItemCount() == 0) {
+            if (deviceListBox.getItemCount() === 0) {
                 searchBox.stopAnimation()
                 if (bluetooth.btError != true) {
                     searchBox.setText(qsTr(
@@ -119,7 +119,7 @@ Item {
         }
 
         onDiscoveryError: function(error) {
-            if (error == "PoweredOffError") {
+            if (error === "PoweredOffError") {
                 bluetooth.btError = true
                 searchBox.stopAnimation()
                 searchBox.setText(qsTr(
@@ -127,7 +127,7 @@ Item {
                     "Please power on Bluetooth and try again."
                 ))
             }
-            else if (error == "MissingPermissionsError") {
+            else if (error === "MissingPermissionsError") {
                 bluetooth.btError = true
                 searchBox.stopAnimation()
                 searchBox.setText(qsTr(
@@ -135,7 +135,7 @@ Item {
                     "Please allow Nearby devices access and try again."
                 ))
             }
-            else if (error != "NoError" && bluetooth.isDiscovering) {
+            else if (error !== "NoError" && bluetooth.isDiscovering) {
                 bluetooth.btError = true
                 bluetooth.stopDiscovery()
                 searchBox.stopAnimation()
@@ -161,7 +161,7 @@ Item {
 
         onDisconnected: function() {
             reset()
-            if (mainWindow.state == "gui")
+            if (mainWindow.state === "gui")
             {
                 messageBox.setText(qsTr("Aquarium has been disconnected!"))
                 messageBox.show()
@@ -169,7 +169,7 @@ Item {
         }
 
         onConnectionError: function(error) {
-            if (error == "MissingPermissionsError") {
+            if (error === "MissingPermissionsError") {
                 searchBox.stopAnimation()
                 searchBox.setText(qsTr(
                     "Bluetooth permission is required!\n" +
@@ -177,7 +177,7 @@ Item {
                 ))
                 reset()
             }
-            else if (error != "NoError") {
+            else if (error !== "NoError") {
                 searchBox.stopAnimation()
                 searchBox.setText(qsTr(
                     "Cannot connect to aquarium!\n" +
@@ -190,7 +190,7 @@ Item {
         onLineReceived: function(line) {
             var matchRes, state, mode, currentLightLevel
 
-            if (mainWindow.state == "cmd" && !updatingGui) {
+            if (mainWindow.state === "cmd" && !updatingGui) {
                 cmdBox.appendLine(line)
             }
             else {
@@ -292,10 +292,10 @@ Item {
                     )
                     updatingGui = false;
                 }
-                else if (line == "OK") {
+                else if (line === "OK") {
                     messageBox.show()
                 }
-                else if (line == "ERROR") {
+                else if (line === "ERROR") {
                     messageBox.setText(qsTr(
                         "Error has been occurred while send the command!"
                     ))
@@ -307,35 +307,83 @@ Item {
     }
 
     Rectangle {
-        id: guiBackground
-        z: 1
+        id: windowBackground
+        z: 0
         anchors.fill: mainWindow
-        color: colors.background
+        color: colors.headerBackground
+    }
 
-        // MouseArea is needed to hide mouse events from items under background
-        MouseArea {
+    Item {
+        id: contentArea
+        anchors {
+            fill: parent
+            topMargin: mainWindow.SafeArea.margins.top
+            bottomMargin: mainWindow.SafeArea.margins.bottom
+            leftMargin: mainWindow.SafeArea.margins.left
+            rightMargin: mainWindow.SafeArea.margins.right
+        }
+
+        Rectangle {
+            id: guiBackground
+            z: 1
+            anchors.fill: parent
+            color: colors.background
+
+            // MouseArea is needed to hide mouse events from items under background
+            MouseArea {
+                anchors.fill: parent
+            }
+        }
+
+        Message {
+            id: messageBox
             anchors.fill: parent
         }
-    }
 
-    Message {
-        id:messageBox
-        anchors.fill: mainWindow
-    }
+        Search {
+            id: searchBox
+            anchors.fill: parent
+        }
 
-    Search {
-        id: searchBox
-        anchors.fill: mainWindow
-    }
+        DeviceList {
+            id: deviceListBox
+            anchors.fill: parent
+        }
 
-    DeviceList {
-        id: deviceListBox
-        anchors.fill: mainWindow
-    }
+        Gui {
+            id: guiBox
+            anchors.fill: parent
+        }
 
-    Gui {
-        id: guiBox
-        anchors.fill: mainWindow
+        SetupDate {
+            id: setupDateBox
+            anchors.fill: parent
+        }
+
+        SetupTime {
+            id: setupTimeBox
+            anchors.fill: parent
+        }
+
+        SetupHeat {
+            id: setupHeatBox
+            anchors.fill: parent
+        }
+
+        SetupLight {
+            id: setupLightBox
+            anchors.fill: parent
+        }
+
+        SetupLightTime {
+            id: setupLightTimeBox
+            anchors.fill: parent
+        }
+
+        Cmd {
+            id: cmdBox
+            anchors.fill: parent
+        }
     }
 
     Timer {
@@ -343,36 +391,6 @@ Item {
         interval: 1000
         repeat: true
         onTriggered: updateGui()
-    }
-
-    SetupDate {
-        id: setupDateBox
-        anchors.fill: mainWindow
-    }
-
-    SetupTime {
-        id: setupTimeBox
-        anchors.fill: mainWindow
-    }
-
-    SetupHeat {
-        id: setupHeatBox
-        anchors.fill: mainWindow
-    }
-
-    SetupLight {
-        id: setupLightBox
-        anchors.fill: mainWindow
-    }
-
-    SetupLightTime {
-        id: setupLightTimeBox
-        anchors.fill: mainWindow
-    }
-
-    Cmd {
-        id: cmdBox
-        anchors.fill: mainWindow
     }
 
     states: [

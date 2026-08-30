@@ -7,7 +7,7 @@ Rectangle {
     anchors.fill: parent
 
     onOpacityChanged: {
-        if (opacity == 1) {
+        if (opacity === 1) {
             startAnimation()
         }
         else {
@@ -69,7 +69,7 @@ Rectangle {
                 loops: Animation.Infinite
                 running: true
                 onRunningChanged: {
-                    if (running == false) {
+                    if (running === false) {
                         fishInit.running = true
                     }
                 }

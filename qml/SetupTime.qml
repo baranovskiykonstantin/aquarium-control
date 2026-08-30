@@ -1,12 +1,12 @@
 import QtQuick
-import QtQuick.Controls
+import QtQuick.Controls.Basic
 
 Rectangle {
     id: setupTime
     color: "transparent"
 
     onOpacityChanged: {
-        if (opacity == 1) {
+        if (opacity === 1) {
             var matchRes = aquarium.time.match(
                 new RegExp("(\\d{2}):(\\d{2}):(\\d{2})", "m")
             )

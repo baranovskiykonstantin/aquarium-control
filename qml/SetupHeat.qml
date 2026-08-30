@@ -1,12 +1,12 @@
 import QtQuick
-import QtQuick.Controls
+import QtQuick.Controls.Basic
 
 Rectangle {
     id: setupHeat
     color: "transparent"
 
     onOpacityChanged: {
-        if (opacity == 1) {
+        if (opacity === 1) {
             var matchRes = aquarium.heat.match(
                 new RegExp("(\\d+)-(\\d+)", "m")
             )

@@ -1,12 +1,12 @@
 import QtQuick
-import QtQuick.Controls
+import QtQuick.Controls.Basic
 
 Rectangle {
     id: setupLightTime
     color: "transparent"
 
     onOpacityChanged: {
-        if (opacity == 1) {
+        if (opacity === 1) {
             var matchRes
 
             if (turnOnTime) {

@@ -11,14 +11,14 @@ Rectangle {
 
     function setTitle(title) {
         // Do not modify message box if it's showing
-        if (messageBox.z != 3) {
+        if (messageBox.z !== 3) {
             messageTitle.text = title
         }
     }
 
     function setText(message) {
         // Do not modify message box if it's showing
-        if (messageBox.z != 3) {
+        if (messageBox.z !== 3) {
             messageText.text = message
         }
     }
