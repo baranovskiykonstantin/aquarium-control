@@ -65,7 +65,7 @@ Rectangle {
             id: listItemDelegate
 
             Item {
-                width: parent.width
+                width: listControl.width
                 height: mmTOpx(10)
 
                 Rectangle {
