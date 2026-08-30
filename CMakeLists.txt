@@ -45,7 +45,7 @@ set_target_properties(aquarium-control PROPERTIES
     QT_ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android"
     QT_ANDROID_VERSION_CODE 3
     QT_ANDROID_VERSION_NAME "${PROJECT_VERSION}"
-    QT_ANDROID_APP_ICON "@drawable/icon"
+    QT_ANDROID_APP_ICON "@mipmap/ic_launcher"
     QT_ANDROID_APP_NAME "Aquarium control"
 )
 
