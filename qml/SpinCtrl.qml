@@ -7,7 +7,7 @@ SpinBox {
     editable: false
     font.pixelSize: mmTOpx(3.5)
     width: {
-        let controlWidth = textMetrics.width + control.height * 2
+        let controlWidth = maxContentWidth + control.height * 2
         if (controlWidth < (control.height * 3)) {
             controlWidth = control.height * 3
         }
@@ -16,6 +16,29 @@ SpinBox {
 
     property string upLabel: "+"
     property string downLabel: "-"
+    property real maxContentWidth: 0
+
+    TextMetrics {
+        id: textMetrics
+        font: control.font
+    }
+
+    function updateMaxContentWidth() {
+        let maxWidth = 0
+        for (let i = control.from; i <= control.to; i++) {
+            // To calculate correct text width needs to add an wide character (W).
+            textMetrics.text = control.textFromValue(i, control.locale) + "W"
+            if (textMetrics.width > maxWidth) {
+                maxWidth = textMetrics.width
+            }
+        }
+        maxContentWidth = maxWidth
+    }
+
+    Component.onCompleted: updateMaxContentWidth()
+    onFromChanged: updateMaxContentWidth()
+    onToChanged: updateMaxContentWidth()
+    onFontChanged: updateMaxContentWidth()
 
     contentItem: Text {
         id: textValue
@@ -27,13 +50,6 @@ SpinBox {
         color: colors.itemText
         horizontalAlignment: Qt.AlignHCenter
         verticalAlignment: Qt.AlignVCenter
-
-        TextMetrics {
-            id: textMetrics
-            font: control.font
-            // To calculate correct text width needs to add an wide character (W).
-            text: textValue.text + "W"
-        }
     }
 
     up.indicator: Rectangle {
