@@ -145,8 +145,8 @@ Rectangle {
     Item {
         id: cmdInput
         anchors.top:cmdOutputScroll.bottom
+        height: mmTOpx(10)
         width: parent.width
-        height: mmTOpx(8)
 
         Button {
             id: cmdButtonGoToGUI
@@ -162,8 +162,9 @@ Rectangle {
                 Image {
                     id: cmdButtonGoToGUIImage
                     source: "../icons/gui.svg"
-                    width: cmdButtonGoToGUI.width
-                    height: cmdButtonGoToGUI.height
+                    height: mmTOpx(8)
+                    width: height
+                    anchors.centerIn: parent
                     fillMode: Image.Stretch
                 }
 
@@ -205,8 +206,9 @@ Rectangle {
                 Image {
                     id: cmdButtonSendImage
                     source: "../icons/send.svg"
-                    width: cmdButtonSend.width
-                    height: cmdButtonSend.height
+                    height: mmTOpx(8)
+                    width: height
+                    anchors.centerIn: parent
                     fillMode: Image.Stretch
                 }
 

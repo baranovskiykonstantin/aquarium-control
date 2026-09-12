@@ -267,7 +267,7 @@ Rectangle {
         color: colors.background
         anchors.bottom: buttonBox2.top
         width: parent.width
-        height: mmTOpx(10)
+        height: mmTOpx(12)
 
         Row {
             anchors.fill: parent
@@ -354,7 +354,7 @@ Rectangle {
         color: colors.background
         anchors.bottom: parent.bottom
         width: parent.width
-        height: mmTOpx(10)
+        height: mmTOpx(12)
 
         Row {
             anchors.fill: parent

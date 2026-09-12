@@ -10,14 +10,14 @@ Rectangle {
     }
 
     function setTitle(title) {
-        // Do not modify message box if it's showing
+        // Do not modify message box if it's active
         if (messageBox.z !== 3) {
             messageTitle.text = title
         }
     }
 
     function setText(message) {
-        // Do not modify message box if it's showing
+        // Do not modify message box if it's active
         if (messageBox.z !== 3) {
             messageText.text = message
         }
@@ -77,7 +77,7 @@ Rectangle {
             anchors.leftMargin: mmTOpx(1)
             anchors.right: parent.right
             anchors.rightMargin: mmTOpx(1)
-            height: mmTOpx(10)
+            height: mmTOpx(12)
 
             Text {
                 text: qsTr("OK")

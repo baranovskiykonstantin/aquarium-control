@@ -103,6 +103,7 @@ Rectangle {
             model: deviceListModel
             delegate: listItemDelegate
             focus: true
+            clip: true
         }
     }
 
@@ -111,7 +112,7 @@ Rectangle {
         color: colors.background
         anchors.bottom: parent.bottom
         width: parent.width
-        height: mmTOpx(10)
+        height: mmTOpx(12)
 
         Rectangle {
             id: cancelButton
