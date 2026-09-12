@@ -384,6 +384,11 @@ Item {
             id: cmdBox
             anchors.fill: parent
         }
+
+        Help {
+            id: helpBox
+            anchors.fill: parent
+        }
     }
 
     Timer {
@@ -405,7 +410,8 @@ Item {
             PropertyChanges { target: setupHeatBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupLightBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupLightTimeBox; opacity: 0; z: 0 }
-            PropertyChanges { target: cmdBox; opacity: 0; z: 0}
+            PropertyChanges { target: cmdBox; opacity: 0; z: 0 }
+            PropertyChanges { target: helpBox; opacity: 0; z: 0 }
         },
         State {
             name: "deviceList"
@@ -418,7 +424,8 @@ Item {
             PropertyChanges { target: setupHeatBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupLightBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupLightTimeBox; opacity: 0; z: 0 }
-            PropertyChanges { target: cmdBox; opacity: 0; z: 0}
+            PropertyChanges { target: cmdBox; opacity: 0; z: 0 }
+            PropertyChanges { target: helpBox; opacity: 0; z: 0 }
         },
         State {
             name: "gui"
@@ -431,7 +438,8 @@ Item {
             PropertyChanges { target: setupHeatBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupLightBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupLightTimeBox; opacity: 0; z: 0 }
-            PropertyChanges { target: cmdBox; opacity: 0; z: 0}
+            PropertyChanges { target: cmdBox; opacity: 0; z: 0 }
+            PropertyChanges { target: helpBox; opacity: 0; z: 0 }
         },
         State {
             name: "setupDate"
@@ -445,6 +453,7 @@ Item {
             PropertyChanges { target: setupLightBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupLightTimeBox; opacity: 0; z: 0 }
             PropertyChanges { target: cmdBox; opacity: 0; z: 0 }
+            PropertyChanges { target: helpBox; opacity: 0; z: 0 }
         },
         State {
             name: "setupTime"
@@ -458,6 +467,7 @@ Item {
             PropertyChanges { target: setupLightBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupLightTimeBox; opacity: 0; z: 0 }
             PropertyChanges { target: cmdBox; opacity: 0; z: 0 }
+            PropertyChanges { target: helpBox; opacity: 0; z: 0 }
         },
         State {
             name: "setupHeat"
@@ -471,6 +481,7 @@ Item {
             PropertyChanges { target: setupLightBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupLightTimeBox; opacity: 0; z: 0 }
             PropertyChanges { target: cmdBox; opacity: 0; z: 0 }
+            PropertyChanges { target: helpBox; opacity: 0; z: 0 }
         },
         State {
             name: "setupLight"
@@ -484,6 +495,7 @@ Item {
             PropertyChanges { target: setupLightBox; opacity: 1; z: 2 }
             PropertyChanges { target: setupLightTimeBox; opacity: 0; z: 0 }
             PropertyChanges { target: cmdBox; opacity: 0; z: 0 }
+            PropertyChanges { target: helpBox; opacity: 0; z: 0 }
         },
         State {
             name: "setupLightTime"
@@ -497,6 +509,7 @@ Item {
             PropertyChanges { target: setupLightBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupLightTimeBox; opacity: 1; z: 2 }
             PropertyChanges { target: cmdBox; opacity: 0; z: 0 }
+            PropertyChanges { target: helpBox; opacity: 0; z: 0 }
         },
         State {
             name: "cmd"
@@ -510,6 +523,21 @@ Item {
             PropertyChanges { target: setupLightBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupLightTimeBox; opacity: 0; z: 0 }
             PropertyChanges { target: cmdBox; opacity: 1; z: 2 }
+            PropertyChanges { target: helpBox; opacity: 0; z: 0 }
+        },
+        State {
+            name: "help"
+            PropertyChanges { target: searchBox; opacity: 0; z: 0 }
+            PropertyChanges { target: deviceListBox; opacity: 0; z: 0 }
+            PropertyChanges { target: guiBox; opacity: 0; z: 0 }
+            PropertyChanges { target: guiUpdater; running: false }
+            PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
+            PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
+            PropertyChanges { target: setupHeatBox; opacity: 0; z: 0 }
+            PropertyChanges { target: setupLightBox; opacity: 0; z: 0 }
+            PropertyChanges { target: setupLightTimeBox; opacity: 0; z: 0 }
+            PropertyChanges { target: cmdBox; opacity: 0; z: 0 }
+            PropertyChanges { target: helpBox; opacity: 1; z: 2 }
         }
     ]
 }

@@ -33,6 +33,10 @@ qt_add_executable(aquarium-control
     qml.qrc
 )
 
+target_compile_definitions(aquarium-control PRIVATE
+    "APP_VERSION=\"${PROJECT_VERSION}\""
+)
+
 qt_add_translations(aquarium-control
     TS_FILES
         translations/lang_ru.ts
@@ -43,6 +47,7 @@ qt_add_translations(aquarium-control
         qml/Colors.qml
         qml/DeviceList.qml
         qml/Gui.qml
+        qml/Help.qml
         qml/Main.qml
         qml/Message.qml
         qml/Search.qml

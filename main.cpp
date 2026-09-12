@@ -12,6 +12,7 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
     app.setOrganizationName(QStringLiteral("baranovskiykonstantin"));
     app.setApplicationName(QStringLiteral("aquarium-control"));
+    app.setApplicationVersion(QString::fromUtf8(APP_VERSION));
 
     QTranslator qtTranslator;
     if (qtTranslator.load(QLocale(), QStringLiteral("lang"), QStringLiteral("_"),

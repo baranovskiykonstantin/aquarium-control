@@ -5,6 +5,7 @@
         <file>qml/Colors.qml</file>
         <file>qml/DeviceList.qml</file>
         <file>qml/Gui.qml</file>
+        <file>qml/Help.qml</file>
         <file>qml/Main.qml</file>
         <file>qml/Message.qml</file>
         <file>qml/Search.qml</file>
@@ -20,6 +21,7 @@
         <file>icons/fish-sad.svg</file>
         <file>icons/gui.svg</file>
         <file>icons/heat.svg</file>
+        <file>icons/help.svg</file>
         <file>icons/light.svg</file>
         <file>icons/send.svg</file>
         <file>icons/temp.svg</file>

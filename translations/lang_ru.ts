@@ -593,7 +593,7 @@ exit
         <translation>не отвечает</translation>
     </message>
     <message>
-        <location filename="../qml/Cmd.qml" line="180"/>
+        <location filename="../qml/Cmd.qml" line="181"/>
         <source>Enter command</source>
         <translation>Введите команду</translation>
     </message>
@@ -647,7 +647,7 @@ exit
         <translation type="vanished">Аквариум</translation>
     </message>
     <message>
-        <location filename="../qml/Gui.qml" line="229"/>
+        <location filename="../qml/Gui.qml" line="266"/>
         <source>Exit</source>
         <translation>Выйти</translation>
     </message>
@@ -656,9 +656,67 @@ exit
         <translation type="vanished">Обновить</translation>
     </message>
     <message>
-        <location filename="../qml/Gui.qml" line="205"/>
+        <location filename="../qml/Gui.qml" line="242"/>
         <source>Terminal</source>
         <translation>Терминал</translation>
+    </message>
+</context>
+<context>
+    <name>Help</name>
+    <message>
+        <location filename="../qml/Help.qml" line="33"/>
+        <source>Aquarium control %1</source>
+        <translation>Aquarium control %1</translation>
+    </message>
+    <message>
+        <location filename="../qml/Help.qml" line="62"/>
+        <source>&lt;b&gt;About&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;This application is designed to control the aquarium controller described at &lt;a href=&quot;https://github.com/baranovskiykonstantin/aquarium&quot;&gt;https://github.com/baranovskiykonstantin/aquarium&lt;/a&gt;. It lets you find a nearby aquarium over Bluetooth, view its current state, and change date, time, heating, lighting, and display settings.</source>
+        <translation>&lt;b&gt;О приложении&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Это приложение предназначено для управления контроллером аквариума, описанным на странице &lt;a href=&quot;https://github.com/baranovskiykonstantin/aquarium&quot;&gt;https://github.com/baranovskiykonstantin/aquarium&lt;/a&gt;. С его помощью можно найти ближайший аквариум по Bluetooth, просмотреть его текущее состояние и изменить дату, время, нагрев, освещение и режим дисплея.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Help.qml" line="64"/>
+        <source>&lt;b&gt;Finding an aquarium&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;When the app starts, it searches for Bluetooth devices whose name begins with &quot;aquarium&quot;. Wait until the search finishes. If no aquarium is found, make sure the controller is available, Bluetooth is turned on, and the app is allowed to access nearby devices. The Cancel button stops the search and returns to the main window.</source>
+        <translation>&lt;b&gt;Поиск аквариума&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;При запуске приложение ищет устройства Bluetooth, имя которых начинается с «aquarium». Дождитесь окончания поиска. Если аквариум не найден, убедитесь, что контроллер доступен, Bluetooth включён, а приложению разрешён доступ к расположенным рядом устройствам. Кнопка «Отмена» останавливает поиск и возвращает на главный экран.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Help.qml" line="66"/>
+        <source>&lt;b&gt;Selecting an aquarium&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;If several aquariums are found, a list is shown. Each row shows the device name and its Bluetooth address. Tap a row to connect. Cancel returns to the main window without connecting.</source>
+        <translation>&lt;b&gt;Выбор аквариума&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Если найдено несколько аквариумов, отображается список. В каждой строке указаны имя устройства и его Bluetooth-адрес. Нажмите на строку, чтобы подключиться. «Отмена» возвращает на главный экран без подключения.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Help.qml" line="68"/>
+        <source>&lt;b&gt;Main window&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;The header shows the connected aquarium name and address, or that the aquarium is disconnected. Tap the header to search for aquariums again. The help icon on the right opens this screen.&lt;br/&gt;&lt;br/&gt;Tap a status row to open its settings:&lt;br/&gt;&lt;br/&gt;• Date — current date and day of the week&lt;br/&gt;• Time — current time and daily time correction&lt;br/&gt;• Temp — water temperature; opens Heat setup&lt;br/&gt;• Heat — heater state, mode, and temperature range&lt;br/&gt;• Light — light state, mode, schedule, brightness, and rise time&lt;br/&gt;• Display — tap to switch what the aquarium display shows: time or temperature. There is no separate display settings screen.&lt;br/&gt;&lt;br/&gt;Terminal opens text-command control of the controller. It is an alternative to the graphical interface.&lt;br/&gt;&lt;br/&gt;Exit closes the application.</source>
+        <translation>&lt;b&gt;Главный экран&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;В заголовке отображаются имя и адрес подключённого аквариума или сообщение, что аквариум отключён. Нажатие на заголовок запускает повторный поиск аквариумов. Значок справки справа открывает этот экран.&lt;br/&gt;&lt;br/&gt;Нажмите на строку состояния, чтобы открыть её настройки:&lt;br/&gt;&lt;br/&gt;• Дата — текущая дата и день недели&lt;br/&gt;• Время — текущее время и ежедневная коррекция часов&lt;br/&gt;• Температура — температура воды; открывает настройку нагревателя&lt;br/&gt;• Нагреватель — состояние, режим и диапазон температуры&lt;br/&gt;• Освещение — состояние, режим, расписание, яркость и время нарастания&lt;br/&gt;• Дисплей — нажатие переключает, что показывает дисплей аквариума: время или температуру. Отдельного экрана настройки дисплея нет.&lt;br/&gt;&lt;br/&gt;«Терминал» открывает управление контроллером текстовыми командами. Это альтернатива графическому интерфейсу.&lt;br/&gt;&lt;br/&gt;«Выйти» закрывает приложение.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Help.qml" line="70"/>
+        <source>&lt;b&gt;Date setup&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Set the day, month, year, and day of the week. Set current date sends the date from this device. Set applies the values you chose. Back returns to the main window without saving.</source>
+        <translation>&lt;b&gt;Настройка даты&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Задайте число, месяц, год и день недели. «Установить текущую дату» отправляет дату с этого устройства. «Установить» применяет выбранные значения. «Назад» возвращает на главный экран без сохранения.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Help.qml" line="72"/>
+        <source>&lt;b&gt;Time setup&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Set hours, minutes, seconds, and time correction. Time correction is the number of seconds added or subtracted every day to compensate for clock drift. Set current time sends the time from this device together with the correction. Set applies the values you chose. Back returns to the main window without saving.</source>
+        <translation>&lt;b&gt;Настройка времени&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Задайте часы, минуты, секунды и коррекцию времени. Коррекция времени — это число секунд, которое добавляется или вычитается каждый день, чтобы компенсировать уход часов. «Установить текущее время» отправляет время с этого устройства вместе с коррекцией. «Установить» применяет выбранные значения. «Назад» возвращает на главный экран без сохранения.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Help.qml" line="74"/>
+        <source>&lt;b&gt;Heat setup&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Set the minimal and maximal water temperature (18–35 °C). Set saves this range for automatic temperature control and returns to the main window.&lt;br/&gt;&lt;br/&gt;Turn on and Turn off immediately switch the heater and put the controller into manual mode. The 35 °C temperature limit still applies in manual mode. To return to automatic temperature maintenance, press Auto.&lt;br/&gt;&lt;br/&gt;Back returns to the main window without saving the temperature range.</source>
+        <translation>&lt;b&gt;Настройка нагревателя&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Задайте минимальную и максимальную температуру воды (18–35 °C). «Установить» сохраняет этот диапазон для автоматического поддержания температуры и возвращает на главный экран.&lt;br/&gt;&lt;br/&gt;«Включить» и «Выключить» сразу переключают нагреватель и переводят контроллер в ручной режим. Ограничение температуры в 35 °C действует даже в ручном режиме. Чтобы снова автоматически поддерживать температуру, нажмите «Авто».&lt;br/&gt;&lt;br/&gt;«Назад» возвращает на главный экран без сохранения диапазона температуры.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Help.qml" line="76"/>
+        <source>&lt;b&gt;Light setup&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Tap Turn on time or Turn off time to edit the lighting schedule. Brightness sets the target light level (0–100%). Rise time is how many minutes the light takes to fade in or out. Set saves the schedule and automatic-mode parameters and returns to the main window.&lt;br/&gt;&lt;br/&gt;Turn on and Turn off immediately switch the light and put the controller into manual mode. To return to automatic lighting by schedule, press Auto.&lt;br/&gt;&lt;br/&gt;Back returns to the main window without saving.</source>
+        <translation>&lt;b&gt;Настройка освещения&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Нажмите «Время включения» или «Время выключения», чтобы изменить расписание освещения. «Яркость» задаёт целевой уровень света (0–100%). «Время наростания» — сколько минут свет разгорается или гаснет. «Установить» сохраняет расписание и параметры автоматического режима и возвращает на главный экран.&lt;br/&gt;&lt;br/&gt;«Включить» и «Выключить» сразу переключают свет и переводят контроллер в ручной режим. Чтобы снова автоматически поддерживать освещение по расписанию, нажмите «Авто».&lt;br/&gt;&lt;br/&gt;«Назад» возвращает на главный экран без сохранения.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Help.qml" line="78"/>
+        <source>&lt;b&gt;Terminal&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Terminal is an alternative to the graphical interface: you control the aquarium controller with text commands. Type a command and tap Send (or press Enter). Replies from the controller are shown in the output area. The controller command help prints a description of all supported commands and the format of their arguments.&lt;br/&gt;&lt;br/&gt;The GUI icon returns to the main window. The local command clear clears the output. The local command exit closes the application.</source>
+        <translation>&lt;b&gt;Терминал&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Терминал — это альтернатива графическому интерфейсу: контроллером аквариума можно управлять текстовыми командами. Введите команду и нажмите кнопку отправки (или Enter). Ответы контроллера отображаются в области вывода. Команда контроллера help выводит описание всех поддерживаемых команд и формат их аргументов.&lt;br/&gt;&lt;br/&gt;Значок GUI возвращает на главный экран. Локальная команда clear очищает вывод. Локальная команда exit закрывает приложение.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Help.qml" line="96"/>
+        <source>Back</source>
+        <translation>Назад</translation>
     </message>
 </context>
 <context>
@@ -1191,7 +1249,7 @@ Light will rise/fall %4 minutes.</source>
         <location filename="../qml/SetupLight.qml" line="59"/>
         <source>Light will turn on at %1 o&apos;clock with brightness %3% and turn off at %2 o&apos;clock.
 Light will rise/fall in %4 minutes.</source>
-        <translation>Свет будет включаться в %1 с яркостью %3% и выиключаться в %2.
+        <translation>Свет будет включаться в %1 с яркостью %3% и выключаться в %2.
 Наростание/затухание длится %4 мин.</translation>
     </message>
     <message>
