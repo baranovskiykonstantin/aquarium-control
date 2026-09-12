@@ -17,15 +17,42 @@ find_package(Qt6 6.8 REQUIRED COMPONENTS
     Bluetooth
     Svg
     Core5Compat
+    LinguistTools
 )
 
-qt_standard_project_setup(REQUIRES 6.8)
+qt_standard_project_setup(
+    REQUIRES 6.8
+    I18N_SOURCE_LANGUAGE en
+    I18N_TRANSLATED_LANGUAGES ru uk
+)
 
 qt_add_executable(aquarium-control
     main.cpp
     bt_rfcomm.cpp
     bt_rfcomm.h
     qml.qrc
+)
+
+qt_add_translations(aquarium-control
+    TS_FILES
+        translations/lang_ru.ts
+        translations/lang_uk.ts
+    SOURCES
+        qml/Aquarium.qml
+        qml/Cmd.qml
+        qml/Colors.qml
+        qml/DeviceList.qml
+        qml/Gui.qml
+        qml/Main.qml
+        qml/Message.qml
+        qml/Search.qml
+        qml/SetupDate.qml
+        qml/SetupHeat.qml
+        qml/SetupLight.qml
+        qml/SetupLightTime.qml
+        qml/SetupTime.qml
+        qml/SpinCtrl.qml
+    RESOURCE_PREFIX /translations
 )
 
 target_link_libraries(aquarium-control PRIVATE

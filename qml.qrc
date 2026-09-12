@@ -1,7 +1,5 @@
 <RCC>
     <qresource prefix="/">
-        <file>translations/lang_ru.qm</file>
-        <file>translations/lang_uk.qm</file>
         <file>qml/Aquarium.qml</file>
         <file>qml/Cmd.qml</file>
         <file>qml/Colors.qml</file>

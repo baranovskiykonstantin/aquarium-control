@@ -730,9 +730,8 @@ aquarium not connected!
         <translation type="vanished">%1 (время корректируется на %2 сек. каждый день в %3)</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="30"/>
         <source>Search of aquariums...</source>
-        <translation>Поиск аквариумов...</translation>
+        <translation type="vanished">Поиск аквариумов...</translation>
     </message>
     <message>
         <location filename="../qml/Main.qml" line="50"/>
@@ -767,6 +766,11 @@ Please ensure aquarium is available.</source>
 Пожалуйста, проверьте состояние аквариума.</translation>
     </message>
     <message>
+        <location filename="../qml/Main.qml" line="30"/>
+        <source>Search for aquariums...</source>
+        <translation>Поиск аквариумов...</translation>
+    </message>
+    <message>
         <location filename="../qml/Main.qml" line="109"/>
         <source>No aquarium was found!
 Please ensure aquarium is available
@@ -779,7 +783,7 @@ and Bluetooth is turned on.</source>
         <location filename="../qml/Main.qml" line="125"/>
         <source>Bluetooth is powered off!
 Please power on Bluetooth and try again.</source>
-        <translation type="unfinished">Bluetooth выключен!
+        <translation>Bluetooth выключен!
 Пожалуйста, включите Bluetooth
 и попробуйте снова.</translation>
     </message>
@@ -927,7 +931,7 @@ Please ensure aquarium is available.</source>
     </message>
     <message>
         <location filename="../qml/Search.qml" line="111"/>
-        <source>Search of aquariums...</source>
+        <source>Search for aquariums...</source>
         <translation>Поиск аквариумов...</translation>
     </message>
     <message>

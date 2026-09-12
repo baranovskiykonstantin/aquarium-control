@@ -27,7 +27,7 @@ Item {
 
     function startSearching() {
         mainWindow.state = "search"
-        searchBox.setText(qsTr("Search of aquariums..."))
+        searchBox.setText(qsTr("Search for aquariums..."))
         bluetooth.disconnectDevice()
         deviceListBox.removeItems()
         bluetooth.btError = false

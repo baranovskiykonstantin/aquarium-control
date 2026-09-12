@@ -108,7 +108,7 @@ Rectangle {
             anchors.top: fishImage.bottom
             anchors.topMargin: mmTOpx(5)
             anchors.horizontalCenter: parent.horizontalCenter
-            text: qsTr("Search of aquariums...")
+            text: qsTr("Search for aquariums...")
             horizontalAlignment: Text.AlignHCenter
             color: colors.itemText
             font.pixelSize: mmTOpx(4)
