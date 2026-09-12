@@ -156,7 +156,7 @@ Item {
                 .arg(aquarium.name)
                 .arg(aquarium.address)
             )
-            guiBox.updateGui()
+            updateGui()
         }
 
         onDisconnected: function() {
