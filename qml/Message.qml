@@ -36,7 +36,7 @@ Rectangle {
         id: message
         color: colors.messageBackground
         width: parent.width * 0.6
-        height: mmTOpx(40)
+        height: mmTOpx(45)
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
 
@@ -45,13 +45,14 @@ Rectangle {
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.right: parent.right
-            anchors.topMargin: mmTOpx(2)
+            anchors.margins: mmTOpx(1)
             color: colors.messageText
             font.pixelSize: mmTOpx(3.5)
             font.bold: true
             wrapMode: Text.Wrap
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
+            height: text === "" ? 0 : implictHeight
         }
 
         Text {
