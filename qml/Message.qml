@@ -1,4 +1,4 @@
-import QtQuick 2.0
+import QtQuick
 
 Rectangle {
     id: messageBox
@@ -10,15 +10,15 @@ Rectangle {
     }
 
     function setTitle(title) {
-        // Do not modify message box if it's showing
-        if (messageBox.z != 3) {
+        // Do not modify message box if it's active
+        if (messageBox.z !== 3) {
             messageTitle.text = title
         }
     }
 
     function setText(message) {
-        // Do not modify message box if it's showing
-        if (messageBox.z != 3) {
+        // Do not modify message box if it's active
+        if (messageBox.z !== 3) {
             messageText.text = message
         }
     }
@@ -36,7 +36,7 @@ Rectangle {
         id: message
         color: colors.messageBackground
         width: parent.width * 0.6
-        height: mmTOpx(40)
+        height: mmTOpx(45)
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.verticalCenter: parent.verticalCenter
 
@@ -45,13 +45,14 @@ Rectangle {
             anchors.top: parent.top
             anchors.left: parent.left
             anchors.right: parent.right
-            anchors.topMargin: mmTOpx(2)
+            anchors.margins: mmTOpx(1)
             color: colors.messageText
             font.pixelSize: mmTOpx(3.5)
             font.bold: true
             wrapMode: Text.Wrap
             horizontalAlignment: Text.AlignHCenter
             verticalAlignment: Text.AlignVCenter
+            height: text === "" ? 0 : implictHeight
         }
 
         Text {
@@ -77,7 +78,7 @@ Rectangle {
             anchors.leftMargin: mmTOpx(1)
             anchors.right: parent.right
             anchors.rightMargin: mmTOpx(1)
-            height: mmTOpx(10)
+            height: mmTOpx(12)
 
             Text {
                 text: qsTr("OK")

@@ -1,6 +1,6 @@
-import QtQuick 2.0
-import QtGraphicalEffects 1.0
-import QtQml 2.12
+import QtQuick
+import Qt5Compat.GraphicalEffects
+import QtQml
 
 Rectangle {
     id: guiBox
@@ -170,9 +170,13 @@ Rectangle {
             id: guiHeaderText
             text: qsTr("aquarium (disconnected)")
             anchors.verticalCenter: parent.verticalCenter
-            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.left: parent.left
+            anchors.right: helpButton.left
+            anchors.leftMargin: helpButton.width
             color: colors.headerText
             font.pixelSize: mmTOpx(4)
+            elide: Text.ElideRight
+            horizontalAlignment: Text.AlignHCenter
         }
 
         MouseArea {
@@ -181,6 +185,39 @@ Rectangle {
             onPressed: guiHeaderBackground.color = colors.headerPressed
             onReleased: guiHeaderBackground.color = colors.headerBackground
         }
+
+        Rectangle {
+            id: helpButton
+            z: 1
+            color: "transparent"
+            width: guiHeaderBackground.height
+            height: guiHeaderBackground.height
+            anchors.right: parent.right
+            anchors.top: parent.top
+
+            Image {
+                id: helpButtonImage
+                source: "../icons/help.svg"
+                height: mmTOpx(5)
+                width: height
+                fillMode: Image.Stretch
+                anchors.centerIn: parent
+            }
+
+            ColorOverlay {
+                anchors.fill: helpButtonImage
+                source: helpButtonImage
+                color: colors.headerText
+            }
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: mainWindow.state = "help"
+                onPressed: helpButton.color = colors.headerPressed
+                onReleased: helpButton.color = "transparent"
+                onCanceled: helpButton.color = "transparent"
+            }
+        }
     }
 
     Rectangle {
@@ -188,7 +225,7 @@ Rectangle {
         color: colors.background
         anchors.bottom: parent.bottom
         width: parent.width
-        height: mmTOpx(10)
+        height: mmTOpx(12)
 
         Row {
             anchors.fill: parent
@@ -237,7 +274,7 @@ Rectangle {
 
                 MouseArea {
                     anchors.fill: parent
-                    onClicked: mainWindow.quit()
+                    onClicked: { Qt.quit() }
                     onPressed: exitButton.color = colors.buttonPressed
                     onReleased: exitButton.color = colors.buttonBackground
                 }

@@ -588,51 +588,53 @@ exit
         <translation>&lt;font color=&quot;tomato&quot;&gt;aquarium (отключён): &lt;/font&gt;</translation>
     </message>
     <message>
-        <location filename="../qml/Cmd.qml" line="111"/>
+        <location filename="../qml/Cmd.qml" line="112"/>
         <source>no response</source>
         <translation>не отвечает</translation>
     </message>
     <message>
-        <location filename="../qml/Cmd.qml" line="179"/>
+        <location filename="../qml/Cmd.qml" line="181"/>
         <source>Enter command</source>
         <translation>Введите команду</translation>
     </message>
 </context>
 <context>
-    <name>DeviceList</name>
+    <name>PortList</name>
     <message>
-        <source>Select aquarium</source>
-        <translation type="vanished">Выбор аквариума</translation>
+        <location filename="../qml/PortList.qml" line="39"/>
+        <source>Select communication port</source>
+        <translation>Выбор порта связи</translation>
     </message>
     <message>
+        <location filename="../qml/PortList.qml" line="122"/>
         <source>Cancel</source>
-        <translation type="vanished">Отмена</translation>
+        <translation>Отмена</translation>
     </message>
 </context>
 <context>
     <name>Gui</name>
     <message>
-        <location filename="../qml/Gui.qml" line="36"/>
+        <location filename="../qml/Gui.qml" line="33"/>
         <source>Display shows the temperature now.</source>
         <translation>Сейчас на дисплее отображается температура.</translation>
     </message>
     <message>
-        <location filename="../qml/Gui.qml" line="42"/>
+        <location filename="../qml/Gui.qml" line="39"/>
         <source>Display shows the time now.</source>
         <translation>Сейчас на дисплее отображается время.</translation>
     </message>
     <message>
-        <location filename="../qml/Gui.qml" line="174"/>
+        <location filename="../qml/Gui.qml" line="171"/>
         <source>aquarium (disconnected)</source>
         <translation>aquarium (отключён)</translation>
     </message>
     <message>
-        <location filename="../qml/Gui.qml" line="65"/>
-        <location filename="../qml/Gui.qml" line="69"/>
-        <location filename="../qml/Gui.qml" line="73"/>
-        <location filename="../qml/Gui.qml" line="77"/>
-        <location filename="../qml/Gui.qml" line="81"/>
-        <location filename="../qml/Gui.qml" line="85"/>
+        <location filename="../qml/Gui.qml" line="62"/>
+        <location filename="../qml/Gui.qml" line="66"/>
+        <location filename="../qml/Gui.qml" line="70"/>
+        <location filename="../qml/Gui.qml" line="74"/>
+        <location filename="../qml/Gui.qml" line="78"/>
+        <location filename="../qml/Gui.qml" line="82"/>
         <source>no data</source>
         <translation>нет данных</translation>
     </message>
@@ -645,19 +647,76 @@ exit
         <translation type="vanished">Аквариум</translation>
     </message>
     <message>
-        <location filename="../qml/Gui.qml" line="256"/>
+        <location filename="../qml/Gui.qml" line="266"/>
         <source>Exit</source>
         <translation>Выйти</translation>
     </message>
     <message>
-        <location filename="../qml/Gui.qml" line="232"/>
         <source>Update</source>
-        <translation>Обновить</translation>
+        <translation type="vanished">Обновить</translation>
     </message>
     <message>
-        <location filename="../qml/Gui.qml" line="208"/>
+        <location filename="../qml/Gui.qml" line="242"/>
         <source>Terminal</source>
         <translation>Терминал</translation>
+    </message>
+</context>
+<context>
+    <name>Help</name>
+    <message>
+        <location filename="../qml/Help.qml" line="33"/>
+        <source>Aquarium control %1</source>
+        <translation>Aquarium control %1</translation>
+    </message>
+    <message>
+        <location filename="../qml/Help.qml" line="62"/>
+        <source>&lt;b&gt;About&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;This application is designed to control the aquarium controller described at &lt;a href=&quot;https://github.com/baranovskiykonstantin/aquarium&quot;&gt;https://github.com/baranovskiykonstantin/aquarium&lt;/a&gt;. It lets you connect to the aquarium through a serial (COM) port, view its current state, and change date, time, heating, lighting, and display settings. On Windows, a Bluetooth RFCOMM aquarium controller appears as a COM port.</source>
+        <translation>&lt;b&gt;О приложении&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Это приложение предназначено для управления контроллером аквариума, описанным на странице &lt;a href=&quot;https://github.com/baranovskiykonstantin/aquarium&quot;&gt;https://github.com/baranovskiykonstantin/aquarium&lt;/a&gt;. С его помощью можно подключиться к аквариуму через последовательный (COM) порт, просмотреть его текущее состояние и изменить дату, время, нагрев, освещение и режим дисплея. В Windows контроллер аквариума с Bluetooth RFCOMM отображается как COM-порт.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Help.qml" line="64"/>
+        <source>&lt;b&gt;Communication ports&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;When the app starts, it shows a list of serial (COM) ports available on this computer. If the list is empty, make sure the controller is connected and the port is available in the system. Cancel returns to the main window without connecting. On the connecting screen, Cancel closes the port and returns to the main window.</source>
+        <translation>&lt;b&gt;Порты связи&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;При запуске приложение показывает список последовательных (COM) портов, доступных на этом компьютере. Если список пуст, убедитесь, что контроллер подключён и порт доступен в системе. «Отмена» возвращает на главный экран без подключения. На экране подключения «Отмена» закрывает порт и возвращает на главный экран.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Help.qml" line="66"/>
+        <source>&lt;b&gt;Selecting a port&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Each row shows the port name. Tap a row to connect. Cancel returns to the main window without connecting.</source>
+        <translation>&lt;b&gt;Выбор порта&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;В каждой строке указано имя порта. Нажмите на строку, чтобы подключиться. «Отмена» возвращает на главный экран без подключения.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Help.qml" line="68"/>
+        <source>&lt;b&gt;Main window&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;The header shows the connected port name, or that the aquarium is disconnected. Tap the header to open the port list again. The help icon on the right opens this screen.&lt;br/&gt;&lt;br/&gt;Tap a status row to open its settings:&lt;br/&gt;&lt;br/&gt;• Date — current date and day of the week&lt;br/&gt;• Time — current time and daily time correction&lt;br/&gt;• Temp — water temperature; opens Heat setup&lt;br/&gt;• Heat — heater state, mode, and temperature range&lt;br/&gt;• Light — light state, mode, schedule, brightness, and rise time&lt;br/&gt;• Display — tap to switch what the aquarium display shows: time or temperature. There is no separate display settings screen.&lt;br/&gt;&lt;br/&gt;Terminal opens text-command control of the controller. It is an alternative to the graphical interface.&lt;br/&gt;&lt;br/&gt;Exit closes the application.</source>
+        <translation>&lt;b&gt;Главный экран&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;В заголовке отображается имя подключённого порта или сообщение, что аквариум отключён. Нажатие на заголовок снова открывает список портов. Значок справки справа открывает этот экран.&lt;br/&gt;&lt;br/&gt;Нажмите на строку состояния, чтобы открыть её настройки:&lt;br/&gt;&lt;br/&gt;• Дата — текущая дата и день недели&lt;br/&gt;• Время — текущее время и ежедневная коррекция часов&lt;br/&gt;• Температура — температура воды; открывает настройку нагревателя&lt;br/&gt;• Нагреватель — состояние, режим и диапазон температуры&lt;br/&gt;• Освещение — состояние, режим, расписание, яркость и время нарастания&lt;br/&gt;• Дисплей — нажатие переключает, что показывает дисплей аквариума: время или температуру. Отдельного экрана настройки дисплея нет.&lt;br/&gt;&lt;br/&gt;«Терминал» открывает управление контроллером текстовыми командами. Это альтернатива графическому интерфейсу.&lt;br/&gt;&lt;br/&gt;«Выйти» закрывает приложение.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Help.qml" line="70"/>
+        <source>&lt;b&gt;Date setup&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Set the day, month, year, and day of the week. Set current date sends the date from this device. Set applies the values you chose. Back returns to the main window without saving.</source>
+        <translation>&lt;b&gt;Настройка даты&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Задайте число, месяц, год и день недели. «Установить текущую дату» отправляет дату с этого устройства. «Установить» применяет выбранные значения. «Назад» возвращает на главный экран без сохранения.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Help.qml" line="72"/>
+        <source>&lt;b&gt;Time setup&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Set hours, minutes, seconds, and time correction. Time correction is the number of seconds added or subtracted every day to compensate for clock drift. Set current time sends the time from this device together with the correction. Set applies the values you chose. Back returns to the main window without saving.</source>
+        <translation>&lt;b&gt;Настройка времени&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Задайте часы, минуты, секунды и коррекцию времени. Коррекция времени — это число секунд, которое добавляется или вычитается каждый день, чтобы компенсировать уход часов. «Установить текущее время» отправляет время с этого устройства вместе с коррекцией. «Установить» применяет выбранные значения. «Назад» возвращает на главный экран без сохранения.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Help.qml" line="74"/>
+        <source>&lt;b&gt;Heat setup&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Set the minimal and maximal water temperature (18–35 °C). Set saves this range for automatic temperature control and returns to the main window.&lt;br/&gt;&lt;br/&gt;Turn on and Turn off immediately switch the heater and put the controller into manual mode. The 35 °C temperature limit still applies in manual mode. To return to automatic temperature maintenance, press Auto.&lt;br/&gt;&lt;br/&gt;Back returns to the main window without saving the temperature range.</source>
+        <translation>&lt;b&gt;Настройка нагревателя&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Задайте минимальную и максимальную температуру воды (18–35 °C). «Установить» сохраняет этот диапазон для автоматического поддержания температуры и возвращает на главный экран.&lt;br/&gt;&lt;br/&gt;«Включить» и «Выключить» сразу переключают нагреватель и переводят контроллер в ручной режим. Ограничение температуры в 35 °C действует даже в ручном режиме. Чтобы снова автоматически поддерживать температуру, нажмите «Авто».&lt;br/&gt;&lt;br/&gt;«Назад» возвращает на главный экран без сохранения диапазона температуры.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Help.qml" line="76"/>
+        <source>&lt;b&gt;Light setup&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Tap Turn on time or Turn off time to edit the lighting schedule. Brightness sets the target light level (0–100%). Rise time is how many minutes the light takes to fade in or out. Set saves the schedule and automatic-mode parameters and returns to the main window.&lt;br/&gt;&lt;br/&gt;Turn on and Turn off immediately switch the light and put the controller into manual mode. To return to automatic lighting by schedule, press Auto.&lt;br/&gt;&lt;br/&gt;Back returns to the main window without saving.</source>
+        <translation>&lt;b&gt;Настройка освещения&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Нажмите «Время включения» или «Время выключения», чтобы изменить расписание освещения. «Яркость» задаёт целевой уровень света (0–100%). «Время наростания» — сколько минут свет разгорается или гаснет. «Установить» сохраняет расписание и параметры автоматического режима и возвращает на главный экран.&lt;br/&gt;&lt;br/&gt;«Включить» и «Выключить» сразу переключают свет и переводят контроллер в ручной режим. Чтобы снова автоматически поддерживать освещение по расписанию, нажмите «Авто».&lt;br/&gt;&lt;br/&gt;«Назад» возвращает на главный экран без сохранения.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Help.qml" line="78"/>
+        <source>&lt;b&gt;Terminal&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Terminal is an alternative to the graphical interface: you control the aquarium controller with text commands. Type a command and tap Send (or press Enter). Replies from the controller are shown in the output area. The controller command help prints a description of all supported commands and the format of their arguments.&lt;br/&gt;&lt;br/&gt;The GUI icon returns to the main window. The local command clear clears the output. The local command exit closes the application.</source>
+        <translation>&lt;b&gt;Терминал&lt;/b&gt;&lt;br/&gt;&lt;br/&gt;Терминал — это альтернатива графическому интерфейсу: контроллером аквариума можно управлять текстовыми командами. Введите команду и нажмите кнопку отправки (или Enter). Ответы контроллера отображаются в области вывода. Команда контроллера help выводит описание всех поддерживаемых команд и формат их аргументов.&lt;br/&gt;&lt;br/&gt;Значок GUI возвращает на главный экран. Локальная команда clear очищает вывод. Локальная команда exit закрывает приложение.</translation>
+    </message>
+    <message>
+        <location filename="../qml/Help.qml" line="96"/>
+        <source>Back</source>
+        <translation>Назад</translation>
     </message>
 </context>
 <context>
@@ -739,17 +798,22 @@ aquarium not connected!
 %1 (%2)</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="68"/>
+        <location filename="../qml/Main.qml" line="52"/>
+        <source>Connecting to aquarium (%1)</source>
+        <translation>Подключение к аквариуму (%1)</translation>
+    </message>
+    <message>
+        <location filename="../qml/Main.qml" line="65"/>
         <source>aquarium (disconnected)</source>
         <translation>aquarium (отключён)</translation>
     </message>
     <message>
+        <location filename="../qml/Main.qml" line="66"/>
+        <location filename="../qml/Main.qml" line="67"/>
+        <location filename="../qml/Main.qml" line="68"/>
         <location filename="../qml/Main.qml" line="69"/>
         <location filename="../qml/Main.qml" line="70"/>
         <location filename="../qml/Main.qml" line="71"/>
-        <location filename="../qml/Main.qml" line="72"/>
-        <location filename="../qml/Main.qml" line="73"/>
-        <location filename="../qml/Main.qml" line="74"/>
         <source>no data</source>
         <translation>нет данных</translation>
     </message>
@@ -764,6 +828,10 @@ Please ensure aquarium is available.</source>
 Пожалуйста, проверьте состояние аквариума.</translation>
     </message>
     <message>
+        <source>Search for aquariums...</source>
+        <translation type="vanished">Поиск аквариумов...</translation>
+    </message>
+    <message>
         <source>No aquarium was found!
 Please ensure aquarium is available
 and Bluetooth is turned on.</source>
@@ -775,7 +843,15 @@ and Bluetooth is turned on.</source>
         <source>Bluetooth is powered off!
 Please power on Bluetooth and try again.</source>
         <translation type="vanished">Bluetooth выключен!
-Пожалуйста, включите Bluetooth и попробуйте снова.</translation>
+Пожалуйста, включите Bluetooth
+и попробуйте снова.</translation>
+    </message>
+    <message>
+        <source>Bluetooth permission is required!
+Please allow Nearby devices access and try again.</source>
+        <translation type="vanished">Требуется разрешение Bluetooth!
+Пожалуйста, разрешите доступ к устройствам рядом
+и попробуйте снова.</translation>
     </message>
     <message>
         <source>No aquarium was found!
@@ -794,74 +870,69 @@ Please ensure aquarium is available.</source>
 Пожалуйста, проверьте состояние аквариума.</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="55"/>
-        <source>Connecting to aquarium (%1)</source>
-        <translation>Подключение к аквариуму (%1)</translation>
-    </message>
-    <message>
-        <location filename="../qml/Main.qml" line="104"/>
-        <location filename="../qml/Main.qml" line="111"/>
+        <location filename="../qml/Main.qml" line="107"/>
+        <location filename="../qml/Main.qml" line="114"/>
         <source>Connection with aquarium has been terminated!
 Please ensure aquarium is available.</source>
         <translation>Соединение с аквариумом было прервано!
 Пожалуйста, проверьте состояние аквариума.</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="129"/>
+        <location filename="../qml/Main.qml" line="132"/>
         <source>aquarium (%1)</source>
         <translation>аквариум (%1)</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="159"/>
+        <location filename="../qml/Main.qml" line="216"/>
         <source>%1 (time is adjusted for %2 sec. everyday at %3)</source>
         <translation>%1 (время корректируется на %2 сек. каждый день в %3)</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="171"/>
+        <location filename="../qml/Main.qml" line="228"/>
         <source>Water temperature %1 °C</source>
         <translation>Температура воды %1 °C</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="183"/>
-        <location filename="../qml/Main.qml" line="203"/>
+        <location filename="../qml/Main.qml" line="240"/>
+        <location filename="../qml/Main.qml" line="260"/>
         <source>on</source>
         <translation>включён</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="183"/>
-        <location filename="../qml/Main.qml" line="204"/>
+        <location filename="../qml/Main.qml" line="240"/>
+        <location filename="../qml/Main.qml" line="261"/>
         <source>off</source>
         <translation>выключен</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="184"/>
-        <location filename="../qml/Main.qml" line="208"/>
+        <location filename="../qml/Main.qml" line="241"/>
+        <location filename="../qml/Main.qml" line="265"/>
         <source>automatic</source>
         <translation>автоматическом</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="184"/>
-        <location filename="../qml/Main.qml" line="209"/>
+        <location filename="../qml/Main.qml" line="241"/>
+        <location filename="../qml/Main.qml" line="266"/>
         <source>manual</source>
         <translation>ручном</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="185"/>
+        <location filename="../qml/Main.qml" line="242"/>
         <source>Heater is %1 in %2 mode (%3)</source>
         <translation>Нагреватель %1 в %2 режиме (%3)</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="205"/>
+        <location filename="../qml/Main.qml" line="262"/>
         <source>in unknown state</source>
         <translation>в неизвестном состоянии</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="210"/>
+        <location filename="../qml/Main.qml" line="267"/>
         <source>unknown</source>
         <translation>неизвестном</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="212"/>
+        <location filename="../qml/Main.qml" line="269"/>
         <source>Light is %1 in %2 mode (%3, %4/%5%, %6 min.)</source>
         <translation>Свет %1 в %2 режиме (%3, %4/%5%, %6 мин.)</translation>
     </message>
@@ -870,7 +941,7 @@ Please ensure aquarium is available.</source>
         <translation type="vanished">Свет %1 в %2 режиме (%3, %4%, %5 мин.)</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="241"/>
+        <location filename="../qml/Main.qml" line="299"/>
         <source>Error has been occurred while send the command!</source>
         <translation>При передаче комманды возникла ошибка!</translation>
     </message>
@@ -883,22 +954,22 @@ Please ensure aquarium is available.</source>
         <translation type="vanished">Свет %1 в %2 режиме (%3), яркость %4%</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="227"/>
+        <location filename="../qml/Main.qml" line="284"/>
         <source>none</source>
         <translation>ничего</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="229"/>
+        <location filename="../qml/Main.qml" line="286"/>
         <source>time</source>
         <translation>время</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="230"/>
+        <location filename="../qml/Main.qml" line="287"/>
         <source>temperature</source>
         <translation>температура</translation>
     </message>
     <message>
-        <location filename="../qml/Main.qml" line="232"/>
+        <location filename="../qml/Main.qml" line="289"/>
         <source>Display shows the %1</source>
         <translation>На дисплее отображается %1</translation>
     </message>
@@ -920,26 +991,13 @@ Please ensure aquarium is available.</source>
     </message>
 </context>
 <context>
-    <name>PortList</name>
-    <message>
-        <location filename="../qml/PortList.qml" line="39"/>
-        <source>Select communication port</source>
-        <translation>Выбор порта связи</translation>
-    </message>
-    <message>
-        <location filename="../qml/PortList.qml" line="122"/>
-        <source>Cancel</source>
-        <translation>Отмена</translation>
-    </message>
-</context>
-<context>
     <name>Search</name>
     <message>
         <source>Searching for aquarium...</source>
         <translation type="vanished">Поиск аквариума...</translation>
     </message>
     <message>
-        <source>Search of aquariums...</source>
+        <source>Search for aquariums...</source>
         <translation type="vanished">Поиск аквариумов...</translation>
     </message>
     <message>
@@ -1023,12 +1081,12 @@ Please ensure aquarium is available.</source>
         <translation>Настройка даты</translation>
     </message>
     <message>
-        <location filename="../qml/SetupDate.qml" line="334"/>
-        <source>Cancel</source>
-        <translation>Отмена</translation>
+        <location filename="../qml/SetupDate.qml" line="336"/>
+        <source>Back</source>
+        <translation>Назад</translation>
     </message>
     <message>
-        <location filename="../qml/SetupDate.qml" line="286"/>
+        <location filename="../qml/SetupDate.qml" line="288"/>
         <source>Set current date</source>
         <translation>Установить текущую дату</translation>
     </message>
@@ -1048,7 +1106,7 @@ Please ensure aquarium is available.</source>
         <translation>День недели</translation>
     </message>
     <message>
-        <location filename="../qml/SetupDate.qml" line="310"/>
+        <location filename="../qml/SetupDate.qml" line="312"/>
         <source>Set</source>
         <translation>Установить</translation>
     </message>
@@ -1127,8 +1185,8 @@ Please ensure aquarium is available.</source>
     </message>
     <message>
         <location filename="../qml/SetupHeat.qml" line="304"/>
-        <source>Cancel</source>
-        <translation>Отмена</translation>
+        <source>Back</source>
+        <translation>Назад</translation>
     </message>
     <message>
         <location filename="../qml/SetupHeat.qml" line="280"/>
@@ -1204,7 +1262,7 @@ Light will rise/fall %4 minutes.</source>
         <location filename="../qml/SetupLight.qml" line="59"/>
         <source>Light will turn on at %1 o&apos;clock with brightness %3% and turn off at %2 o&apos;clock.
 Light will rise/fall in %4 minutes.</source>
-        <translation>Свет будет включаться в %1 с яркостью %3% и выиключаться в %2.
+        <translation>Свет будет включаться в %1 с яркостью %3% и выключаться в %2.
 Наростание/затухание длится %4 мин.</translation>
     </message>
     <message>
@@ -1224,8 +1282,8 @@ Light will rise/fall in %4 minutes.</source>
     </message>
     <message>
         <location filename="../qml/SetupLight.qml" line="395"/>
-        <source>Cancel</source>
-        <translation>Отмена</translation>
+        <source>Back</source>
+        <translation>Назад</translation>
     </message>
     <message>
         <location filename="../qml/SetupLight.qml" line="371"/>
@@ -1280,8 +1338,8 @@ Light will rise/fall in %4 minutes.</source>
     </message>
     <message>
         <location filename="../qml/SetupLightTime.qml" line="263"/>
-        <source>Cancel</source>
-        <translation>Отмена</translation>
+        <source>Back</source>
+        <translation>Назад</translation>
     </message>
     <message>
         <location filename="../qml/SetupLightTime.qml" line="239"/>
@@ -1336,8 +1394,8 @@ Light will rise/fall in %4 minutes.</source>
     </message>
     <message>
         <location filename="../qml/SetupTime.qml" line="310"/>
-        <source>Cancel</source>
-        <translation>Отмена</translation>
+        <source>Back</source>
+        <translation>Назад</translation>
     </message>
     <message>
         <location filename="../qml/SetupTime.qml" line="262"/>

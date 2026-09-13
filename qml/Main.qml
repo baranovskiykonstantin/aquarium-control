@@ -1,14 +1,14 @@
-import QtQuick 2.0
-import QtQml 2.12
-import QtQuick.Window 2.0
-import Qt.labs.settings 1.0
+import QtQuick
+import QtQml
+import QtQuick.Window
+import QtCore
 import SerialPort 1.0
 
 Item {
     id: mainWindow
 
     Component.onCompleted: {
-        if (aquarium.portName == "") {
+        if (aquarium.portName === "") {
             searchPorts()
         }
         else {
@@ -19,14 +19,14 @@ Item {
     // Calculate pixel count per millimeter of the screen
     function mmTOpx(mm) {
         var px = Screen.pixelDensity * mm
-        if (Qt.platform.os == "android") {
+        if (Qt.platform.os === "android") {
             px *= 0.7
         }
         return Math.round(px)
     }
 
     function quit() {
-        if (aquarium.connected == false) {
+        if (aquarium.connected === false) {
             aquarium.portName = ""
         }
         Qt.quit()
@@ -42,7 +42,7 @@ Item {
 
     function closePort() {
         serialPort.closePort()
-        if (mainWindow.state != "cmd") {
+        if (mainWindow.state !== "cmd") {
             mainWindow.state = "gui"
         }
     }
@@ -95,13 +95,13 @@ Item {
     SerialPort {
         id: serialPort
 
-        onPortFound: {
+        onPortFound: function(name) {
             portListBox.addItem(name)
         }
 
-        onPortError: {
-            if (error != "NoError") {
-                if (mainWindow.state == "search")
+        onPortError: function(error) {
+            if (error !== "NoError") {
+                if (mainWindow.state === "search")
                 {
                     searchBox.stopAnimation()
                     searchBox.setText(qsTr(
@@ -109,7 +109,7 @@ Item {
                         "Please ensure aquarium is available."
                     ))
                 }
-                else if (mainWindow.state == "gui")
+                else if (mainWindow.state === "gui")
                 {
                     messageBox.setText(qsTr(
                         "Connection with aquarium has been terminated!\n" +
@@ -121,10 +121,10 @@ Item {
             }
         }
 
-        onLineReceived: {
+        onLineReceived: function(line) {
             var matchRes, state, mode, currentLightLevel
 
-            if (aquarium.connected == false) {
+            if (aquarium.connected === false) {
                 // First data has been successfully received after connection.
                 aquarium.connected = true
                 mainWindow.state = "gui"
@@ -133,10 +133,10 @@ Item {
                     "aquarium (%1)")
                     .arg(aquarium.portName)
                 )
-                guiBox.updateGui()
+                updateGui()
             }
 
-            if (mainWindow.state == "cmd" && !updatingGui) {
+            if (mainWindow.state === "cmd" && !updatingGui) {
                 cmdBox.appendLine(line)
             }
             else {
@@ -183,8 +183,8 @@ Item {
                     aquarium.heatState = matchRes[1]
                     aquarium.heatMode = matchRes[2]
                     aquarium.heat= matchRes[3]
-                    state = aquarium.heatState == "ON" ? qsTr("on") : qsTr("off")
-                    mode = aquarium.heatMode == "auto" ? qsTr("automatic") : qsTr("manual")
+                    state = aquarium.heatState === "ON" ? qsTr("on") : qsTr("off")
+                    mode = aquarium.heatMode === "auto" ? qsTr("automatic") : qsTr("manual")
                     guiBox.setValue("heat", qsTr(
                         "Heater is %1 in %2 mode (%3)")
                         .arg(state)
@@ -238,10 +238,10 @@ Item {
                     )
                     updatingGui = false;
                 }
-                else if (line == "OK") {
+                else if (line === "OK") {
                     messageBox.show()
                 }
-                else if (line == "ERROR") {
+                else if (line === "ERROR") {
                     messageBox.setText(qsTr(
                         "Error has been occurred while send the command!"
                     ))
@@ -253,35 +253,88 @@ Item {
     }
 
     Rectangle {
-        id: guiBackground
-        z: 1
+        id: windowBackground
+        z: 0
         anchors.fill: mainWindow
-        color: colors.background
+        color: colors.headerBackground
+    }
 
-        // MouseArea is needed to hide mouse events from items under background
-        MouseArea {
+    Item {
+        id: contentArea
+        anchors {
+            fill: parent
+            topMargin: mainWindow.SafeArea.margins.top
+            bottomMargin: mainWindow.SafeArea.margins.bottom
+            leftMargin: mainWindow.SafeArea.margins.left
+            rightMargin: mainWindow.SafeArea.margins.right
+        }
+
+        Rectangle {
+            id: guiBackground
+            z: 1
+            anchors.fill: parent
+            color: colors.background
+
+            // MouseArea is needed to hide mouse events from items under background
+            MouseArea {
+                anchors.fill: parent
+            }
+        }
+
+        Message {
+            id: messageBox
             anchors.fill: parent
         }
-    }
 
-    Message {
-        id:messageBox
-        anchors.fill: mainWindow
-    }
+        Search {
+            id: searchBox
+            anchors.fill: parent
+        }
 
-    Search {
-        id: searchBox
-        anchors.fill: mainWindow
-    }
+        PortList {
+            id: portListBox
+            anchors.fill: parent
+        }
 
-    PortList {
-        id: portListBox
-        anchors.fill: mainWindow
-    }
+        Gui {
+            id: guiBox
+            anchors.fill: parent
+        }
 
-    Gui {
-        id: guiBox
-        anchors.fill: mainWindow
+        SetupDate {
+            id: setupDateBox
+            anchors.fill: parent
+        }
+
+        SetupTime {
+            id: setupTimeBox
+            anchors.fill: parent
+        }
+
+        SetupHeat {
+            id: setupHeatBox
+            anchors.fill: parent
+        }
+
+        SetupLight {
+            id: setupLightBox
+            anchors.fill: parent
+        }
+
+        SetupLightTime {
+            id: setupLightTimeBox
+            anchors.fill: parent
+        }
+
+        Cmd {
+            id: cmdBox
+            anchors.fill: parent
+        }
+
+        Help {
+            id: helpBox
+            anchors.fill: parent
+        }
     }
 
     Timer {
@@ -289,36 +342,6 @@ Item {
         interval: 1000
         repeat: true
         onTriggered: updateGui()
-    }
-
-    SetupDate {
-        id: setupDateBox
-        anchors.fill: mainWindow
-    }
-
-    SetupTime {
-        id: setupTimeBox
-        anchors.fill: mainWindow
-    }
-
-    SetupHeat {
-        id: setupHeatBox
-        anchors.fill: mainWindow
-    }
-
-    SetupLight {
-        id: setupLightBox
-        anchors.fill: mainWindow
-    }
-
-    SetupLightTime {
-        id: setupLightTimeBox
-        anchors.fill: mainWindow
-    }
-
-    Cmd {
-        id: cmdBox
-        anchors.fill: mainWindow
     }
 
     states: [
@@ -333,7 +356,8 @@ Item {
             PropertyChanges { target: setupHeatBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupLightBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupLightTimeBox; opacity: 0; z: 0 }
-            PropertyChanges { target: cmdBox; opacity: 0; z: 0}
+            PropertyChanges { target: cmdBox; opacity: 0; z: 0 }
+            PropertyChanges { target: helpBox; opacity: 0; z: 0 }
         },
         State {
             name: "portList"
@@ -346,7 +370,8 @@ Item {
             PropertyChanges { target: setupHeatBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupLightBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupLightTimeBox; opacity: 0; z: 0 }
-            PropertyChanges { target: cmdBox; opacity: 0; z: 0}
+            PropertyChanges { target: cmdBox; opacity: 0; z: 0 }
+            PropertyChanges { target: helpBox; opacity: 0; z: 0 }
         },
         State {
             name: "gui"
@@ -359,7 +384,8 @@ Item {
             PropertyChanges { target: setupHeatBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupLightBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupLightTimeBox; opacity: 0; z: 0 }
-            PropertyChanges { target: cmdBox; opacity: 0; z: 0}
+            PropertyChanges { target: cmdBox; opacity: 0; z: 0 }
+            PropertyChanges { target: helpBox; opacity: 0; z: 0 }
         },
         State {
             name: "setupDate"
@@ -373,6 +399,7 @@ Item {
             PropertyChanges { target: setupLightBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupLightTimeBox; opacity: 0; z: 0 }
             PropertyChanges { target: cmdBox; opacity: 0; z: 0 }
+            PropertyChanges { target: helpBox; opacity: 0; z: 0 }
         },
         State {
             name: "setupTime"
@@ -386,6 +413,7 @@ Item {
             PropertyChanges { target: setupLightBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupLightTimeBox; opacity: 0; z: 0 }
             PropertyChanges { target: cmdBox; opacity: 0; z: 0 }
+            PropertyChanges { target: helpBox; opacity: 0; z: 0 }
         },
         State {
             name: "setupHeat"
@@ -399,6 +427,7 @@ Item {
             PropertyChanges { target: setupLightBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupLightTimeBox; opacity: 0; z: 0 }
             PropertyChanges { target: cmdBox; opacity: 0; z: 0 }
+            PropertyChanges { target: helpBox; opacity: 0; z: 0 }
         },
         State {
             name: "setupLight"
@@ -412,6 +441,7 @@ Item {
             PropertyChanges { target: setupLightBox; opacity: 1; z: 2 }
             PropertyChanges { target: setupLightTimeBox; opacity: 0; z: 0 }
             PropertyChanges { target: cmdBox; opacity: 0; z: 0 }
+            PropertyChanges { target: helpBox; opacity: 0; z: 0 }
         },
         State {
             name: "setupLightTime"
@@ -425,6 +455,7 @@ Item {
             PropertyChanges { target: setupLightBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupLightTimeBox; opacity: 1; z: 2 }
             PropertyChanges { target: cmdBox; opacity: 0; z: 0 }
+            PropertyChanges { target: helpBox; opacity: 0; z: 0 }
         },
         State {
             name: "cmd"
@@ -438,6 +469,21 @@ Item {
             PropertyChanges { target: setupLightBox; opacity: 0; z: 0 }
             PropertyChanges { target: setupLightTimeBox; opacity: 0; z: 0 }
             PropertyChanges { target: cmdBox; opacity: 1; z: 2 }
+            PropertyChanges { target: helpBox; opacity: 0; z: 0 }
+        },
+        State {
+            name: "help"
+            PropertyChanges { target: searchBox; opacity: 0; z: 0 }
+            PropertyChanges { target: portListBox; opacity: 0; z: 0 }
+            PropertyChanges { target: guiBox; opacity: 0; z: 0 }
+            PropertyChanges { target: guiUpdater; running: false }
+            PropertyChanges { target: setupDateBox; opacity: 0; z: 0 }
+            PropertyChanges { target: setupTimeBox; opacity: 0; z: 0 }
+            PropertyChanges { target: setupHeatBox; opacity: 0; z: 0 }
+            PropertyChanges { target: setupLightBox; opacity: 0; z: 0 }
+            PropertyChanges { target: setupLightTimeBox; opacity: 0; z: 0 }
+            PropertyChanges { target: cmdBox; opacity: 0; z: 0 }
+            PropertyChanges { target: helpBox; opacity: 1; z: 2 }
         }
     ]
 }

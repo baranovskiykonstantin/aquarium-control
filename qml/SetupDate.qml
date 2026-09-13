@@ -1,12 +1,12 @@
-import QtQuick 2.0
-import QtQuick.Controls 2.0
+import QtQuick
+import QtQuick.Controls.Basic
 
 Rectangle {
     id: setupDate
     color: "transparent"
 
     onOpacityChanged: {
-        if (opacity == 1) {
+        if (opacity === 1) {
             var matchRes = aquarium.date.match(
                 new RegExp("(\\d{2}).(\\d{2}).(\\d{2})", "m")
             )
@@ -271,7 +271,7 @@ Rectangle {
         color: colors.background
         anchors.bottom: parent.bottom
         width: parent.width
-        height: mmTOpx(10)
+        height: mmTOpx(12)
 
         Row {
             anchors.fill: parent
@@ -333,7 +333,7 @@ Rectangle {
                 height: parent.height
 
                 Text {
-                    text: qsTr("Cancel")
+                    text: qsTr("Back")
                     anchors.fill: parent
                     horizontalAlignment: Text.AlignHCenter
                     verticalAlignment: Text.AlignVCenter

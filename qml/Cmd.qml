@@ -1,15 +1,15 @@
-import QtQuick 2.0
-import QtQuick.Controls 2.0
-import QtGraphicalEffects 1.0
+import QtQuick
+import QtQuick.Controls.Basic
+import Qt5Compat.GraphicalEffects
 
 Rectangle {
     id: cmdBox
     color: colors.cmdBoxBackground
 
     onOpacityChanged: {
-        if (opacity == 1) {
+        if (opacity === 1) {
             scrollToEnd()
-            if (Qt.platform.os != "android") {
+            if (Qt.platform.os !== "android") {
                 cmdText.focus = true
             }
         }
@@ -20,8 +20,8 @@ Rectangle {
     )
     property int responseLineCount: 0
 
-    property string openTag: (Qt.platform.os == "windows") ? "<pre><b>" : "<pre>"
-    property string closeTag: (Qt.platform.os == "windows") ? "</b></pre>" : "</pre>"
+    property string openTag: (Qt.platform.os === "windows") ? "<pre><b>" : "<pre>"
+    property string closeTag: (Qt.platform.os === "windows") ? "</b></pre>" : "</pre>"
 
     function goToGUI() {
         mainWindow.state = "gui"
@@ -32,10 +32,10 @@ Rectangle {
             return
         }
 
-        if (cmdText.text == "exit") {
-            mainWindow.quit()
+        if (cmdText.text === "exit") {
+            Qt.quit()
         }
-        else if (cmdText.text == "clear") {
+        else if (cmdText.text === "clear") {
             cmdOutput.text = openTag + cmdPrompt + closeTag
         }
         else {
@@ -49,20 +49,20 @@ Rectangle {
         }
         scrollToEnd()
         cmdText.text = ""
-        if (Qt.platform.os != "android") {
+        if (Qt.platform.os !== "android") {
             cmdText.focus = true
         }
     }
 
     function appendLine(line) {
         cmdOutput.text = cmdOutput.text.replace(closeTag, "")
-        if (line == "OK") {
+        if (line === "OK") {
             cmdOutput.text += "<font color=\"lime\">OK</font><br>"
         }
-        else if (line == "ERROR") {
+        else if (line === "ERROR") {
             cmdOutput.text += "<font color=\"tomato\">ERROR</font><br>"
         }
-        else if (line == "UNKNOWN") {
+        else if (line === "UNKNOWN") {
             cmdOutput.text += "<font color=\"gray\">UNKNOWN</font><br>"
         }
         else {
@@ -82,7 +82,7 @@ Rectangle {
     }
 
     function setPrompt(portName) {
-        if (portName == "") {
+        if (portName === "") {
             cmdPrompt = qsTr(
                 "<font color=\"tomato\">aquarium (disconnected): </font>"
             )
@@ -123,7 +123,7 @@ Rectangle {
         Text {
             id: cmdOutput
             width: parent.width
-            textFormat: (Qt.platform.os == "windows") ? Text.RichText : Text.StyledText
+            textFormat: (Qt.platform.os === "windows") ? Text.RichText : Text.StyledText
             color: colors.cmdBoxText
             font.pixelSize: mmTOpx(3.5)
             wrapMode: Text.WrapAnywhere
@@ -144,8 +144,8 @@ Rectangle {
     Item {
         id: cmdInput
         anchors.top:cmdOutputScroll.bottom
+        height: mmTOpx(10)
         width: parent.width
-        height: mmTOpx(8)
 
         Button {
             id: cmdButtonGoToGUI
@@ -161,8 +161,9 @@ Rectangle {
                 Image {
                     id: cmdButtonGoToGUIImage
                     source: "../icons/gui.svg"
-                    width: cmdButtonGoToGUI.width
-                    height: cmdButtonGoToGUI.height
+                    height: mmTOpx(8)
+                    width: height
+                    anchors.centerIn: parent
                     fillMode: Image.Stretch
                 }
 
@@ -204,8 +205,9 @@ Rectangle {
                 Image {
                     id: cmdButtonSendImage
                     source: "../icons/send.svg"
-                    width: cmdButtonSend.width
-                    height: cmdButtonSend.height
+                    height: mmTOpx(8)
+                    width: height
+                    anchors.centerIn: parent
                     fillMode: Image.Stretch
                 }
 

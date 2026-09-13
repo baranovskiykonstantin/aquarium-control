@@ -1,12 +1,12 @@
 # Maintainer: Baranovskiy Konstantin <baranovskiykonstantin@gmail.com>
 pkgname=aquarium-control
-pkgver=2.1
+pkgver=2.2
 pkgrel=1
 pkgdesc='Setup aquarium controller parameters.'
 arch=('x86_64')
 url='http://github.com/baranovskiykonstantin/aquarium-control'
 license=('GPL3')
-depends=('qt5-base' 'qt5-connectivity' 'qt5-declarative' 'qt5-quickcontrols2' 'qt5-graphicaleffects')
+depends=('qt6-base>=6.8' 'qt6-serialport>=6.8' 'qt6-declarative>=6.8' 'qt6-svg>=6.8' 'qt6-5compat>=6.8')
 # To find dependencies next steps were used:
 #   cd $BUILD_DIR/release
 #   ldd aquarium-control | grep -i qt
@@ -14,7 +14,7 @@ depends=('qt5-base' 'qt5-connectivity' 'qt5-declarative' 'qt5-quickcontrols2' 'q
 #     pacman -Qo path
 #
 #   cd $SOURCES_DIR
-#   qmlimportscanner -rootPath qml -importPath /usr/lib/qt/qml | grep path | sort -u
+#   qmlimportscanner -rootPath qml -importPath /usr/lib/qt6/qml | grep path | sort -u
 #   for each path :
 #     pacman -Qo path
 

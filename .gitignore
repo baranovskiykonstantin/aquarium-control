@@ -1,3 +1,7 @@
 out/
+build/
+build-*/
 aquarium-control.pro.user*
+CMakeLists.txt.user*
 *~
+*.qm

@@ -1,5 +1,6 @@
 #include <QtCore/qmetaobject.h>
 #include <QSerialPortInfo>
+#include <QIODevice>
 
 #include "serial_port.h"
 
@@ -12,29 +13,26 @@ SerialPort::SerialPort(QObject *parent) :
     m_serialport->setStopBits(QSerialPort::OneStop);
     m_serialport->setParity(QSerialPort::NoParity);
     m_serialport->setFlowControl(QSerialPort::NoFlowControl);
-    connect(m_serialport, SIGNAL(errorOccurred(QSerialPort::SerialPortError)),
-            this, SLOT(onPortError(QSerialPort::SerialPortError)));
-    connect(m_serialport, SIGNAL(readyRead()),
-            this, SLOT(onPortReadyRead()));
+    connect(m_serialport, &QSerialPort::errorOccurred,
+            this, &SerialPort::onPortError);
+    connect(m_serialport, &QSerialPort::readyRead,
+            this, &SerialPort::onPortReadyRead);
 }
 
-SerialPort::~SerialPort()
-{
-    delete m_serialport;
-}
+SerialPort::~SerialPort() = default;
 
 void SerialPort::onPortError(QSerialPort::SerialPortError errorType)
 {
-    QMetaEnum metaEnum = QMetaEnum::fromType<QSerialPort::SerialPortError>();
-    QString errorString = metaEnum.valueToKey(errorType);
+    const QMetaEnum metaEnum = QMetaEnum::fromType<QSerialPort::SerialPortError>();
+    const QString errorString = QString::fromUtf8(metaEnum.valueToKey(errorType));
 
     emit portError(errorString);
 }
 
 void SerialPort::searchPorts()
 {
-    foreach (const QSerialPortInfo &serialPortInfo, QSerialPortInfo::availablePorts())
-    {
+    const auto ports = QSerialPortInfo::availablePorts();
+    for (const QSerialPortInfo &serialPortInfo : ports) {
         emit portFound(serialPortInfo.portName());
     }
 }
@@ -47,20 +45,18 @@ void SerialPort::openPort(QString name)
 
 void SerialPort::closePort()
 {
-    if (m_serialport->isOpen())
-    {
+    if (m_serialport->isOpen()) {
         m_serialport->close();
     }
 }
 
 void SerialPort::onPortReadyRead()
 {
-    QByteArray data = m_serialport->readAll();
+    const QByteArray data = m_serialport->readAll();
     m_data += QString::fromUtf8(data.constData());
-    while (m_data.contains("\r\n"))
-    {
-        int lineEndIndex = m_data.indexOf("\r\n");
-        QString line = m_data.left(lineEndIndex);
+    while (m_data.contains(QLatin1String("\r\n"))) {
+        const int lineEndIndex = m_data.indexOf(QLatin1String("\r\n"));
+        const QString line = m_data.left(lineEndIndex);
         m_data.remove(0, lineEndIndex + 2);
         emit lineReceived(line);
     }
@@ -68,10 +64,9 @@ void SerialPort::onPortReadyRead()
 
 void SerialPort::sendLine(QString line)
 {
-    if (m_serialport->isOpen())
-    {
+    if (m_serialport->isOpen()) {
         m_data = QString();
-        QByteArray text = line.toUtf8() + '\r';
+        const QByteArray text = line.toUtf8() + '\r';
         m_serialport->write(text);
     }
 }

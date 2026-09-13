@@ -11,7 +11,7 @@ class SerialPort : public QObject
 
 public:
     explicit SerialPort(QObject *parent = nullptr);
-    ~SerialPort();
+    ~SerialPort() override;
 
     Q_INVOKABLE void searchPorts();
 

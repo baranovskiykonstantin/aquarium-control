@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Full-bleed launcher icon: solid blue fill + fish (for pre-API-26 / store assets). -->
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="512" height="512" viewBox="0 0 108 108">
+  <rect width="108" height="108" fill="#33aaff"/>
+  <g transform="translate(54,54) scale(0.525) translate(-67.733,-67.733)">
+    <path d="M 67.73333,35.20953 V 22.67219"
+          fill="none" stroke="#1a1a1a" stroke-width="5.786438" stroke-linecap="round"/>
+    <path d="m 75.448585,75.71459 c -3.857628,4.82205 -11.572875,4.82205 -15.430503,0"
+          fill="none" stroke="#1a1a1a" stroke-width="5.786438" stroke-linecap="round"/>
+    <path d="m 98.59433,67.9993 c 9e-6,17.04409 -13.816936,28.93225 -30.861,28.93225
+             -17.044071,0 -30.861002,-11.88816 -30.860994,-28.93225
+             3.2e-5,-17.04402 25.074557,-30.86098 30.860994,-32.78977
+             5.786438,1.92879 30.724074,15.73109 30.861,32.78977 z"
+          fill="none" stroke="#1a1a1a" stroke-width="5.786438"/>
+    <circle cx="57.124859" cy="61.24848" r="3.8574917" fill="#1a1a1a"/>
+    <circle cx="78.341797" cy="61.24848" r="3.8574917" fill="#1a1a1a"/>
+    <path d="m 36.872336,96.93148 7.715244,-7.71522"
+          fill="none" stroke="#1a1a1a" stroke-width="5.786438" stroke-linecap="round"/>
+    <path d="m 98.59433,96.93148 -7.71525,-7.71522"
+          fill="none" stroke="#1a1a1a" stroke-width="5.786438" stroke-linecap="round"/>
+  </g>
+</svg>

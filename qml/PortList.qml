@@ -1,5 +1,5 @@
-import QtQuick 2.0
-import QtQuick.Controls 2.0
+import QtQuick
+import QtQuick.Controls.Basic
 
 Rectangle {
     id: portListBox
@@ -23,6 +23,7 @@ Rectangle {
 
     Rectangle {
         id: header
+        z: 1
         color: colors.background
         height: mmTOpx(14)
         width: parent.width
@@ -64,7 +65,7 @@ Rectangle {
             id: listItemDelegate
 
             Item {
-                width: parent.width
+                width: listControl.width
                 height: mmTOpx(10)
 
                 Rectangle {
@@ -102,6 +103,7 @@ Rectangle {
             model: portListModel
             delegate: listItemDelegate
             focus: true
+            clip: true
         }
     }
 
@@ -110,7 +112,7 @@ Rectangle {
         color: colors.background
         anchors.bottom: parent.bottom
         width: parent.width
-        height: mmTOpx(10)
+        height: mmTOpx(12)
 
         Rectangle {
             id: cancelButton

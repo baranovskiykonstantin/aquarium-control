@@ -1,5 +1,5 @@
-import QtQuick 2.0
-import QtQuick.Window 2.0
+import QtQuick
+import QtQuick.Window
 
 Rectangle {
     id: searchBox
@@ -7,7 +7,7 @@ Rectangle {
     anchors.fill: parent
 
     onOpacityChanged: {
-        if (opacity == 1) {
+        if (opacity === 1) {
             startAnimation()
         }
         else {
@@ -69,7 +69,7 @@ Rectangle {
                 loops: Animation.Infinite
                 running: true
                 onRunningChanged: {
-                    if (running == false) {
+                    if (running === false) {
                         fishInit.running = true
                     }
                 }
@@ -120,7 +120,7 @@ Rectangle {
         color: colors.background
         anchors.bottom: parent.bottom
         width: parent.width
-        height: mmTOpx(10)
+        height: mmTOpx(12)
 
         Rectangle {
             id: cancelButton
@@ -147,4 +147,3 @@ Rectangle {
         }
     }
 }
-
