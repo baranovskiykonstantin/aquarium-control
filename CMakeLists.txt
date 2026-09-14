@@ -1,14 +1,13 @@
-# aquarium-control — Qt 6.8 LTS baseline (built/tested against Qt 6.9.3 at /opt/qt)
 cmake_minimum_required(VERSION 3.21)
 
-project(aquarium-control VERSION 2.2 LANGUAGES CXX)
+project(aquarium-control VERSION 3.0 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 
-find_package(Qt6 6.8 REQUIRED COMPONENTS
+find_package(Qt6 6.9 REQUIRED COMPONENTS
     Core
     Gui
     Qml
@@ -21,7 +20,7 @@ find_package(Qt6 6.8 REQUIRED COMPONENTS
 )
 
 qt_standard_project_setup(
-    REQUIRES 6.8
+    REQUIRES 6.9
     I18N_SOURCE_LANGUAGE en
     I18N_TRANSLATED_LANGUAGES ru uk
 )

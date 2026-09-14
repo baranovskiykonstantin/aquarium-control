@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <Installer>
     <Name>Aquarium control</Name>
-    <Version>2.2</Version>
+    <Version>3.0</Version>
     <WizardStyle>Modern</WizardStyle>
     <Logo>fish.png</Logo>
-    <TargetDir>@ApplicationsDirX86@/aquariumcontrol</TargetDir>
+    <TargetDir>@ApplicationsDir@/aquariumcontrol</TargetDir>
     <ControlScript>controlscript.qs</ControlScript>
 </Installer>

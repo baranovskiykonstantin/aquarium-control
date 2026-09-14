@@ -5,3 +5,6 @@ aquarium-control.pro.user*
 CMakeLists.txt.user*
 *~
 *.qm
+installer/packages/aquariumcontrol/data/
+installer/aquarium-control-*-windows*.exe
+

@@ -2,8 +2,8 @@
 <Package>
     <DisplayName>aquarium-control</DisplayName>
     <Description>Application executable and libraries.</Description>
-    <Version>2.2</Version>
-    <ReleaseDate>2023-09-02</ReleaseDate>
+    <Version>3.0</Version>
+    <ReleaseDate>2026-09-14</ReleaseDate>
     <Name>aquariumcontrol</Name>
     <Default>true</Default>
     <Script>installscript.qs</Script>
