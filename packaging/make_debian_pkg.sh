@@ -9,8 +9,9 @@ fi
 sudo checkinstall -D \
     --default \
     --install=no \
+    --fstrans=no \
     --pkgname=aquarium-control \
-    --pkgversion=2.2\
+    --pkgversion=3.0\
     --pkgarch=$ARCH \
     --pkgrelease=1 \
     --pkglicense=GPLv3 \
